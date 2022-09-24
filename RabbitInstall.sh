@@ -155,9 +155,9 @@ function Synology_menu ()
 cat << eof
 
 `echo -e "\033[36m----------------------------------------\033[0m"`
-`echo -e "\033[36m|     User:$uUser        Date:$dDate   |\033[0m"`
-`echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】     |\033[0m"`
-`echo -e "\033[36m|    v0.0.1                 by AyeSt0  |\033[0m"`
+`echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m"`
+`echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m"`
+`echo -e "\033[36m|    v0.0.1                 by AyeSt0   |\033[0m"`
 `echo -e "\033[36m----------------------------------------\033[0m"`
 `echo -e "\033[33m 请选择\033[0m"`
 
@@ -200,9 +200,9 @@ cat << eof
 
 eof
 
-read -p "请输入对应选项的数字：" num11
+read -p "请输入对应选项的数字：" num21
 
-case $num11 in
+case $num21 in
 
 1)
 
