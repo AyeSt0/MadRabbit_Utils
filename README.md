@@ -7,9 +7,9 @@ MadRabbit仓库地址：https://github.com/HT944/MadRabbit
 群晖写了，没测试过,可以运行国内鸡测试
 ### 国内鸡
 ```shell
-wget https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh&&chmod u+x RabbitInstall.sh&&./RabbitInstall.sh
+bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
 ```
 ### 国外鸡
 ```shell
-wget https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh&&chmod u+x RabbitInstall.sh&&./RabbitInstall.sh
+bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
 ```
