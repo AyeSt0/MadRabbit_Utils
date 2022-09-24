@@ -17,11 +17,11 @@ function system_Judgment (){
     uNames=$(sudo uname -a)
     syosNames='synology'
     if [[ $uNames =~ $syosNames ]];then
-      echo -e "\033[32m 检测到群晖\033[0m"
+      echo -e "\033[32m 忙猜你是群晖\033[0m"
       echo -e "启动 \033[42;37m 群晖一键安装脚本 \033[0m"
       Synology_menu
     else
-      echo -e "\033[32m 检测到云服务器\033[0m"
+      echo -e "\033[32m 忙猜你是云服务器\033[0m"
       echo -e "启动 \033[42;37m 云服务器一键安装脚本 \033[0m"
       Cloud_menu
     fi
