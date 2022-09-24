@@ -1,6 +1,6 @@
 #!/bin/bash
 <<INFO
-SCRIPYT:test.sh
+SCRIPYT:RabbitInstall.sh
 AUTHOR:AyeSt0
 DATE:2022-09-24
 DESCRIBE:One click installation of rabbit
