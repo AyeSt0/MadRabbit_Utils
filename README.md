@@ -1,5 +1,5 @@
-# MadRabbit_Install
-
+# MadRabbit_Install使用指南
+emmm没啥可写的
 
 ## Rabbit一键安装命令
 MadRabbit作者地址：https://github.com/HT944/MadRabbit  
@@ -11,6 +11,7 @@ MadRabbit作者地址：https://github.com/HT944/MadRabbit
 ```shell
 bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
 ```
+如果无法下载，建议自建加速站，指路https://www.kejiwanjia.com/jiaocheng/105320.html
 ### 国外鸡
 ```shell
 bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
