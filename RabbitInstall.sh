@@ -6,7 +6,7 @@ DATE:2022-09-24
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.0<可选>
+VERSION:0.0.1
 MODIFY:debug
 INFO
 clear
@@ -35,7 +35,7 @@ cat << eof
 `echo -e "\033[36m     User:$uUser        Date:$dDate     \033[0m"`
 
 `echo -e "\033[36m|    欢迎使用【Rabbit一键安装脚本】    |\033[0m"`
-`echo -e "\033[36m|    v1.0.0                 by AyeSt0  |\033[0m"`
+`echo -e "\033[36m|    v0.0.1                 by AyeSt0  |\033[0m"`
 
 `echo -e "\033[36m----------------------------------------\033[0m"`
 `echo -e "\033[33m 请选择您的Rabbit运行环境\033[0m"`
@@ -161,8 +161,10 @@ cat << eof
 
 `echo -e "\033[36m|  欢迎使用【Rabbit群晖一键安装脚本】  |\033[0m"`
 
+`echo -e "\033[36m|    v0.0.1                 by AyeSt0  |\033[0m"`
+
 `echo -e "\033[36m----------------------------------------\033[0m"`
-`echo -e "\033[33m 请选择您的Rabbit运行环境\033[0m"`
+`echo -e "\033[33m 请选择\033[0m"`
 
 `echo -e "\033[32m 【1】安装\033[0m"`
 
