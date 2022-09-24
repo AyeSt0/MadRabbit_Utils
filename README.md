@@ -10,12 +10,12 @@
  
 
 ### 国内鸡
-```shell
+```bash
 bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
 ```
 >**如果无法下载，请自行更换加速站前缀，亦或者自建加速站  
 教程[指路](https://www.kejiwanjia.com/jiaocheng/105320.html)**
 ### 国外鸡
-```shell
+```bash
 bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
 ```
