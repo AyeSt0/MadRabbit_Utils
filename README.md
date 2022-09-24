@@ -8,7 +8,7 @@
 * 侵删
 ## Rabbit一键安装命令
  
-**如提示curl command not found，请先安装curl
+**如提示curl command not found，请先安装curl**
 
 ### 国内鸡
 ```bash
