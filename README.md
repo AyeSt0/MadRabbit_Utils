@@ -13,7 +13,8 @@
 ```shell
 bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
 ```
->如果无法下载，建议自建加速站，[指路](https://www.kejiwanjia.com/jiaocheng/105320.html)
+>如果无法下载，建议自建加速站  
+教程[指路](https://www.kejiwanjia.com/jiaocheng/105320.html)
 ### 国外鸡
 ```shell
 bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
