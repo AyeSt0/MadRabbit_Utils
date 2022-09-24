@@ -1,6 +1,6 @@
 # MadRabbit_Install使用指南
 
-## MadRabbit作者地址：https://github.com/HT944/MadRabbit 
+## *MadRabbit作者地址：https://github.com/HT944/MadRabbit* 
 
 * 初写，不太完善，在改进中，可以反馈  
 * 目前只测试了centos  
