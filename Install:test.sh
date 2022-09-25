@@ -256,7 +256,7 @@ echo -e "\033[33m 是否需要现在修改配置文件(y/n)【默认n】\033[0m"
 if test -z "$rabbitConfigjudge" ;then
 	rabbitConfigjudge='n'
 fi
-if test $rabbitConfigjudge=‘y’ ;then
+if test $rabbitConfigjudge==‘y’ ;then
 
 	#修改配置文件最大同时登录人数
 	echo -e "\033[33m 最多同时登录人数【默认4】 \033[0m" && read rabbitMaxtab
@@ -287,7 +287,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitClosetime" ;then
 		rabbitClosetime='5'
 	fi
-	sed -i "/Closetime/s/5/$rabbitAutocaptchacount/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
+	sed -i "/Closetime/s/5/$rabbitClosetime/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 	if test $? -ne  0 ; then
 		echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 	else
@@ -401,7 +401,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitXdd" ;then
 		rabbitXdd='n'
 	fi
-	if test $rabbitXdd='y' ;then
+	if test $rabbitXdd=='y' ;then
 
 		#WXPUSHER_APP_TOKEN
 		echo -e "\033[33m APP_TOKEN: \033[0m" && read rabbitWxapptoken
@@ -434,7 +434,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitXdd" ;then
 		rabbitXdd='n'
 	fi
-	if test $rabbitXdd='y' ;then
+	if test $rabbitXdd=='y' ;then
 
 		#XDDURL
 		echo -e "\033[33m XDD_URL地址 \033[0m" && read rabbitXddurl
@@ -467,7 +467,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitSillygirl" ;then
 		rabbitSillygirl='n'
 	fi
-	if test $rabbitSillygirl='y' ;then
+	if test $rabbitSillygirl=='y' ;then
 
 		echo -e "\033[42;37m 提示：请对傻妞发送set jd_cookie ark2.0_token xxx ,xxx为自定义token\033[0m"
 
@@ -490,7 +490,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitSillygirl" ;then
 		rabbitSillygirl='n'
 	fi
-	if test $rabbitSillygirl='y' ;then
+	if test $rabbitSillygirl=='y' ;then
 
 		echo -e "\033[42;37m 提示：请先到http://www.ttshitu.com/register.html进行注册 \033[0m"
 
@@ -528,7 +528,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitQinglongjudge" ;then
 		rabbitQinglongjudge ='n'
 	fi
-	if test $rabbitQinglongjudge='y' ;then
+	if test $rabbitQinglongjudge=='y' ;then
 
 		#青龙访问地址
 		echo -e "\033[33m 青龙访问地址： \033[0m" && read rabbitQlurl
@@ -578,7 +578,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitProxyjudge" ;then
 		rabbitProxyjudge='n'
 	fi
-	if test $rabbitProxyjudge='y' ;then
+	if test $rabbitProxyjudge=='y' ;then
 
 		#proxy
 		echo -e "\033[33m 代理地址: \033[0m" && read rabbitProxy
