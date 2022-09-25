@@ -24,7 +24,7 @@ bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/M
 bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
 ```
 ## 不切实际的未来计划
-* *完善脚本，让脚本能循环利用😀  
+* *完善脚本，让脚本能循环利用😀*  
 
 ## 不靠谱的更新日志
 
