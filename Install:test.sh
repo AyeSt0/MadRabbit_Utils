@@ -6,12 +6,12 @@ DATE:2022-09-24
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:0.0.3
+VERSION:0.0.5
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='0.0.3'
+vVersion='0.0.5'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment (){
@@ -353,7 +353,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		rabbitExpirationcron='30 17 * * *'
 	fi
 	if test $rabbitExpirationcron=='0' ;then
-		sed -i "/ExpirationCron/s/30 17 * * *//g" $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/ExpirationCron/s/30 17 \* \* \*//g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
@@ -362,7 +362,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		fi
 
 	else
-		sed -i "/ExpirationCron/s/30 17 * * */$rabbitExpirationcron/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/ExpirationCron/s/30 17 \* \* \*/$rabbitExpirationcron/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
@@ -377,7 +377,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		rabbitBeancron='0 20 * * *'
 	fi
 	if test $rabbitBeancron=='0' ;then
-		sed -i "/BeanCron/s/0 20 * * *//g" $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/BeanCron/s/0 20 \* \* \*//g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
@@ -386,7 +386,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		fi
 
 	else
-		sed -i "/BeanCron/s/0 20 * * */$rabbitBeancron/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/BeanCron/s/0 20 \* \* \*/$rabbitBeancron/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
@@ -544,7 +544,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 
 		#青龙QL_CLIENTID
 
-		echo -e "\033[33m ClientID： \033[0m" && read rabbitQlc
+		echo -e "\033[33m ClientID： \033[0m" && read rabbitQlclientid
 		if test -z "$rabbitQlclientid" ;then
 			rabbitQlclientid=''
 		fi
@@ -612,6 +612,7 @@ if [[ $osCore =~ $armosCore ]];then
 else
     osCoreurl='MadRabbit_amd'
     rabbitVersion='latest'
+    echo -e "准备安装 \033[37m amd版本... \033[0m"
 fi
 
 echo "检查Docker是否已安装……"
