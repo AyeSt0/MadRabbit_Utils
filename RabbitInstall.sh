@@ -257,9 +257,8 @@ if [ -z "${rabbitPort}" ];then
     rabbitPort='5701'
 fi
 osCore=$(uname -m)
-armosCore='arm'
 echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-if [[ $osCore =~ $armosCore ]];then
+if [[ $osCore =~ 'arm' -o $osCore =~ 'aarch']];then
     osCoreurl='MadRabbit_arm'
     rabbitVersion='arm'
     echo -e "准备安装 \033[37m arm版本... \033[0m"
