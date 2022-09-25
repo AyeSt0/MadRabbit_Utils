@@ -6,11 +6,12 @@ DATE:2022-09-24
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:0.0.1
+VERSION:0.0.5
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
+vVersion='0.0.5'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment (){
@@ -34,7 +35,7 @@ cat << eof
 `echo -e "\033[36m----------------------------------------\033[0m"`
 `echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m"`
 `echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m"`
-`echo -e "\033[36m|    v0.0.1                 by AyeSt0   |\033[0m"`
+`echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m"`
 `echo -e "\033[36m----------------------------------------\033[0m"`
 `echo -e "\033[33m 请选择您的Rabbit运行环境\033[0m"`
 
@@ -157,7 +158,7 @@ cat << eof
 `echo -e "\033[36m----------------------------------------\033[0m"`
 `echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m"`
 `echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m"`
-`echo -e "\033[36m|    v0.0.1                 by AyeSt0   |\033[0m"`
+`echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m"`
 `echo -e "\033[36m----------------------------------------\033[0m"`
 `echo -e "\033[33m 请选择\033[0m"`
 
@@ -258,7 +259,7 @@ if [ -z "${rabbitPort}" ];then
 fi
 osCore=$(uname -m)
 echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-if [[ $osCore =~ 'arm' -o $osCore =~ 'aarch']];then
+if [[ $osCore =~ 'arm' -o $osCore =~ 'aarch' ]];then
     osCoreurl='MadRabbit_arm'
     rabbitVersion='arm'
     echo -e "准备安装 \033[37m arm版本... \033[0m"
