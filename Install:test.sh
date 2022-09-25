@@ -11,6 +11,7 @@ MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
+
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment (){
@@ -34,7 +35,7 @@ cat << eof
 `echo -e "\033[36m----------------------------------------\033[0m"`
 `echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m"`
 `echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m"`
-`echo -e "\033[36m|    v0.0.1                 by AyeSt0   |\033[0m"`
+`echo -e "\033[36m|    v$VERSION                 by AyeSt0   |\033[0m"`
 `echo -e "\033[36m----------------------------------------\033[0m"`
 `echo -e "\033[33m 请选择您的Rabbit运行环境\033[0m"`
 
