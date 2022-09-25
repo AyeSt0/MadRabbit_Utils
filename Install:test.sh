@@ -275,7 +275,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitTittle" ;then
 		rabbitTittle='Rabbit'
 	fi
-	sed -i '/Tittle/s/Rabbit/$rabbitTittle/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+	sed -i "/Tittle/s/Rabbit/$rabbitTittle/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 	if test $? -ne  0 ; then
 		echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件 \033[0m"
 	else
@@ -287,7 +287,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitClosetime" ;then
 		rabbitClosetime='5'
 	fi
-	sed -i '/Closetime/s/5/$rabbitAutocaptchacount/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+	sed -i "/Closetime/s/5/$rabbitAutocaptchacount/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 	if test $? -ne  0 ; then
 		echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 	else
@@ -302,7 +302,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitAutocaptchacount" ;then
 		rabbitAutocaptchacount='5'
 	fi
-	sed -i '/AutoCaptchaCount/s/5/$rabbitClosetime/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+	sed -i "/AutoCaptchaCount/s/5/$rabbitClosetime/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 	if test $? -ne  0 ; then
 		echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 	else
@@ -316,7 +316,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitForcecaptcha" ;then
 		rabbitForcecaptcha='true'
 	fi
-	sed -i '/FORCE_CAPTCHA/s/true/$rabbitForcecaptcha/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+	sed -i "/FORCE_CAPTCHA/s/true/$rabbitForcecaptcha/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 	if test $? -ne  0 ; then
 		echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 	else
@@ -328,7 +328,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitRealck" ;then
 		rabbitRealck='false'
 	fi
-	sed -i '/REAL_CK/s/false/$rabbitRealck/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+	sed -i "/REAL_CK/s/false/$rabbitRealck/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 	if test $? -ne  0 ; then
 		echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 	else
@@ -340,7 +340,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitInterrvaltime" ;then
 		rabbitInterrvaltime='0'
 	fi
-	sed -i '/INTERVAL_TIME/s/0/$rabbitInterrvaltime/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+	sed -i "/INTERVAL_TIME/s/0/$rabbitInterrvaltime/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 	if test $? -ne  0 ; then
 		echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 	else
@@ -353,7 +353,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		rabbitExpirationcron='30 17 * * *'
 	fi
 	if test $rabbitExpirationcron=='0' ;then
-		sed -i '/ExpirationCron/s/30 17 * * *//g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/ExpirationCron/s/30 17 * * *//g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
@@ -362,7 +362,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		fi
 
 	else
-		sed -i '/ExpirationCron/s/30 17 * * */$rabbitExpirationcron/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/ExpirationCron/s/30 17 * * */$rabbitExpirationcron/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
@@ -377,7 +377,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		rabbitBeancron='0 20 * * *'
 	fi
 	if test $rabbitBeancron=='0' ;then
-		sed -i '/BeanCron/s/0 20 * * *//g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/BeanCron/s/0 20 * * *//g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
@@ -386,7 +386,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		fi
 
 	else
-		sed -i '/BeanCron/s/0 20 * * */$rabbitBeancron/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/BeanCron/s/0 20 * * */$rabbitBeancron/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
@@ -408,7 +408,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitWxapptoken" ;then
 			rabbitWxapptoken=''
 		fi
-		sed -i '/APP_TOKEN/s/"",/"$rabbitWxapptoken",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/APP_TOKEN/s/\"\",/\"$rabbitWxapptoken\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -420,7 +420,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitMywpuid" ;then
 			rabbitMywpuid=''
 		fi
-		sed -i '/MY_WP_UID/s/"",/"$rabbitMywpuid",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/MY_WP_UID/s/\"\",/\"$rabbitMywpuid\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -441,7 +441,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitXddurl" ;then
 			rabbitXddurl=''
 		fi
-		sed -i '/XDD_URL/s/"",/"$rabbitXddurl",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/XDD_URL/s/\"\",/\"$rabbitXddurl\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -453,7 +453,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitXddtoken" ;then
 			rabbitXddtoken=''
 		fi
-		sed -i '/XDD_TOKEN/s/"",/"$rabbitXddtoken",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/XDD_TOKEN/s/\"\",/\"$rabbitXddtoken\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -476,7 +476,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitSillytoken" ;then
 			rabbitSillytoken=''
 		fi
-		sed -i '/SILLY_TOKEN/s/"",/"$rabbitSillytoken",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/SILLY_TOKEN/s/\"\",/\"$rabbitSillytoken\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -499,7 +499,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitTjuser" ;then
 			rabbitTjuser=''
 		fi
-		sed -i '/TJ_USER/s/"",/"$rabbitTjuser",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/TJ_USER/s/\"\",/\"$rabbitTjuser\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -511,7 +511,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitTjpwd" ;then
 			rabbitTjpwd=''
 		fi
-		sed -i '/TJ_PWD/s/"",/"$rabbitTjpwd",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/TJ_PWD/s/\"\",/\"$rabbitTjpwd\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -535,7 +535,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitQlurl" ;then
 			rabbitQlurl=''
 		fi
-		sed -i '/QLurl/s/"",/"$rabbitQlurl",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/QLurl/s/\"\",/\"$rabbitQlurl\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -548,7 +548,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitQlclientid" ;then
 			rabbitQlclientid=''
 		fi
-		sed -i '/QL_CLIENTID/s/"",/"$rabbitQlclientid",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/QL_CLIENTID/s/\"\",/\"$rabbitQlclientid\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -561,7 +561,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitQlsecret" ;then
 			rabbitQlsecret=''
 		fi
-		sed -i '/QL_SECRET/s/"",/"$rabbitQlsecret",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/QL_SECRET/s/\"\",/\"$rabbitQlsecret\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
@@ -585,7 +585,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 		if test -z "$rabbitProxy" ;then
 			rabbitProxy=''
 		fi
-		sed -i '/proxy/s/"",/"$rabbitProxy",/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+		sed -i "/proxy/s/\"\",/\"$rabbitProxy\",/g" $rabbitAbsolutepath/Rabbit/Config/Config.json
 		if test $? -ne  0 ; then
 			echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
 		else
