@@ -9,6 +9,7 @@
 ## Rabbit一键安装命令
  
 **如提示curl command not found，请先安装curl**
+最近改代码较勤快，可以等稳定了再来
 
 ### 国内鸡
 ```bash
