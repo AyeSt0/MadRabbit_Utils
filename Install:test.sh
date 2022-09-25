@@ -263,7 +263,7 @@ if test $rabbitConfigjudge=‘y’ ;then
 	if test -z "$rabbitMaxtab" ;then
 		rabbitMaxtab='4'
 	fi
-	sed -i '/MaxTab/s/4/$rabbitMaxtab/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
+	sed -i '/MaxTab/s/4/$(rabbitMaxtab)/g' $rabbitAbsolutepath/Rabbit/Config/Config.json
 	if test $? -ne  0 ; then
 		echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件 \033[0m"
 	else
