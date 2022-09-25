@@ -252,7 +252,7 @@ if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
     else echo -e "\033[42;37m 下载成功 \033[0m"
 
 #修改配置文件
-echo -e "\033[33m 是否需要修改配置文件(y/n)【默认n】\033[0m" && read rabbitConfigjudge
+echo -e "\033[33m 是否需要现在修改配置文件(y/n)【默认n】\033[0m" && read rabbitConfigjudge
 if test -z "$rabbitConfigjudge" ;then
 	rabbitConfigjudge='n'
 fi
