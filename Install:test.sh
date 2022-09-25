@@ -6,25 +6,44 @@ DATE:2022-09-26
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.0
+VERSION:1.0.1T
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.0'
+vVersion='1.0.1T'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
 	uNames=$(sudo uname -a)
 	syosNames='synology'
+	containerName="rabbit"
 	if [[ $uNames =~ $syosNames ]]; then
 		echo -e "\033[32m 忙猜你是群晖\033[0m"
-		echo -e "\033[42;37m 群晖一键安装脚本\033[0m   启动>>>>>>>>>>>>"
-		Synology_menu
+		if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
+			echo -e "\033[42;37m 检测到rabbit容器\033[0m   启动管理脚本>>>>>>>>>>>>"
+			#Sy_Admin
+			Management_Countdown
+			echo -e "\033[42;37m 骗你的 这个功能还没实装\033[0m"
+			echo -e "\033[42;37m 群晖一键安装脚本\033[0m   启动>>>>>>>>>>>>"
+			Synology_menu
+		else
+			echo -e "\033[42;37m 群晖一键安装脚本\033[0m   启动>>>>>>>>>>>>"
+			Synology_menu
+		fi
 	else
 		echo -e "\033[32m 忙猜你是云服务器\033[0m"
-		echo -e "\033[42;37m 云服务器一键安装脚本\033[0m   启动>>>>>>>>>>>>"
-		Cloud_menu
+		if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
+			echo -e "\033[42;37m 检测到rabbit容器\033[0m   启动管理脚本>>>>>>>>>>>>"
+			#Cl_Admin
+			Management_Countdown
+			echo -e "\033[42;37m 骗你的 这个功能还没实装\033[0m"
+			echo -e "\033[42;37m 云服务器一键安装脚本\033[0m   启动>>>>>>>>>>>>"
+			Cloud_menu
+		else
+			echo -e "\033[42;37m 云服务器一键安装脚本\033[0m   启动>>>>>>>>>>>>"
+			Cloud_menu
+		fi
 	fi
 }
 
@@ -37,13 +56,15 @@ $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
 $(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
-$(echo -e "\033[33m 请选择您的Rabbit运行环境\033[0m")
+$(echo -e "\033[33m 请选择您的Rabbit运行环境or更新\033[0m")
 
 $(echo -e "\033[32m 【1】国内鸡\033[0m")
 
 $(echo -e "\033[32m 【2】国外鸡\033[0m")
 
-$(echo -e "\033[31m 【3】退出安装\033[0m")
+$(echo -e "\033[32m 【3】更新\033[0m")
+
+$(echo -e "\033[31m 【4】退出安装\033[0m")
 
 eof
 
@@ -62,8 +83,13 @@ eof
 		Cloud_menu_gw_ql
 
 		;;
-
 	3)
+
+		update
+
+		;;
+
+	4)
 
 		exit 0
 		;;
@@ -1424,5 +1450,30 @@ function configquick() {
 		echo -e "\033[42;37m 跳过配置\033[0m"
 		;;
 	esac
+}
+function update() {
+	checkRabbitport=$(docker port rabbit)
+	rRabbitPort=${checkRabbitport##*:}
+	echo "$rRabbitPort"
+	checkVersion=$(curl http://127.0.0.1:"$rRabbitPort"/api/version &>/dev/null &)
+	echo "$checkVersion"
+	rVersion=${checkVersion:0-7:5}
+	echo "$rVersion"
+	#docker exec -it rabbit bash
+	#git pull
+	#exit
+	#if test $? -ne 0; then
+	#				echo -e "\033[41;37m 更新失败...\033[0m"
+	#			else
+	#				echo -e "\033[42;37m 更新成功！ \033[0m"
+	#			fi
+	exit 0
+}
+function Management_Countdown() {
+	for time in $(seq 5 -1 0); do
+		echo -n -e "\b$time"
+		sleep 1
+	done
+	echo
 }
 system_Judgment
