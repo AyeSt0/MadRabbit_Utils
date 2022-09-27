@@ -6,12 +6,12 @@ DATE:2022-09-26
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.0
+VERSION:1.0.1
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.0'
+vVersion='1.0.1'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -307,6 +307,10 @@ function gn_run_qlone() {
 			echo "docker 已安装！"
 		fi
 	fi
+	
+	#检测镜像源
+	check_Dockermirror
+	
 	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
 	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
 	if [ $? -ne 0 ]; then
@@ -404,6 +408,10 @@ function gn_run_qlmany() {
 			echo "docker 已安装！"
 		fi
 	fi
+	
+	#检测镜像源
+	check_Dockermirror
+	
 	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
 	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
 	if [ $? -ne 0 ]; then
@@ -501,6 +509,10 @@ function gn_run_qlno() {
 			echo "docker 已安装！"
 		fi
 	fi
+	
+	#检测镜像源
+	check_Dockermirror
+	
 	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
 	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
 	if [ $? -ne 0 ]; then
@@ -1425,4 +1437,69 @@ function configquick() {
 		;;
 	esac
 }
+
+function check_Dockermirror(){
+    echo "检查Docker国内镜像源……"
+	cat /etc/docker/daemon.json
+	if [ $? -ne 0 ]; then
+		echo -e "\033[41;37m 未检测到镜像源配置 \033[0m"
+		
+		echo -e "\033[33m 是否配置国内镜像源(y/n)【默认y】 \033[0m" && read rabbitDockerconfig
+		if test -z "$rabbitDockerconfig"; then
+			rabbitDockerconfig='y'
+		fi
+		case $rabbitDockerconfig in
+		[yY])
+			echo -e "\033[42;37m 开始配置国内镜像源\033[0m"
+			dockerConfigpath="/etc/docker/daemon.json"
+			touch dockerConfigpath
+			echo -e "1.中国区官方镜像源
+			2.网易镜像源
+			3.中国科学技术大学镜像源
+			\033[33m 请选择镜像源【默认1】 \033[0m" && read rabbitDockerconfnum
+		if test -z "$rabbitDockerconfnum"; then
+			rabbitDockerconfnum='1'
+		fi
+		case $rabbitDockerconfnum in
+			1)
+			echo '{
+"registry-mirrors": ["https://registry.docker-cn.com"]
+}' > dockerConfigpath
+            if [ $? -ne 0 ]; then
+                echo -e "\033[41;37m 配置失败 \033[0m"
+            else
+                echo -e "\033[42;37m 中国区官方镜像源 设置成功 \033[0m"
+            fi
+			;;
+			2)
+			echo '{
+"registry-mirrors": ["http://hub-mirror.c.163.com"]
+}' > dockerConfigpath
+            if [ $? -ne 0 ]; then
+                echo -e "\033[41;37m 配置失败 \033[0m"
+            else
+                echo -e "\033[42;37m 网易镜像源 设置成功 \033[0m"
+            fi
+			;;
+			3)
+			echo '{
+"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+}' > dockerConfigpath
+            if [ $? -ne 0 ]; then
+                echo -e "\033[41;37m 配置失败 \033[0m"
+            else
+                echo -e "\033[42;37m 中国科学技术大学镜像源 设置成功 \033[0m"
+            fi
+            ;;
+            esac
+			;;
+		*)
+			echo -e "\033[42;37m 跳过配置\033[0m"
+			;;
+		esac
+	else
+	    echo -e "\033[42;37m 检测到国内镜像源，跳过配置\033[0m"
+	fi
+}
+
 system_Judgment
