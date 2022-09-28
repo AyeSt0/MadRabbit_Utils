@@ -6,12 +6,12 @@ DATE:2022-09-28
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.2
+VERSION:1.0.3
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.2'
+vVersion='1.0.3'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -895,7 +895,8 @@ function update() {
 		echo -e "当前已为最新版本"
 	else
 		echo -e "\033[42;37m 开始更新 \033[0m"
-		curl -s http://127.0.0.1:$rRabbitPort/api/update
+		docker exec -it rabbit git pull
+		#curl -s http://127.0.0.1:$rRabbitPort/api/update
 	fi
 
 	#docker exec -it rabbit bash
