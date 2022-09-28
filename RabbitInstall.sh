@@ -6,12 +6,12 @@ DATE:2022-09-28
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.3
+VERSION:1.0.4
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.3'
+vVersion='1.0.4'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -59,7 +59,7 @@ $(echo -e "\033[32m 【1】更新\033[0m")
 
 $(echo -e "\033[32m 【2】卸载（暂未实装）\033[0m")
 
-$(echo -e "\033[31m 【3】退出安装\033[0m")
+$(echo -e "\033[31m 【3】退出\033[0m")
 
 eof
 
@@ -224,7 +224,7 @@ $(echo -e "\033[32m 【1】更新\033[0m")
 
 $(echo -e "\033[32m 【2】卸载（暂未实装）\033[0m")
 
-$(echo -e "\033[31m 【3】退出安装\033[0m")
+$(echo -e "\033[31m 【3】退出\033[0m")
 
 eof
 
@@ -896,6 +896,8 @@ function update() {
 	else
 		echo -e "\033[42;37m 开始更新 \033[0m"
 		docker exec -it rabbit git pull
+		echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m"
+		docker restart rabbit
 		#curl -s http://127.0.0.1:$rRabbitPort/api/update
 	fi
 
