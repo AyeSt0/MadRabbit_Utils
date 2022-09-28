@@ -896,7 +896,7 @@ function update() {
 	else
 		echo -e "\033[42;37m 开始更新 \033[0m"
 		docker exec -it rabbit git pull
-		echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m"
+		echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m请稍后自行检查版本"
 		docker restart rabbit
 		#curl -s http://127.0.0.1:$rRabbitPort/api/update
 	fi
