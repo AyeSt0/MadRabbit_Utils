@@ -28,6 +28,7 @@ bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/mas
 
 ## 不靠谱的更新日志
 
+* *20220928 v1.0.6 更新一键管理面板-卸载功能*
 * *20220928 v1.0.5 修改镜像源默认逻辑*
 * *20220928 v1.0.4 修复了一些文本错误，修改了更新指令逻辑*
 * *20220928 v1.0.3 调整更新命令*
