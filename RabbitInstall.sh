@@ -6,42 +6,58 @@ DATE:2022-09-28
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.1
+VERSION:1.0.2
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.1'
+vVersion='1.0.2'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
 	uNames=$(sudo uname -a)
 	syosNames='synology'
+	containerName="rabbit"
 	if [[ $uNames =~ $syosNames ]]; then
 		echo -e "\033[32m 忙猜你是群晖\033[0m"
-		echo -e "\033[42;37m 群晖一键安装脚本\033[0m   启动>>>>>>>>>>>>"
-		Synology_menu
+		if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
+			echo -e "\033[42;37m 检测到rabbit容器\033[0m   启动一键管理脚本>>>>>>>>>>>>"
+			#Sy_Admin
+			Management_Countdown5
+			echo -e "\033[42;37m 群晖一键管理脚本\033[0m   启动>>>>>>>>>>>>"
+			Synology_utils_menu
+		else
+			echo -e "\033[42;37m 群晖一键安装脚本\033[0m   启动>>>>>>>>>>>>"
+			Synology_install_menu
+		fi
 	else
 		echo -e "\033[32m 忙猜你是云服务器\033[0m"
-		echo -e "\033[42;37m 云服务器一键安装脚本\033[0m   启动>>>>>>>>>>>>"
-		Cloud_menu
+		if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
+			echo -e "\033[42;37m 检测到rabbit容器\033[0m   启动一键管理脚本>>>>>>>>>>>>"
+			#Cl_Admin
+			Management_Countdown5
+			echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   启动>>>>>>>>>>>>"
+			Cloud_utils_menu
+		else
+			echo -e "\033[42;37m 云服务器一键安装脚本\033[0m   启动>>>>>>>>>>>>"
+			Cloud_install_menu
+		fi
 	fi
 }
-
-function Cloud_menu() {
+function Cloud_utils_menu() {
 
 	cat <<eof
 
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
-$(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
+$(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
 $(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
-$(echo -e "\033[33m 请选择您的Rabbit运行环境\033[0m")
+$(echo -e "\033[33m 请选择您的Rabbit运行环境or更新\033[0m")
 
-$(echo -e "\033[32m 【1】国内鸡\033[0m")
+$(echo -e "\033[32m 【1】更新\033[0m")
 
-$(echo -e "\033[32m 【2】国外鸡\033[0m")
+$(echo -e "\033[32m 【2】卸载（暂未实装）\033[0m")
 
 $(echo -e "\033[31m 【3】退出安装\033[0m")
 
@@ -52,18 +68,63 @@ eof
 	case $num1 in
 
 	1)
+		update
+		;;
 
-		Cloud_menu_gn_ql
+	2)
+		echo -e "\033[42;37m 该功能尚未实装\033[0m"
+		Cloud_utils_menu
+		;;
+	3)
+		exit 0
+		;;
+
+	esac
+
+}
+
+function Cloud_install_menu() {
+	cat <<eof
+
+$(echo -e "\033[36m----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
+$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择您的Rabbit运行环境or更新\033[0m")
+
+$(echo -e "\033[32m 【1】国内鸡\033[0m")
+
+$(echo -e "\033[32m 【2】国外鸡\033[0m")
+
+$(echo -e "\033[32m 【3】更新\033[0m")
+
+$(echo -e "\033[31m 【4】退出安装\033[0m")
+
+eof
+
+	read -p "请输入对应选项的数字：" num1
+
+	case $num1 in
+
+	1)
+
+		Cloud_install_menu_gn_ql
 
 		;;
 
 	2)
 
-		Cloud_menu_gw_ql
+		Cloud_install_menu_gw_ql
+
+		;;
+	3)
+
+		update
 
 		;;
 
-	3)
+	4)
 
 		exit 0
 		;;
@@ -72,7 +133,7 @@ eof
 
 }
 
-function Cloud_menu_gn_ql() {
+function Cloud_install_menu_gn_ql() {
 
 	cat <<eof
 
@@ -111,7 +172,7 @@ eof
 
 }
 
-function Cloud_menu_gw_ql() {
+function Cloud_install_menu_gw_ql() {
 
 	cat <<eof
 
@@ -149,7 +210,44 @@ eof
 	esac
 
 }
-function Synology_menu() {
+function Synology_utils_menu() {
+	cat <<eof
+
+$(echo -e "\033[36m----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
+$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择\033[0m")
+
+$(echo -e "\033[32m 【1】更新\033[0m")
+
+$(echo -e "\033[32m 【2】卸载（暂未实装）\033[0m")
+
+$(echo -e "\033[31m 【3】退出安装\033[0m")
+
+eof
+
+	read -p "请输入对应选项的数字：" num1
+
+	case $num1 in
+
+	1)
+		update
+		;;
+
+	2)
+		echo -e "\033[42;37m 该功能尚未实装\033[0m"
+		Synology_utils_menu
+		;;
+	3)
+		exit 0
+		;;
+
+	esac
+
+}
+function Synology_install_menu() {
 
 	cat <<eof
 
@@ -172,7 +270,7 @@ eof
 
 	1)
 
-		Synology_menu_ql
+		Synology_install_menu_ql
 
 		;;
 
@@ -184,7 +282,7 @@ eof
 	esac
 
 }
-function Synology_menu_ql() {
+function Synology_install_menu_ql() {
 
 	cat <<eof
 
@@ -224,797 +322,141 @@ eof
 }
 
 function gn_run_qlone() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/root'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='one'
+	#安装路径
+	clpath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		echo -e "\033[33m GitHub加速地址【默认https://ghproxy.com】\033[0m" && read rabbitProxyurl
-		if [ -z "${rabbitProxyurl}" ]; then
-			rabbitProxyurl='https://ghproxy.com'
-		fi
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json $rabbitProxyurl/https://raw.githubusercontent.com/ht944/MadRabbit/main/oneConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload_proxy
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo "检查Docker是否已安装……"
-	docker -v
-	if [ $? -ne 0 ]; then
-		echo "检测到Docker未安装！"
-		echo
-		echo " ***** 开始安装 docker 工具 ***** "
-		sudo yum update
-		#判断系统
-		if [ $? -eq 0 ]; then
-			yum -y install docker
-			service docker start
-		else
-			sudo apt-get install -y docker.io
-			systemctl start docker
-			systemctl enable docker
-			systemctl status docker
-		fi
-		docker -v
-		if [ $? -ne 0 ]; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			exit 0
-		else
-			echo " ***** 安装 docker 工具完成 ***** "
-			echo "docker 已安装！"
-		fi
-	fi
-	
-	#检测镜像源
-	check_Dockermirror
-	
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[43;31m 注意！由于脚本滞后性，安装后请第一时间访问\033[0m\033[43;32m https//你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
-	fi
-
+	#容器安装
+	container_install_gn
 }
 
 function gn_run_qlmany() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/root'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='many'
+	#安装路径
+	clpath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		echo -e "\033[33m GitHub加速地址【默认https://ghproxy.com】\033[0m" && read rabbitProxyurl
-		if [ -z "${rabbitProxyurl}" ]; then
-			rabbitProxyurl='https://ghproxy.com'
-		fi
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json $rabbitProxyurl/https://raw.githubusercontent.com/ht944/MadRabbit/main/manyConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload_proxy
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo "检查Docker是否已安装……"
-	docker -v
-	if [ $? -ne 0 ]; then
-		echo "检测到Docker未安装！"
-		echo
-		echo " ***** 开始安装 docker 工具 ***** "
-		sudo yum update
-		#判断系统
-		if [ $? -eq 0 ]; then
-			yum -y install docker
-			service docker start
-		else
-			sudo apt-get install -y docker.io
-			systemctl start docker
-			systemctl enable docker
-			systemctl status docker
-		fi
-		docker -v
-		if [ $? -ne 0 ]; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			exit 0
-		else
-			echo " ***** 安装 docker 工具完成 ***** "
-			echo "docker 已安装！"
-		fi
-	fi
-	
-	#检测镜像源
-	check_Dockermirror
-	
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[33m 由于脚本滞后性，安装后请第一时间访问\033[0m \033[32m https//你的rabbit地址/api/update\033[0m \033[33m检查更新！ \033[0m"
-	fi
+	#容器安装
+	container_install_gn
 
 }
 
 function gn_run_qlno() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/root'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='no'
+	#安装路径
+	clpath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		echo -e "\033[33m GitHub加速地址【默认https://ghproxy.com】\033[0m" && read rabbitProxyurl
-		if [ -z "${rabbitProxyurl}" ]; then
-			rabbitProxyurl='https://ghproxy.com'
-		fi
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json $rabbitProxyurl/https://raw.githubusercontent.com/ht944/MadRabbit/main/noConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload_proxy
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo "检查Docker是否已安装……"
-	docker -v
-	if [ $? -ne 0 ]; then
-		echo "检测到Docker未安装！"
-		echo
-		echo " ***** 开始安装 docker 工具 ***** "
-		sudo yum update
-		#判断系统
-		if [ $? -eq 0 ]; then
-			yum -y install docker
-			service docker start
-		else
-			sudo apt-get install -y docker.io
-			systemctl start docker
-			systemctl enable docker
-			systemctl status docker
-		fi
-		docker -v
-		if [ $? -ne 0 ]; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			exit 0
-		else
-			echo " ***** 安装 docker 工具完成 ***** "
-			echo "docker 已安装！"
-		fi
-	fi
-	
-	#检测镜像源
-	check_Dockermirror
-	
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[33m 由于脚本滞后性，安装后请第一时间访问\033[0m \033[32m https//你的rabbit地址/api/update\033[0m \033[33m检查更新！ \033[0m"
-	fi
-
+	#容器安装
+	container_install_gn
 }
 
 function gw_run_qlone() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/root'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='one'
+	#安装路径
+	clpath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json https://raw.githubusercontent.com/ht944/MadRabbit/main/oneConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo "检查Docker是否已安装……"
-	docker -v
-	if [ $? -ne 0 ]; then
-		echo "检测到Docker未安装！"
-		echo
-		echo " ***** 开始安装 docker 工具 ***** "
-		sudo yum update
-		#判断系统
-		if [ $? -eq 0 ]; then
-			yum -y install docker
-			service docker start
-		else
-			sudo apt-get install -y docker.io
-			systemctl start docker
-			systemctl enable docker
-			systemctl status docker
-		fi
-		docker -v
-		if [ $? -ne 0 ]; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			exit 0
-		else
-			echo " ***** 安装 docker 工具完成 ***** "
-			echo "docker 已安装！"
-		fi
-	fi
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[33m 由于脚本滞后性，安装后请第一时间访问\033[0m \033[32m https//你的rabbit地址/api/update\033[0m \033[33m检查更新！ \033[0m"
-	fi
-
+	#容器安装
+	container_install_gw
 }
+
 function gw_run_qlmany() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/root'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='many'
+	#安装路径
+	clpath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json https://raw.githubusercontent.com/ht944/MadRabbit/main/manyConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo "检查Docker是否已安装……"
-	docker -v
-	if [ $? -ne 0 ]; then
-		echo "检测到Docker未安装！"
-		echo
-		echo " ***** 开始安装 docker 工具 ***** "
-		sudo yum update
-		#判断系统
-		if [ $? -eq 0 ]; then
-			yum -y install docker
-			service docker start
-		else
-			sudo apt-get install -y docker.io
-			systemctl start docker
-			systemctl enable docker
-			systemctl status docker
-		fi
-		docker -v
-		if [ $? -ne 0 ]; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			exit 0
-		else
-			echo " ***** 安装 docker 工具完成 ***** "
-			echo "docker 已安装！"
-		fi
-	fi
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[33m 由于脚本滞后性，安装后请第一时间访问\033[0m \033[32m https//你的rabbit地址/api/update\033[0m \033[33m检查更新！ \033[0m"
-	fi
-
+	#容器安装
+	container_install_gw
 }
 
 function gw_run_qlno() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/root'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='no'
+	#安装路径
+	clpath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json https://raw.githubusercontent.com/ht944/MadRabbit/main/noConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo "检查Docker是否已安装……"
-	docker -v
-	if [ $? -ne 0 ]; then
-		echo "检测到Docker未安装！"
-		echo
-		echo " ***** 开始安装 docker 工具 ***** "
-		sudo yum update
-		#判断系统
-		if [ $? -eq 0 ]; then
-			yum -y install docker
-			service docker start
-		else
-			sudo apt-get install -y docker.io
-			systemctl start docker
-			systemctl enable docker
-			systemctl status docker
-		fi
-		docker -v
-		if [ $? -ne 0 ]; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			exit 0
-		else
-			echo " ***** 安装 docker 工具完成 ***** "
-			echo "docker 已安装！"
-		fi
-	fi
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[33m 由于脚本滞后性，安装后请第一时间访问\033[0m \033[32m https//你的rabbit地址/api/update\033[0m \033[33m检查更新！ \033[0m"
-	fi
+	#容器安装
+	container_install_gw
 }
 
 function sy_run_qlone() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/volume1/docker】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/volume1/docker'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='one'
+	#安装路径
+	sypath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		echo -e "\033[33m GitHub加速地址【默认https://ghproxy.com】\033[0m" && read rabbitProxyurl
-		if [ -z "${rabbitProxyurl}" ]; then
-			rabbitProxyurl='https://ghproxy.com'
-		fi
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json $rabbitProxyurl/https://raw.githubusercontent.com/ht944/MadRabbit/main/oneConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload_proxy
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[33m 由于脚本滞后性，安装后请第一时间访问\033[0m \033[32m https//你的rabbit地址/api/update\033[0m \033[33m检查更新！ \033[0m"
-	fi
-
+	#容器安装
+	container_install_sy
 }
 
 function sy_run_qlmany() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/volume1/docker】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/volume1/docker'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='many'
+	#安装路径
+	sypath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		echo -e "\033[33m GitHub加速地址【默认https://ghproxy.com】\033[0m" && read rabbitProxyurl
-		if [ -z "${rabbitProxyurl}" ]; then
-			rabbitProxyurl='https://ghproxy.com'
-		fi
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json $rabbitProxyurl/https://raw.githubusercontent.com/ht944/MadRabbit/main/manyConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload_proxy
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[33m 由于脚本滞后性，安装后请第一时间访问\033[0m \033[32m https//你的rabbit地址/api/update\033[0m \033[33m检查更新！ \033[0m"
-	fi
-
+	#容器安装
+	container_install_sy
 }
 
 function sy_run_qlno() {
-
-	echo -e "\033[33m 请选择Rabbit安装路径【默认/volume1/docker】\033[0m" && read rabbitAbsolutepath
-	if [ -z "${rabbitAbsolutepath}" ]; then
-		rabbitAbsolutepath='/volume1/docker'
-	fi
-	if [ ! -d "$rabbitAbsolutepath" ]; then
-		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
-		mkdir -p $rabbitAbsolutepath
-	fi
-	cd $rabbitAbsolutepath
-	mkdir -p Rabbit
-	cd Rabbit
-	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+	#青龙配置类型
+	qlconfVersion='no'
+	#安装路径
+	sypath_choise
+	#配置文件下载
 	if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-		echo -e "\033[33m GitHub加速地址【默认https://ghproxy.com】\033[0m" && read rabbitProxyurl
-		if [ -z "${rabbitProxyurl}" ]; then
-			rabbitProxyurl='https://ghproxy.com'
-		fi
-		cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json $rabbitProxyurl/https://raw.githubusercontent.com/ht944/MadRabbit/main/noConfig.json
-		if test $? -ne 0; then
-			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-			rm -rf $rabbitAbsolutepath/Rabbit/
-			exit 0
-		else
-			if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
-				echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
-				rm -rf $rabbitAbsolutepath/Rabbit/
-				exit 0
-			else
-				echo -e "\033[42;37m 下载成功 \033[0m"
-			fi
-
-			configquick
-
-		fi
-
+		confDownload_proxy
 	else
 		echo -e "\033[42;37m 该目录已存在配置文件，跳过下载及配置... \033[0m"
 	fi
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
-	osCore=$(uname -m)
-	osArm1='arm'
-	osArm2='aarch'
-	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-		osCoreurl='MadRabbit_arm'
-		rabbitVersion='arm'
-		echo -e "准备安装 \033[37m arm版本... \033[0m"
-	else
-		osCoreurl='MadRabbit_amd'
-		rabbitVersion='latest'
-		echo -e "准备安装 \033[37m amd版本... \033[0m"
-	fi
-
-	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
-	if [ $? -ne 0 ]; then
-		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
-	else
-		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
-		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
-		echo -e "\033[33m 由于脚本滞后性，安装后请第一时间访问\033[0m \033[32m https//你的rabbit地址/api/update\033[0m \033[33m检查更新！ \033[0m"
-	fi
-
+	#容器安装
+	container_install_sy
 }
+#配置 配置文件
 function configquick() {
 	#修改配置文件
 	echo -e "\033[33m 是否需要现在修改配置文件(y/n)【默认n】\033[0m" && read rabbitConfigjudge
@@ -1437,13 +879,58 @@ function configquick() {
 		;;
 	esac
 }
+function update() {
+	#Management_Countdown10
+	checkRabbitport=$(docker port rabbit)
+	rRabbitPort=${checkRabbitport##*:}
+	checkVersion=$(curl -s http://127.0.0.1:$rRabbitPort/api/version)
+	#echo "$checkVersion"
+	rVersion=${checkVersion:0-7:5}
+	echo "当前版本为$rVersion"
+	echo "检查更新..."
+	rUpdate=$(curl -s http://127.0.0.1:$rRabbitPort/api/update)
+	canUpdate=${rUpdate#*h1\>}
+	cannotUpdate='404'
+	if [[ $canUpdate =~ $cannotUpdate ]]; then
+		echo -e "当前已为最新版本"
+	else
+		echo -e "\033[42;37m 开始更新 \033[0m"
+		curl -s http://127.0.0.1:$rRabbitPort/api/update
+	fi
 
-function check_Dockermirror(){
-    echo "检查Docker国内镜像源……"
+	#docker exec -it rabbit bash
+	#git pull
+	#exit
+	#if test $? -ne 0; then
+	#				echo -e "\033[41;37m 更新失败...\033[0m"
+	#			else
+	#				echo -e "\033[42;37m 更新成功！ \033[0m"
+	#			fi
+	exit 0
+}
+function Management_Countdown5() {
+	for time in $(seq 5 -1 0); do
+		echo -n -e "\b$time"
+		sleep 1
+	done
+	echo
+}
+
+function Upgrade_Countdown() {
+	for i in {15..1}; do
+
+		echo -n 等待rabbit启动...$i 秒后检测更新!!
+		echo -ne "\r\r" ####echo -e 处理特殊字符  \r 光标移至行首，但不换行
+		sleep 1
+	done
+}
+
+function check_Dockermirror() {
+	echo "检查Docker国内镜像源……"
 	cat /etc/docker/daemon.json
 	if [ $? -ne 0 ]; then
 		echo -e "\033[41;37m 未检测到镜像源配置 \033[0m"
-		
+
 		echo -e "\033[33m 是否配置国内镜像源(y/n)【默认y】 \033[0m" && read rabbitDockerconfig
 		if test -z "$rabbitDockerconfig"; then
 			rabbitDockerconfig='y'
@@ -1457,49 +944,295 @@ function check_Dockermirror(){
 			2.网易镜像源
 			3.中国科学技术大学镜像源
 			\033[33m 请选择镜像源【默认1】 \033[0m" && read rabbitDockerconfnum
-		if test -z "$rabbitDockerconfnum"; then
-			rabbitDockerconfnum='1'
-		fi
-		case $rabbitDockerconfnum in
+			if test -z "$rabbitDockerconfnum"; then
+				rabbitDockerconfnum='1'
+			fi
+			case $rabbitDockerconfnum in
 			1)
-			echo '{
+				echo '{
 "registry-mirrors": ["https://registry.docker-cn.com"]
-}' > dockerConfigpath
-            if [ $? -ne 0 ]; then
-                echo -e "\033[41;37m 配置失败 \033[0m"
-            else
-                echo -e "\033[42;37m 中国区官方镜像源 设置成功 \033[0m"
-            fi
-			;;
+}' >dockerConfigpath
+				if [ $? -ne 0 ]; then
+					echo -e "\033[41;37m 配置失败 \033[0m"
+				else
+					echo -e "\033[42;37m 中国区官方镜像源 设置成功 \033[0m"
+				fi
+				;;
 			2)
-			echo '{
+				echo '{
 "registry-mirrors": ["http://hub-mirror.c.163.com"]
-}' > dockerConfigpath
-            if [ $? -ne 0 ]; then
-                echo -e "\033[41;37m 配置失败 \033[0m"
-            else
-                echo -e "\033[42;37m 网易镜像源 设置成功 \033[0m"
-            fi
-			;;
+}' >dockerConfigpath
+				if [ $? -ne 0 ]; then
+					echo -e "\033[41;37m 配置失败 \033[0m"
+				else
+					echo -e "\033[42;37m 网易镜像源 设置成功 \033[0m"
+				fi
+				;;
 			3)
-			echo '{
+				echo '{
 "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
-}' > dockerConfigpath
-            if [ $? -ne 0 ]; then
-                echo -e "\033[41;37m 配置失败 \033[0m"
-            else
-                echo -e "\033[42;37m 中国科学技术大学镜像源 设置成功 \033[0m"
-            fi
-            ;;
-            esac
+}' >dockerConfigpath
+				if [ $? -ne 0 ]; then
+					echo -e "\033[41;37m 配置失败 \033[0m"
+				else
+					echo -e "\033[42;37m 中国科学技术大学镜像源 设置成功 \033[0m"
+				fi
+				;;
+			esac
 			;;
 		*)
 			echo -e "\033[42;37m 跳过配置\033[0m"
 			;;
 		esac
 	else
-	    echo -e "\033[42;37m 检测到国内镜像源，跳过配置\033[0m"
+		echo -e "\033[42;37m 检测到国内镜像源，跳过配置\033[0m"
+	fi
+}
+#安装路径
+#云服务器安装路径
+function clpath_choise() {
+	echo -e "\033[33m 请选择Rabbit安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
+	if [ -z "${rabbitAbsolutepath}" ]; then
+		rabbitAbsolutepath='/root'
+	fi
+	if [ ! -d "$rabbitAbsolutepath" ]; then
+		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
+		mkdir -p $rabbitAbsolutepath
+	fi
+	cd $rabbitAbsolutepath
+	mkdir -p Rabbit
+	cd Rabbit
+	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+}
+#群晖安装路径
+function sypath_choise() {
+	echo -e "\033[33m 请选择Rabbit安装路径【默认/volume1/docker】\033[0m" && read rabbitAbsolutepath
+	if [ -z "${rabbitAbsolutepath}" ]; then
+		rabbitAbsolutepath='/volume1/docker'
+	fi
+	if [ ! -d "$rabbitAbsolutepath" ]; then
+		echo -e "\033[43;37m 该目录不存在，创建目录中... \033[0m"
+		mkdir -p $rabbitAbsolutepath
+	fi
+	cd $rabbitAbsolutepath
+	mkdir -p Rabbit
+	cd Rabbit
+	cd $rabbitAbsolutepath/Rabbit && mkdir -p Config
+}
+#配置文件下载
+function confDownload() {
+	cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json https://raw.githubusercontent.com/ht944/MadRabbit/main/${qlconfVersion}Config.json
+	if test $? -ne 0; then
+		echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
+		rm -rf $rabbitAbsolutepath/Rabbit/
+		exit 0
+	else
+		if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
+			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
+			rm -rf $rabbitAbsolutepath/Rabbit/
+			exit 0
+		else
+			echo -e "\033[42;37m 下载成功 \033[0m"
+		fi
+		#配置配置文件
+		configquick
+
 	fi
 }
 
+#配置文件下载（代理）
+function confDownload_proxy() {
+	echo -e "\033[33m GitHub加速地址【默认https://ghproxy.com】\033[0m" && read rabbitProxyurl
+	if [ -z "${rabbitProxyurl}" ]; then
+		rabbitProxyurl='https://ghproxy.com'
+	fi
+	cd $rabbitAbsolutepath/Rabbit/Config && wget -O Config.json $rabbitProxyurl/https://raw.githubusercontent.com/ht944/MadRabbit/main/${qlconfVersion}Config.json
+	if test $? -ne 0; then
+		echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
+		rm -rf $rabbitAbsolutepath/Rabbit/
+		exit 0
+	else
+		if [ ! -f "$rabbitAbsolutepath/Rabbit/Config/Config.json" ]; then
+			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
+			rm -rf $rabbitAbsolutepath/Rabbit/
+			exit 0
+		else
+			echo -e "\033[42;37m 下载成功 \033[0m"
+		fi
+		#配置配置文件
+		configquick
+
+	fi
+}
+function container_install_gn() {
+	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
+	if [ -z "${rabbitPort}" ]; then
+		rabbitPort='5701'
+	fi
+	osCore=$(uname -m)
+	osArm1='arm'
+	osArm2='aarch'
+	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
+	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
+		osCoreurl='MadRabbit_arm'
+		rabbitVersion='arm'
+		echo -e "准备安装 \033[37m arm版本... \033[0m"
+	else
+		osCoreurl='MadRabbit_amd'
+		rabbitVersion='latest'
+		echo -e "准备安装 \033[37m amd版本... \033[0m"
+	fi
+
+	echo "检查Docker是否已安装……"
+	docker -v
+	if [ $? -ne 0 ]; then
+		echo "检测到Docker未安装！"
+		echo
+		echo " ***** 开始安装 docker 工具 ***** "
+		sudo yum update
+		#判断系统
+		if [ $? -eq 0 ]; then
+			yum -y install docker
+			service docker start
+		else
+			sudo apt-get install -y docker.io
+			systemctl start docker
+			systemctl enable docker
+			systemctl status docker
+		fi
+		docker -v
+		if [ $? -ne 0 ]; then
+			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
+			exit 0
+		else
+			echo " ***** 安装 docker 工具完成 ***** "
+			echo "docker 已安装！"
+		fi
+	fi
+	echo "docker 已安装！"
+	check_Dockermirror
+
+	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
+	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
+	if [ $? -ne 0 ]; then
+		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
+	else
+		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
+		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
+		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
+		echo -e "\033[43;37m 开始检测更新... \033[0m"
+		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https//你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+		#检测更新倒计时
+		Upgrade_Countdown
+		#更新检测
+		update
+	fi
+}
+
+function container_install_gw() {
+	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
+	if [ -z "${rabbitPort}" ]; then
+		rabbitPort='5701'
+	fi
+	osCore=$(uname -m)
+	osArm1='arm'
+	osArm2='aarch'
+	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
+	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
+		osCoreurl='MadRabbit_arm'
+		rabbitVersion='arm'
+		echo -e "准备安装 \033[37m arm版本... \033[0m"
+	else
+		osCoreurl='MadRabbit_amd'
+		rabbitVersion='latest'
+		echo -e "准备安装 \033[37m amd版本... \033[0m"
+	fi
+
+	echo "检查Docker是否已安装……"
+	docker -v
+	if [ $? -ne 0 ]; then
+		echo "检测到Docker未安装！"
+		echo
+		echo " ***** 开始安装 docker 工具 ***** "
+		sudo yum update
+		#判断系统
+		if [ $? -eq 0 ]; then
+			yum -y install docker
+			service docker start
+		else
+			sudo apt-get install -y docker.io
+			systemctl start docker
+			systemctl enable docker
+			systemctl status docker
+		fi
+		docker -v
+		if [ $? -ne 0 ]; then
+			echo -e "\033[41;37m 下载失败...退出脚本 \033[0m"
+			exit 0
+		else
+			echo " ***** 安装 docker 工具完成 ***** "
+			echo "docker 已安装！"
+		fi
+	fi
+	echo "docker 已安装！"
+
+	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
+	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
+	if [ $? -ne 0 ]; then
+		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
+	else
+		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
+		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
+		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
+		echo -e "\033[43;37m 开始检测更新... \033[0m"
+		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https//你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+		#检测更新倒计时
+		Upgrade_Countdown
+		#更新检测
+		update
+	fi
+}
+function container_install_sy() {
+	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
+	if [ -z "${rabbitPort}" ]; then
+		rabbitPort='5701'
+	fi
+	osCore=$(uname -m)
+	osArm1='arm'
+	osArm2='aarch'
+	echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
+	if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
+		osCoreurl='MadRabbit_arm'
+		rabbitVersion='arm'
+		echo -e "准备安装 \033[37m arm版本... \033[0m"
+	else
+		osCoreurl='MadRabbit_amd'
+		rabbitVersion='latest'
+		echo -e "准备安装 \033[37m amd版本... \033[0m"
+	fi
+
+	echo "检查Docker是否已安装……"
+	docker -v
+	if [ $? -ne 0 ]; then
+		echo "未检测到Docker！退出安装"
+		exit 0
+	fi
+	echo "docker 已安装！"
+
+	echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
+	sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
+	if [ $? -ne 0 ]; then
+		echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
+	else
+		echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
+		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
+		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
+		echo -e "\033[43;37m 开始检测更新... \033[0m"
+		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https//你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+		#检测更新倒计时
+		Upgrade_Countdown
+		#更新检测
+		update
+	fi
+}
 system_Judgment
