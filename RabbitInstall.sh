@@ -7,12 +7,12 @@ DATE:2022-09-29
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.5
+VERSION:1.0.6
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.5'
+vVersion='1.0.6'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -58,7 +58,7 @@ $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
 $(echo -e "\033[32m 【1】更新\033[0m")
 
-$(echo -e "\033[32m 【2】卸载（暂未实装）\033[0m")
+$(echo -e "\033[32m 【2】卸载\033[0m")
 
 $(echo -e "\033[31m 【3】退出\033[0m")
 
@@ -73,8 +73,18 @@ eof
 		;;
 
 	2)
-		echo -e "\033[42;37m 该功能尚未实装\033[0m"
-		Cloud_utils_menu
+		echo -e "\033[41;33m 是否确认卸载rabbit(y/n)\033[0m" && read rabbitDelete
+                case $rabbitDelete in
+                [yY])
+                     echo -e "\033[33m 开始卸载\033[0m"
+                     docker rm -f rabbit
+                     ;;
+                   *)
+                     echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+                     Cloud_utils_menu
+                     ;;
+                   esac
+
 		;;
 	3)
 		exit 0
@@ -223,7 +233,7 @@ $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
 $(echo -e "\033[32m 【1】更新\033[0m")
 
-$(echo -e "\033[32m 【2】卸载（暂未实装）\033[0m")
+$(echo -e "\033[32m 【2】卸载\033[0m")
 
 $(echo -e "\033[31m 【3】退出\033[0m")
 
@@ -238,8 +248,17 @@ eof
 		;;
 
 	2)
-		echo -e "\033[42;37m 该功能尚未实装\033[0m"
-		Synology_utils_menu
+		echo -e "\033[41;33m 是否确认卸载rabbit(y/n)\033[0m" && read rabbitDelete
+                case $rabbitDelete in
+                [yY])
+                     echo -e "\033[33m 开始卸载\033[0m"
+                     docker rm -f rabbit
+                     ;;
+                   *)
+                     echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+                     Synology_utils_menu
+                     ;;
+                   esac
 		;;
 	3)
 		exit 0
