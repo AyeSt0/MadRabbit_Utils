@@ -3,7 +3,7 @@
 <<INFO
 SCRIPYT:RabbitInstall.sh
 AUTHOR:AyeSt0
-DATE:2022-09-28
+DATE:2022-09-29
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
