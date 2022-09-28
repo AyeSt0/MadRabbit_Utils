@@ -1,4 +1,5 @@
 #!/bin/bash
+#!/bin/sh
 <<INFO
 SCRIPYT:RabbitInstall.sh
 AUTHOR:AyeSt0
@@ -6,12 +7,12 @@ DATE:2022-09-28
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.4
+VERSION:1.0.5
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.4'
+vVersion='1.0.5'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -934,9 +935,9 @@ function check_Dockermirror() {
 	if [ $? -ne 0 ]; then
 		echo -e "\033[41;37m 未检测到镜像源配置 \033[0m"
 
-		echo -e "\033[33m 是否配置国内镜像源(y/n)【默认y】 \033[0m" && read rabbitDockerconfig
+		echo -e "\033[33m 是否配置国内镜像源(y/n)【默认n】 \033[0m" && read rabbitDockerconfig
 		if test -z "$rabbitDockerconfig"; then
-			rabbitDockerconfig='y'
+			rabbitDockerconfig='n'
 		fi
 		case $rabbitDockerconfig in
 		[yY])
