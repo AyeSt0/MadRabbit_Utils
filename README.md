@@ -1,13 +1,13 @@
-# MadRabbit_Install使用指南
+# MadRabbit_Utils使用指南
 
 ## *MadRabbit作者地址：https://github.com/HT944/MadRabbit* 
-
+* 只是MadRabbit的普通用户，心血来潮做的一键，除购买Rabbit授权以外，与MadRabbit没有任何经济往来
 * 初写，不太完善，在改进中，可以反馈  
 * 目前只测试了centos  x86_64(amd) 单青龙
 >理论上适配了arm，如有问题期待反馈
 * 群晖写了，没测试过,可以运行国内鸡测试  
 * 侵删
-## Rabbit一键安装命令
+## Rabbit一键命令
  
 **如提示curl command not found，请先安装curl**  
 ~~最近改代码较勤快，可以等稳定了再来~~
