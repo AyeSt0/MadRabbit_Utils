@@ -1,17 +1,18 @@
 #!/bin/bash
+#!/bin/sh
 <<INFO
-SCRIPYT:RabbitInstall:test.sh
+SCRIPYT:RabbitUtils:test.sh
 AUTHOR:AyeSt0
-DATE:2022-09-28
+DATE:2022-09-29
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.2T
+VERSION:1.0.10T
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.2T'
+vVersion='1.1.0T'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -23,7 +24,7 @@ function system_Judgment() {
 		if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
 			echo -e "\033[42;37m 检测到rabbit容器\033[0m   启动一键管理脚本>>>>>>>>>>>>"
 			#Sy_Admin
-			Management_Countdown5
+			#Management_Countdown5
 			echo -e "\033[42;37m 群晖一键管理脚本\033[0m   启动>>>>>>>>>>>>"
 			Synology_utils_menu
 		else
@@ -35,7 +36,7 @@ function system_Judgment() {
 		if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
 			echo -e "\033[42;37m 检测到rabbit容器\033[0m   启动一键管理脚本>>>>>>>>>>>>"
 			#Cl_Admin
-			Management_Countdown5
+			#Management_Countdown5
 			echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   启动>>>>>>>>>>>>"
 			Cloud_utils_menu
 		else
@@ -53,27 +54,37 @@ $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
 $(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
-$(echo -e "\033[33m 请选择您的Rabbit运行环境or更新\033[0m")
+$(echo -e "\033[33m 请选择合适的选项\033[0m")
 
 $(echo -e "\033[32m 【1】更新\033[0m")
 
-$(echo -e "\033[32m 【2】卸载（暂未实装）\033[0m")
+$(echo -e "\033[32m 【2】卸载\033[0m")
 
-$(echo -e "\033[31m 【3】退出安装\033[0m")
+$(echo -e "\033[31m 【3】退出\033[0m")
 
 eof
 
-	read -p "请输入对应选项的数字：" num1
+	read -p "请输入对应选项的数字：" enum1
 
-	case $num1 in
+	case $enum1 in
 
 	1)
 		update
 		;;
 
 	2)
-		echo -e "\033[42;37m 该功能尚未实装\033[0m"
-		Cloud_utils_menu
+		echo -e "\033[41;33m 是否确认卸载rabbit(y/n)\033[0m" && read rabbitDelete
+                case $rabbitDelete in
+                [yY])
+                     echo -e "\033[33m 开始卸载\033[0m"
+                     docker rm -f rabbit
+                     ;;
+                   *)
+                     echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+                     Cloud_utils_menu
+                     ;;
+                   esac
+
 		;;
 	3)
 		exit 0
@@ -218,27 +229,36 @@ $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
 $(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
-$(echo -e "\033[33m 请选择\033[0m")
+$(echo -e "\033[33m 请选择合适的选项\033[0m")
 
 $(echo -e "\033[32m 【1】更新\033[0m")
 
-$(echo -e "\033[32m 【2】卸载（暂未实装）\033[0m")
+$(echo -e "\033[32m 【2】卸载\033[0m")
 
-$(echo -e "\033[31m 【3】退出安装\033[0m")
+$(echo -e "\033[31m 【3】退出\033[0m")
 
 eof
 
-	read -p "请输入对应选项的数字：" num1
+	read -p "请输入对应选项的数字：" enum2
 
-	case $num1 in
+	case $enum2 in
 
 	1)
 		update
 		;;
 
 	2)
-		echo -e "\033[42;37m 该功能尚未实装\033[0m"
-		Synology_utils_menu
+		echo -e "\033[41;33m 是否确认卸载rabbit(y/n)\033[0m" && read rabbitDelete
+                case $rabbitDelete in
+                [yY])
+                     echo -e "\033[33m 开始卸载\033[0m"
+                     docker rm -f rabbit
+                     ;;
+                   *)
+                     echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+                     Synology_utils_menu
+                     ;;
+                   esac
 		;;
 	3)
 		exit 0
@@ -885,17 +905,20 @@ function update() {
 	rRabbitPort=${checkRabbitport##*:}
 	checkVersion=$(curl -s http://127.0.0.1:$rRabbitPort/api/version)
 	#echo "$checkVersion"
-	rVersion=${checkVersion:0-7:5}
-	echo "当前版本为$rVersion"
+	localVersion=${checkVersion:0-7:5}
+	echo "当前版本为$localVersion"
 	echo "检查更新..."
-	rUpdate=$(curl -s http://127.0.0.1:$rRabbitPort/api/update)
-	canUpdate=${rUpdate#*h1\>}
-	cannotUpdate='404'
-	if [[ $canUpdate =~ $cannotUpdate ]]; then
+        
+	latestVersion=$(curl -s https://raw.githubusercontent.com/HT944/MadRabbit/main/version)
+	echo -e "最新版本为$latestVersion"
+	if [[ $latestVersion =~ $localVersion ]]; then
 		echo -e "当前已为最新版本"
 	else
 		echo -e "\033[42;37m 开始更新 \033[0m"
-		curl -s http://127.0.0.1:$rRabbitPort/api/update
+		docker exec -it rabbit git pull
+		echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m请稍后自行检查版本"
+		docker restart rabbit
+		#curl -s http://127.0.0.1:$rRabbitPort/api/update
 	fi
 
 	#docker exec -it rabbit bash
@@ -924,61 +947,22 @@ function Upgrade_Countdown() {
 		sleep 1
 	done
 }
-
+#检测国内镜像源
 function check_Dockermirror() {
 	echo "检查Docker国内镜像源……"
 	cat /etc/docker/daemon.json
 	if [ $? -ne 0 ]; then
 		echo -e "\033[41;37m 未检测到镜像源配置 \033[0m"
 
-		echo -e "\033[33m 是否配置国内镜像源(y/n)【默认y】 \033[0m" && read rabbitDockerconfig
+		echo -e "\033[33m 是否配置国内镜像源(y/n)【默认n】 \033[0m" && read rabbitDockerconfig
 		if test -z "$rabbitDockerconfig"; then
-			rabbitDockerconfig='y'
+			rabbitDockerconfig='n'
 		fi
 		case $rabbitDockerconfig in
 		[yY])
-			echo -e "\033[42;37m 开始配置国内镜像源\033[0m"
 			dockerConfigpath="/etc/docker/daemon.json"
 			touch dockerConfigpath
-			echo -e "1.中国区官方镜像源
-			2.网易镜像源
-			3.中国科学技术大学镜像源
-			\033[33m 请选择镜像源【默认1】 \033[0m" && read rabbitDockerconfnum
-			if test -z "$rabbitDockerconfnum"; then
-				rabbitDockerconfnum='1'
-			fi
-			case $rabbitDockerconfnum in
-			1)
-				echo '{
-"registry-mirrors": ["https://registry.docker-cn.com"]
-}' >dockerConfigpath
-				if [ $? -ne 0 ]; then
-					echo -e "\033[41;37m 配置失败 \033[0m"
-				else
-					echo -e "\033[42;37m 中国区官方镜像源 设置成功 \033[0m"
-				fi
-				;;
-			2)
-				echo '{
-"registry-mirrors": ["http://hub-mirror.c.163.com"]
-}' >dockerConfigpath
-				if [ $? -ne 0 ]; then
-					echo -e "\033[41;37m 配置失败 \033[0m"
-				else
-					echo -e "\033[42;37m 网易镜像源 设置成功 \033[0m"
-				fi
-				;;
-			3)
-				echo '{
-"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
-}' >dockerConfigpath
-				if [ $? -ne 0 ]; then
-					echo -e "\033[41;37m 配置失败 \033[0m"
-				else
-					echo -e "\033[42;37m 中国科学技术大学镜像源 设置成功 \033[0m"
-				fi
-				;;
-			esac
+			conf_Dockermirror
 			;;
 		*)
 			echo -e "\033[42;37m 跳过配置\033[0m"
@@ -988,6 +972,53 @@ function check_Dockermirror() {
 		echo -e "\033[42;37m 检测到国内镜像源，跳过配置\033[0m"
 	fi
 }
+#配置镜像源
+function conf_Dockermirror() {
+	echo -e "\033[42;37m 开始配置国内镜像源\033[0m"
+	echo -e "1.中国科学技术大学镜像源
+	2.网易镜像源
+	3.中国区官方镜像源
+	\033[33m 请选择镜像源【默认1】 \033[0m" && read rabbitDockerconfnum
+	if test -z "$rabbitDockerconfnum"; then
+		rabbitDockerconfnum='1'
+	fi
+	case $rabbitDockerconfnum in
+	1)
+		echo '{
+"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+}' >dockerConfigpath
+		if [ $? -ne 0 ]; then
+			echo -e "\033[41;37m 配置失败 \033[0m"
+		else
+			echo -e "\033[42;37m 中国科学技术大学镜像源 设置成功 \033[0m"
+		fi
+		;;
+	2)
+		echo '{
+"registry-mirrors": ["http://hub-mirror.c.163.com"]
+}' >dockerConfigpath
+		if [ $? -ne 0 ]; then
+			echo -e "\033[41;37m 配置失败 \033[0m"
+		else
+			echo -e "\033[42;37m 网易镜像源 设置成功 \033[0m"
+		fi
+		;;
+	3)
+		echo '{
+"registry-mirrors": ["https://registry.docker-cn.com"]
+}' >dockerConfigpath
+		if [ $? -ne 0 ]; then
+			echo -e "\033[41;37m 配置失败 \033[0m"
+		else
+			echo -e "\033[42;37m 中国区官方镜像源 设置成功 \033[0m"
+		fi
+		;;
+	*)
+		echo -e "\033[42;37m 输入错误，请重新选择\033[0m"
+		conf_Dockermirror
+	esac
+}
+
 #安装路径
 #云服务器安装路径
 function clpath_choise() {
