@@ -15,13 +15,13 @@
 
 ### 国内鸡
 ```bash
-bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
+bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitInstall.sh)
 ```
 >**如果无法下载，请自行更换加速站前缀，亦或者自建加速站  
 教程[指路](https://www.kejiwanjia.com/jiaocheng/105320.html)**
 ### 国外鸡
 ```bash
-bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Install/master/RabbitInstall.sh)
+bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitInstall.sh)
 ```
 ## 不切实际的未来计划
 * *完善脚本，让脚本能循环利用😀*  
