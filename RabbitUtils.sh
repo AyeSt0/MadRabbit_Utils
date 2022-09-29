@@ -1,7 +1,7 @@
 #!/bin/bash
 #!/bin/sh
 <<INFO
-SCRIPYT:RabbitInstall.sh
+SCRIPYT:RabbitUtils.sh
 AUTHOR:AyeSt0
 DATE:2022-09-29
 DESCRIBE:One click installation of rabbit
