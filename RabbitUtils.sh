@@ -7,12 +7,12 @@ DATE:2022-09-29
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.9
+VERSION:1.0.9:20220929
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.9'
+vVersion='1.1.0'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -947,7 +947,7 @@ function Upgrade_Countdown() {
 		sleep 1
 	done
 }
-
+#检测国内镜像源
 function check_Dockermirror() {
 	echo "检查Docker国内镜像源……"
 	cat /etc/docker/daemon.json
@@ -960,48 +960,9 @@ function check_Dockermirror() {
 		fi
 		case $rabbitDockerconfig in
 		[yY])
-			echo -e "\033[42;37m 开始配置国内镜像源\033[0m"
 			dockerConfigpath="/etc/docker/daemon.json"
 			touch dockerConfigpath
-			echo -e "1.中国区官方镜像源
-			2.网易镜像源
-			3.中国科学技术大学镜像源
-			\033[33m 请选择镜像源【默认1】 \033[0m" && read rabbitDockerconfnum
-			if test -z "$rabbitDockerconfnum"; then
-				rabbitDockerconfnum='1'
-			fi
-			case $rabbitDockerconfnum in
-			1)
-				echo '{
-"registry-mirrors": ["https://registry.docker-cn.com"]
-}' >dockerConfigpath
-				if [ $? -ne 0 ]; then
-					echo -e "\033[41;37m 配置失败 \033[0m"
-				else
-					echo -e "\033[42;37m 中国区官方镜像源 设置成功 \033[0m"
-				fi
-				;;
-			2)
-				echo '{
-"registry-mirrors": ["http://hub-mirror.c.163.com"]
-}' >dockerConfigpath
-				if [ $? -ne 0 ]; then
-					echo -e "\033[41;37m 配置失败 \033[0m"
-				else
-					echo -e "\033[42;37m 网易镜像源 设置成功 \033[0m"
-				fi
-				;;
-			3)
-				echo '{
-"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
-}' >dockerConfigpath
-				if [ $? -ne 0 ]; then
-					echo -e "\033[41;37m 配置失败 \033[0m"
-				else
-					echo -e "\033[42;37m 中国科学技术大学镜像源 设置成功 \033[0m"
-				fi
-				;;
-			esac
+			conf_Dockermirror
 			;;
 		*)
 			echo -e "\033[42;37m 跳过配置\033[0m"
@@ -1011,6 +972,53 @@ function check_Dockermirror() {
 		echo -e "\033[42;37m 检测到国内镜像源，跳过配置\033[0m"
 	fi
 }
+#配置镜像源
+function conf_Dockermirror() {
+	echo -e "\033[42;37m 开始配置国内镜像源\033[0m"
+	echo -e "1.中国科学技术大学镜像源
+	2.网易镜像源
+	3.中国区官方镜像源
+	\033[33m 请选择镜像源【默认1】 \033[0m" && read rabbitDockerconfnum
+	if test -z "$rabbitDockerconfnum"; then
+		rabbitDockerconfnum='1'
+	fi
+	case $rabbitDockerconfnum in
+	1)
+		echo '{
+"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+}' >dockerConfigpath
+		if [ $? -ne 0 ]; then
+			echo -e "\033[41;37m 配置失败 \033[0m"
+		else
+			echo -e "\033[42;37m 中国科学技术大学镜像源 设置成功 \033[0m"
+		fi
+		;;
+	2)
+		echo '{
+"registry-mirrors": ["http://hub-mirror.c.163.com"]
+}' >dockerConfigpath
+		if [ $? -ne 0 ]; then
+			echo -e "\033[41;37m 配置失败 \033[0m"
+		else
+			echo -e "\033[42;37m 网易镜像源 设置成功 \033[0m"
+		fi
+		;;
+	3)
+		echo '{
+"registry-mirrors": ["https://registry.docker-cn.com"]
+}' >dockerConfigpath
+		if [ $? -ne 0 ]; then
+			echo -e "\033[41;37m 配置失败 \033[0m"
+		else
+			echo -e "\033[42;37m 中国区官方镜像源 设置成功 \033[0m"
+		fi
+		;;
+	*)
+		echo -e "\033[42;37m 输入错误，请重新选择\033[0m"
+		conf_Dockermirror
+	esac
+}
+
 #安装路径
 #云服务器安装路径
 function clpath_choise() {
