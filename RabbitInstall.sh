@@ -7,12 +7,12 @@ DATE:2022-09-29
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.6
+VERSION:1.0.7
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.6'
+vVersion='1.0.7'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -64,9 +64,9 @@ $(echo -e "\033[31m 【3】退出\033[0m")
 
 eof
 
-	read -p "请输入对应选项的数字：" num1
+	read -p "请输入对应选项的数字：" enum1
 
-	case $num1 in
+	case $enum1 in
 
 	1)
 		update
@@ -239,9 +239,9 @@ $(echo -e "\033[31m 【3】退出\033[0m")
 
 eof
 
-	read -p "请输入对应选项的数字：" num1
+	read -p "请输入对应选项的数字：" enum2
 
-	case $num1 in
+	case $enum2 in
 
 	1)
 		update
