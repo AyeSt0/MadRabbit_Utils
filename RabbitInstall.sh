@@ -7,12 +7,12 @@ DATE:2022-09-29
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.8
+VERSION:1.0.9
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.0.8'
+vVersion='1.0.9'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -24,7 +24,7 @@ function system_Judgment() {
 		if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
 			echo -e "\033[42;37m 检测到rabbit容器\033[0m   启动一键管理脚本>>>>>>>>>>>>"
 			#Sy_Admin
-			Management_Countdown5
+			#Management_Countdown5
 			echo -e "\033[42;37m 群晖一键管理脚本\033[0m   启动>>>>>>>>>>>>"
 			Synology_utils_menu
 		else
@@ -36,7 +36,7 @@ function system_Judgment() {
 		if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
 			echo -e "\033[42;37m 检测到rabbit容器\033[0m   启动一键管理脚本>>>>>>>>>>>>"
 			#Cl_Admin
-			Management_Countdown5
+			#Management_Countdown5
 			echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   启动>>>>>>>>>>>>"
 			Cloud_utils_menu
 		else
@@ -905,29 +905,21 @@ function update() {
 	rRabbitPort=${checkRabbitport##*:}
 	checkVersion=$(curl -s http://127.0.0.1:$rRabbitPort/api/version)
 	#echo "$checkVersion"
-	rVersion=${checkVersion:0-7:5}
-	echo "当前版本为$rVersion"
+	localVersion=${checkVersion:0-7:5}
+	echo "当前版本为$localVersion"
 	echo "检查更新..."
-        echo "当前版本rabbit暂未提供远程版本号，将直接尝试更新"
-
-        echo -e "\033[42;37m 开始更新 \033[0m"
-	docker exec -it rabbit git pull
-	echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m请稍后自行检查版本"
-	docker restart rabbit
-	#curl -s http://127.0.0.1:$rRabbitPort/api/update
-
-	#rUpdate=$(curl -s http://127.0.0.1:$rRabbitPort/api/update)
-	#canUpdate=${rUpdate#*h1\>}
-	#cannotUpdate='404'
-	#if [[ $canUpdate =~ $cannotUpdate ]]; then
-	#	echo -e "当前已为最新版本"
-	#else
-	#	echo -e "\033[42;37m 开始更新 \033[0m"
-	#	docker exec -it rabbit git pull
-	#	echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m请稍后自行检查版本"
-	#	docker restart rabbit
-	#	#curl -s http://127.0.0.1:$rRabbitPort/api/update
-	#fi
+        
+	latestVersion=$(curl -s https://raw.githubusercontent.com/HT944/MadRabbit/main/version)
+	echo -e "最新版本为$latestVersion"
+	if [[ $latestVersion =~ $localVersion ]]; then
+		echo -e "当前已为最新版本"
+	else
+		echo -e "\033[42;37m 开始更新 \033[0m"
+		docker exec -it rabbit git pull
+		echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m请稍后自行检查版本"
+		docker restart rabbit
+		#curl -s http://127.0.0.1:$rRabbitPort/api/update
+	fi
 
 	#docker exec -it rabbit bash
 	#git pull
