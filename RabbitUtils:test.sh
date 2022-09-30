@@ -1,18 +1,18 @@
 #!/bin/bash
 #!/bin/sh
 <<INFO
-SCRIPYT:RabbitUtils:test.sh
+SCRIPYT:RabbitUtils.sh
 AUTHOR:AyeSt0
-DATE:2022-09-29
+DATE:2022-10-01
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.0.10T
+VERSION:1.1.1国庆特别版
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.1.0T'
+vVersion='1.1.1国庆特别版'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -52,7 +52,7 @@ function Cloud_utils_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
@@ -100,7 +100,7 @@ function Cloud_install_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择您的Rabbit运行环境or更新\033[0m")
 
@@ -227,7 +227,7 @@ function Synology_utils_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
@@ -274,7 +274,7 @@ function Synology_install_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择\033[0m")
 
@@ -1095,11 +1095,30 @@ function confDownload_proxy() {
 
 	fi
 }
-function container_install_gn() {
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
+#容器端口设置
+function container_port_settings(){
+    echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
 	if [ -z "${rabbitPort}" ]; then
 		rabbitPort='5701'
 	fi
+	echo -e "\033[31m 确认端口设为$rabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
+	if [ -z "${rabbitPortjudge}" ]; then
+		rabbitPortjudge='n'
+	fi
+	case $rabbitPortjudge in
+	[yY])
+	    echo -e "\033[42;37m 端口已设为$rabbitPort\033[0m"
+	    ;;
+	   *)
+	    echo -e "\033[41;37m 返回重设端口 \033[0m"
+	    container_port_settings
+	esac
+}
+
+function container_install_gn() {
+	#容器端口设置
+	container_port_settings
+	
 	osCore=$(uname -m)
 	osArm1='arm'
 	osArm2='aarch'
@@ -1152,7 +1171,7 @@ function container_install_gn() {
 		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
 		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
 		echo -e "\033[43;37m 开始检测更新... \033[0m"
-		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https//你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
 		#检测更新倒计时
 		Upgrade_Countdown
 		#更新检测
@@ -1161,10 +1180,9 @@ function container_install_gn() {
 }
 
 function container_install_gw() {
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
+	#容器端口设置
+	container_port_settings
+	
 	osCore=$(uname -m)
 	osArm1='arm'
 	osArm2='aarch'
@@ -1216,7 +1234,7 @@ function container_install_gw() {
 		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
 		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
 		echo -e "\033[43;37m 开始检测更新... \033[0m"
-		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https//你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
 		#检测更新倒计时
 		Upgrade_Countdown
 		#更新检测
@@ -1224,10 +1242,9 @@ function container_install_gw() {
 	fi
 }
 function container_install_sy() {
-	echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
-	if [ -z "${rabbitPort}" ]; then
-		rabbitPort='5701'
-	fi
+	#容器端口设置
+	container_port_settings
+	
 	osCore=$(uname -m)
 	osArm1='arm'
 	osArm2='aarch'
@@ -1259,7 +1276,7 @@ function container_install_sy() {
 		echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
 		echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
 		echo -e "\033[43;37m 开始检测更新... \033[0m"
-		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https//你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+		echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
 		#检测更新倒计时
 		Upgrade_Countdown
 		#更新检测
