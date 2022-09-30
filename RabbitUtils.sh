@@ -52,7 +52,7 @@ function Cloud_utils_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion      by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
@@ -100,7 +100,7 @@ function Cloud_install_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion      by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择您的Rabbit运行环境or更新\033[0m")
 
@@ -227,7 +227,7 @@ function Synology_utils_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion      by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
@@ -274,7 +274,7 @@ function Synology_install_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion      by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择\033[0m")
 
