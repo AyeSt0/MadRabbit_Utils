@@ -3,7 +3,7 @@
 <<INFO
 SCRIPYT:RabbitUtils.sh
 AUTHOR:AyeSt0
-DATE:2022-09-30
+DATE:2022-10-01
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
@@ -52,7 +52,7 @@ function Cloud_utils_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
@@ -100,7 +100,7 @@ function Cloud_install_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择您的Rabbit运行环境or更新\033[0m")
 
@@ -227,7 +227,7 @@ function Synology_utils_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键管理脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
@@ -274,7 +274,7 @@ function Synology_install_menu() {
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     欢迎使用【Rabbit一键安装脚本】    |\033[0m")
-$(echo -e "\033[36m|    v$vVersion                 by AyeSt0   |\033[0m")
+$(echo -e "\033[36m|    v$vVersion           by AyeSt0   |\033[0m")
 $(echo -e "\033[36m----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择\033[0m")
 
