@@ -7,12 +7,12 @@ DATE:2022-10-17
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.1.4
+VERSION:1.1.5
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.1.4'
+vVersion='1.1.5'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -1414,7 +1414,7 @@ function uninstall() {
                 echo -e "\033[33m 清除配置路径文件\033[0m"
                 rm -rf Rabbit/
                 echo -e "\033[33m 卸载镜像\033[0m"
-                docker rmi ht944/rabbit:latest
+                uninstall_imageJudge
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
@@ -1450,7 +1450,7 @@ function uninstall() {
                 echo -e "\033[33m 卸载容器\033[0m"
                 docker rm -f rabbit
                 echo -e "\033[33m 卸载镜像\033[0m"
-                docker rmi ht944/rabbit:latest
+                uninstall_imageJudge
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
@@ -1472,5 +1472,15 @@ function uninstall() {
     esac
 
 }
-
+function uninstall_imageJudge(){
+    osCore=$(uname -m)
+    osArm1='arm'
+    osArm2='aarch'
+    echo -e "检测内核为 \033[34m $osCore \033[0m "
+    if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
+        docker rmi ht944/rabbit:arm
+    else
+        docker rmi ht944/rabbit:latest
+    fi
+}
 system_Judgment
