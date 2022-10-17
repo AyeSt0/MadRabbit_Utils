@@ -3,16 +3,16 @@
 <<INFO
 SCRIPYT:RabbitUtils.sh
 AUTHOR:AyeSt0
-DATE:2022-10-08
+DATE:2022-10-17
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.1.2
+VERSION:1.1.3
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.1.2'
+vVersion='1.1.3'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -538,9 +538,11 @@ function configquick() {
         #修改配置文件强制使用特殊验证码
 
         echo -e "\033[33m 如使用打码平台，请改成false \033[0m"
-        echo -e "\033[33m 是否强制使用特殊验证码(true/false)【默认false】 \033[0m" && read rabbitForcecaptcha
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，故默认改为true \033[0m"
+ 
+        echo -e "\033[33m 是否强制使用特殊验证码(true/false)【默认true】 \033[0m" && read rabbitForcecaptcha
         if test -z "$rabbitForcecaptcha"; then
-            rabbitForcecaptcha='false'
+            rabbitForcecaptcha='true'
         fi
         sed -i "/FORCE_CAPTCHA/s/true/$rabbitForcecaptcha/g" "$rabbitAbsolutepath"/Rabbit/Config/Config.json
         if test $? -ne 0; then
@@ -1195,6 +1197,7 @@ function container_install_gn() {
         echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请到配置文件修改FORCE_CAPTCHA内容为true \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
@@ -1258,6 +1261,7 @@ function container_install_gw() {
         echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请到配置文件修改FORCE_CAPTCHA内容为true \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
@@ -1300,6 +1304,7 @@ function container_install_sy() {
         echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请到配置文件修改FORCE_CAPTCHA内容为true，并在相应原对接地址后加/rabbit \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
@@ -1388,21 +1393,73 @@ function uninstall() {
         fi
         case $rabbitDeletefile in
         [yY])
-            echo -e "\033[33m 开始卸载\033[0m"
-            container_info=$(docker inspect rabbit | grep Mounts -A 20)
-            container_info_cut=${container_info#*\"Source\": \"}
-            container_path=${container_info_cut%%\"*}
-            cd $container_path || exit
-            cd ..
-            cd ..
-            docker rm -f rabbit
-            rm -rf Rabbit/
+            echo -e "\033[41;33m 是否同时卸载rabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+             if [ -z "${rabbitimageDelete}" ]; then
+            rabbitimageDelete='n'
+            echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，清除配置路径文件\033[0m"
+                container_info=$(docker inspect rabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                echo -e "\033[33m 卸载镜像\033[0m"
+                docker rmi ht944/rabbit:latest
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
+                container_info=$(docker inspect rabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                ;;
+            esac
             echo -e "\033[33m 卸载完成\033[0m"
             exit 0
             ;;
         *)
-            echo -e "\033[33m 仅卸载容器，保留配置路径\033[0m"
-            docker rm -f rabbit
+            echo -e "\033[41;33m 是否同时卸载rabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+             if [ -z "${rabbitimageDelete}" ]; then
+            rabbitimageDelete='n'
+            echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，保留配置路径文件\033[0m"
+                
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 卸载镜像\033[0m"
+                docker rmi ht944/rabbit:latest
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                ;;
+            esac
             echo -e "\033[33m 卸载完成\033[0m"
             exit 0
             ;;
