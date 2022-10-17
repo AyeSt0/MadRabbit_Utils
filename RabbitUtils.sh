@@ -1197,7 +1197,7 @@ function container_install_gn() {
         echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
-        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请到在原对接地址后加/rabbit \033[0m"
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请在原对接地址后加/rabbit \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
@@ -1304,7 +1304,7 @@ function container_install_sy() {
         echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
-        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请到配置文件修改FORCE_CAPTCHA内容为true，并在相应原对接地址后加/rabbit \033[0m"
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请在原对接地址后加/rabbit \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
