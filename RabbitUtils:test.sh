@@ -1943,8 +1943,8 @@ function update_madrabbit() {
             echo -e "当前已为最新版本"
         else
             echo -e "\033[42;37m 开始更新 \033[0m"
-            docker exec -it rabbit git pull
-            docker restart rabbit
+            docker exec -it madrabbit git pull
+            docker restart madrabbit
             echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m可稍后重新运行脚本察看版本号"
         fi
     fi
@@ -2267,22 +2267,21 @@ function container_install_gn() {
     fi
     echo "docker 已安装！"
     check_Dockermirror
-
+    madRabbitName='madrabbit'
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    if [ RabbitImageName = "madrabbit" ]; then
+    if [[ n$RabbitImageName =~ $madRabbitName ]]; then
         sudo docker run --name $RabbitImageName -p $madRabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/FastRabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     else
-    sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+        sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     fi
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
         echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
         echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-        echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
+        echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart $RabbitImageName\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
-        echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
-        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请在原对接地址后加/rabbit \033[0m"
+        echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的$RabbitImageName地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
@@ -2337,7 +2336,8 @@ function container_install_gw() {
     echo "docker 已安装！"
 
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    if [ RabbitImageName = "madrabbit" ]; then
+    madRabbitName='madrabbit'
+    if [[ $RabbitImageName =~ $madRabbitName ]]; then
         sudo docker run --name $RabbitImageName -p $madRabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/FastRabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     else
         sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
@@ -2347,9 +2347,9 @@ function container_install_gw() {
     else
         echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
         echo -e "\033[33m 请到$rabbitAbsolutepath/Rabbit/Config目录下修改配置文件 \033[0m"
-        echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
+        echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart $RabbitImageName\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
-        echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+        echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的$RabbitImageName地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
