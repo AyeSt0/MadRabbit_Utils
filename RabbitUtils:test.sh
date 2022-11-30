@@ -2263,7 +2263,11 @@ function container_install_gn() {
     check_Dockermirror
 
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
+    if [ RabbitImageName = "madrabbit" ]; then
+        sudo docker run --name $RabbitImageName -p $madRabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/FastRabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    else
     sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    fi
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -2327,8 +2331,8 @@ function container_install_gw() {
     echo "docker 已安装！"
 
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    if [ RabbitImageName = "madrabbit"]; then
-        sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/FastRabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    if [ RabbitImageName = "madrabbit" ]; then
+        sudo docker run --name $RabbitImageName -p $madRabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/FastRabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     else
         sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     fi
