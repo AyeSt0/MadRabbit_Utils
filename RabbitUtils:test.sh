@@ -3,77 +3,408 @@
 <<INFO
 SCRIPYT:RabbitUtils.sh
 AUTHOR:AyeSt0
-DATE:2022-10-08
+DATE:2022-11-30
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.1.2
+VERSION:1.2.0
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.1.2'
+vVersion='T1.2.0'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
     uNames=$(sudo uname -a)
     syosNames='synology'
-    containerName="rabbit"
+    fastRabbitContainerName="fastrabbit"
+    madRabbitContainerName="madrabbit"
+    rabbitcontainerName="rabbit"
     if [[ $uNames =~ $syosNames ]]; then
         echo -e "\033[32m 忙猜你是群晖\033[0m"
-        if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
-            echo -e "\033[42;37m 检测到rabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
-
+        if [[ -n $(docker ps -q -f "name=^${fastRabbitContainerName}$") ]]; then
+            echo -e "\033[42;37m 检测到fastrabbit容器\033[0m"
             #当前版本
-            rabbitLocalversion
-            echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
-            echo ""
-            echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
-            echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
-            echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
-            Synology_utils_menu
+            fastRabbitLocalversion
+            if [[ -n $(docker ps -q -f "name=^${madRabbitContainerName}$") ]]; then
+                echo -e "\033[42;37m 检测到madrabbit容器\033[0m"
+                #当前版本
+                madRabbitLocalversion
+                if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
+                    echo -e "\033[42;37m 检测到rabbit容器\033[0m"
+                    #当前版本
+                    rabbitLocalversion
+                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Synology_manage_main_menu
+                else
+                    #echo -e "\033[42;37m 未检测到rabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
+                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Synology_manage_main12_menu
+                fi
+            else
+                #echo -e "\033[42;37m 未检测到madrabbit容器\033[0m"
+                if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
+                    echo -e "\033[42;37m 检测到rabbit容器\033[0m"
+                    #当前版本
+                    rabbitLocalversion
+                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Synology_manage_main13_menu
+                else
+                    #echo -e "\033[42;37m 未检测到rabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
+                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Synology_manage_fastrabbit_menu
+                fi
+            fi
         else
-            echo -e "\033[42;37m 群晖一键安装脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
-            echo ""
-            echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
-            echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
-            echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
-            Synology_install_menu
+            #echo -e "\033[42;37m 未检测到fastrabbit容器\033[0m"
+            if [[ -n $(docker ps -q -f "name=^${madRabbitContainerName}$") ]]; then
+                echo -e "\033[42;37m 检测到madrabbit容器\033[0m"
+                #当前版本
+                madRabbitLocalversion
+                if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
+                    echo -e "\033[42;37m 检测到rabbit容器\033[0m"
+                    #当前版本
+                    rabbitLocalversion
+                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Synology_manage_main23_menu
+                else
+                    #echo -e "\033[42;37m 未检测到rabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
+                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Synology_manage_madrabbit_menu
+                fi
+            else
+                #echo -e "\033[42;37m 未检测到madrabbit容器\033[0m"
+                if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
+                    echo -e "\033[42;37m 检测到rabbit容器\033[0m"
+                    #当前版本
+                    rabbitLocalversion
+                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Synology_manage_rabbit_menu
+                else
+                    #echo -e "\033[42;37m 未检测到rabbit容器\033[0m"
+                    echo -e "\033[42;37m 群晖一键安装脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Synology_install_main_menu
+                fi
+            fi
         fi
+
     else
         echo -e "\033[32m 忙猜你是云服务器\033[0m"
-        if [[ -n $(docker ps -q -f "name=^${containerName}$") ]]; then
-            echo -e "\033[42;37m 检测到rabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
-
+        if [[ -n $(docker ps -q -f "name=^${fastRabbitContainerName}$") ]]; then
+            echo -e "\033[42;37m 检测到fastrabbit容器\033[0m"
             #当前版本
-            rabbitLocalversion
-
-            echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
-            echo ""
-            echo -e "\033[43;31m    未购买Rabbit授权是无法使用Rabbit的   \033[0m"
-            echo -e "\033[43;31m      具体购买请关注电报\033[1m@Rabbit_one\033[0m\033[43;31m      \033[0m"
-            echo -e "\033[43;35m    再次强调本人AyeSt0仅为一键脚本作者   \033[0m"
-            echo -e "\033[43;37m\033[1m        Rabbit相关请找Rabbit Mad         \033[0m\033[0m"
-            Cloud_utils_menu
+            fastRabbitLocalversion
+            if [[ -n $(docker ps -q -f "name=^${madRabbitContainerName}$") ]]; then
+                echo -e "\033[42;37m 检测到madrabbit容器\033[0m"
+                #当前版本
+                madRabbitLocalversion
+                if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
+                    echo -e "\033[42;37m 检测到rabbit容器\033[0m"
+                    #当前版本
+                    rabbitLocalversion
+                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Cloud_manage_main_menu
+                else
+                    #echo -e "\033[42;37m 未检测到rabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
+                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Cloud_manage_main12_menu
+                fi
+            else
+                #echo -e "\033[42;37m 未检测到madrabbit容器\033[0m"
+                if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
+                    echo -e "\033[42;37m 检测到rabbit容器\033[0m"
+                    #当前版本
+                    rabbitLocalversion
+                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Cloud_manage_main13_menu
+                else
+                    #echo -e "\033[42;37m 未检测到rabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
+                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Cloud_manage_fastrabbit_menu
+                fi
+            fi
         else
-            echo -e "\033[42;37m 云服务器一键安装脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
-            echo ""
-            echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
-            echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
-            echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
-            Cloud_install_menu
+            #echo -e "\033[42;37m 未检测到fastrabbit容器\033[0m"
+            if [[ -n $(docker ps -q -f "name=^${madRabbitContainerName}$") ]]; then
+                echo -e "\033[42;37m 检测到madrabbit容器\033[0m"
+                #当前版本
+                madRabbitLocalversion
+                if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
+                    echo -e "\033[42;37m 检测到rabbit容器\033[0m"
+                    #当前版本
+                    rabbitLocalversion
+                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Cloud_manage_main23_menu
+                else
+                    #echo -e "\033[42;37m 未检测到rabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
+                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Cloud_manage_madrabbit_menu
+                fi
+            else
+                #echo -e "\033[42;37m 未检测到madrabbit容器\033[0m"
+                if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
+                    echo -e "\033[42;37m 检测到rabbit容器\033[0m"
+                    #当前版本
+                    rabbitLocalversion
+                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Cloud_manage_rabbit_menu
+                else
+                    #echo -e "\033[42;37m 未检测到rabbit容器\033[0m"
+                    echo -e "\033[42;37m 云服务器一键安装脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+                    echo ""
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+                    Cloud_install_main_menu
+                fi
+            fi
         fi
     fi
 }
-function Cloud_utils_menu() {
 
+function Cloud_manage_main_menu() {
     cat <<eof
 
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
 $(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
-$(echo -e "\033[36m|          \033[1m\033[32m当前Rabbit版本 $localVersion\033[0m\033[0m         \033[36m|\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择管理版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num2
+
+    case $num2 in
+
+    1)
+        Cloud_manage_fastrabbit_menu
+        ;;
+
+    2)
+        Cloud_manage_madrabbit_menu
+        ;;
+
+    3)
+        Cloud_manage_rabbit_menu
+        ;;
+    4)
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Cloud_manage_main12_menu() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择管理版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【3】安装Rabbit\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num241
+
+    case $num241 in
+
+    1)
+        Cloud_manage_fastrabbit_menu
+        ;;
+
+    2)
+        Cloud_manage_madrabbit_menu
+        ;;
+
+    3)
+        RabbitImageName=rabbit
+        Cloud_install_menu_r
+        ;;
+    4)
+        exit 0
+        ;;
+
+    esac
+
+}
+function Cloud_manage_main13_menu() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择管理版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】安装MadRabbit（临时）\033[0m")
+
+$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num2
+
+    case $num2 in
+
+    1)
+        Cloud_manage_fastrabbit_menu
+        ;;
+
+    2)
+        RabbitImageName=madrabbit
+        Cloud_install_menu_mr
+        ;;
+
+    3)
+        Cloud_manage_rabbit_menu
+        ;;
+    4)
+        exit 0
+        ;;
+
+    esac
+
+}
+function Cloud_manage_main23_menu() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择管理版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】安装FastRabbit（未实装）\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num2
+
+    case $num2 in
+
+    1)
+        RabbitImageName=fastrabbit
+        Cloud_install_menu_fr
+        ;;
+
+    2)
+        Cloud_manage_madrabbit_menu
+        ;;
+
+    3)
+        Cloud_manage_rabbit_menu
+        ;;
+    4)
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Cloud_manage_fastrabbit_menu() {
+
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|   \033[1m欢迎使用【FastRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|        \033[1m\033[32m当前FastRabbit版本 $fastRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
@@ -83,22 +414,37 @@ $(echo -e "\033[32m\033[1m 【1】更新\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
-$(echo -e "\033[31m 【3】退出\033[0m")
+$(echo -e "\033[32m\033[1m 【3】安装MadRabbit（临时）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
+
+$(echo -e "\033[31m 【5】退出\033[0m")
 
 eof
 
-    read -p "请输入对应选项的数字：" enum1
+    read -p "请输入对应选项的数字：" num21
 
-    case $enum1 in
+    case $num21 in
 
     1)
-        update
+        update_fastRabbit
         ;;
 
     2)
-        uninstall
+        uninstall_cl_fastRabbit
         ;;
+
     3)
+        RabbitImageName=madrabbit
+        Cloud_install_menu_mr
+        ;;
+
+    4)
+        RabbitImageName=rabbit
+        Cloud_install_menu_r
+        ;;
+
+    5)
         exit 0
         ;;
 
@@ -106,7 +452,254 @@ eof
 
 }
 
-function Cloud_install_menu() {
+function Cloud_manage_madrabbit_menu() {
+
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|    \033[1m欢迎使用【MadRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|         \033[1m\033[32m当前MadRabbit版本 $madRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
+$(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
+$(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择合适的选项\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】更新\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
+
+$(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
+
+$(echo -e "\033[31m 【5】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num22
+
+    case $num22 in
+
+    1)
+        update_madRabbit
+        ;;
+
+    2)
+        uninstall_cl_madRabbit
+        ;;
+    3)
+        RabbitImageName=fastrabbit
+        Cloud_install_menu_fr
+        ;;
+
+    4)
+        RabbitImageName=rabbit
+        Cloud_install_menu_r
+        ;;
+
+    5)
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Cloud_manage_rabbit_menu() {
+
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|          \033[1m\033[32m当前Rabbit版本 $rabbitLocalversion\033[0m\033[0m         \033[36m|\033[0m")
+$(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
+$(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择合适的选项\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】更新\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
+
+$(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【4】安装MadRabbit（临时）\033[0m")
+
+$(echo -e "\033[31m 【5】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num23
+
+    case $num23 in
+
+    1)
+        update_rabbit
+        ;;
+
+    2)
+        uninstall_cl_rabbit
+        ;;
+    3)
+        RabbitImageName=fastrabbit
+        Cloud_install_menu_fr
+        ;;
+
+    4)
+        RabbitImageName=madrabbit
+        Cloud_install_menu_mr
+        ;;
+
+    5)
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Cloud_install_main_menu() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择您要安装的Rabbit版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】FastRabbit（新版）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【2】MadRabbit（新版）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【3】Rabbit（旧版）\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num1
+
+    case $num1 in
+
+    1)
+        RabbitImageName=fastrabbit
+        Cloud_install_menu_fr
+
+        ;;
+
+    2)
+        RabbitImageName=madrabbit
+        Cloud_install_menu_mr
+
+        ;;
+
+    3)
+        RabbitImageName=rabbit
+        Cloud_install_menu_r
+
+        ;;
+
+    4)
+
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Cloud_install_menu_fr() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|   \033[1m欢迎使用【FastRabbit一键安装脚本】\033[0m  \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择您的Rabbit运行环境\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】国内鸡\033[0m")
+
+$(echo -e "\033[32m\033[1m 【2】国外鸡\033[0m")
+
+$(echo -e "\033[31m 【3】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num11
+
+    case $num11 in
+
+    1)
+        inChina=Yes
+        Cloud_install_menu_gn_ql
+
+        ;;
+
+    2)
+        inChina=No
+        Cloud_install_menu_gw_ql
+
+        ;;
+
+    3)
+
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Cloud_install_menu_mr() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|   \033[1m欢迎使用【MadRabbit一键安装脚本】\033[0m   \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择您的Rabbit运行环境\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】国内鸡\033[0m")
+
+$(echo -e "\033[32m\033[1m 【2】国外鸡\033[0m")
+
+$(echo -e "\033[31m 【3】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num11
+
+    case $num11 in
+
+    1)
+        inChina=Yes
+        Cloud_install_menu_gn_ql
+
+        ;;
+
+    2)
+        inChina=No
+        Cloud_install_menu_gw_ql
+
+        ;;
+
+    3)
+
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Cloud_install_menu_r() {
     cat <<eof
 
 $(echo -e "\033[36m-----------------------------------------\033[0m")
@@ -124,9 +717,9 @@ $(echo -e "\033[31m 【3】退出\033[0m")
 
 eof
 
-    read -p "请输入对应选项的数字：" num1
+    read -p "请输入对应选项的数字：" num11
 
-    case $num1 in
+    case $num11 in
 
     1)
         inChina=Yes
@@ -163,9 +756,9 @@ $(echo -e "\033[32m\033[1m 【3】不配置青龙\033[0m")
 
 eof
 
-    read -p "请输入对应选项的数字：" num11
+    read -p "请输入对应选项的数字：" num111
 
-    case $num11 in
+    case $num111 in
 
     1)
 
@@ -202,9 +795,9 @@ $(echo -e "\033[32m\033[1m 【3】不配置青龙\033[0m")
 
 eof
 
-    read -p "请输入对应选项的数字：" num12
+    read -p "请输入对应选项的数字：" num112
 
-    case $num12 in
+    case $num112 in
 
     1)
 
@@ -226,24 +819,24 @@ eof
     esac
 
 }
-function Synology_utils_menu() {
+
+function Synology_manage_main_menu() {
     cat <<eof
 
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
 $(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
-$(echo -e "\033[36m|          \033[1m\033[32m当前Rabbit版本 $localVersion\033[0m\033[0m         \033[36m|\033[0m")
-$(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
-$(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
-$(echo -e "\033[33m 请选择合适的选项\033[0m")
+$(echo -e "\033[33m 请选择管理版本\033[0m")
 
-$(echo -e "\033[32m\033[1m 【1】更新\033[0m")
+$(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
+$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
 
-$(echo -e "\033[31m 【3】退出\033[0m")
+$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
 
 eof
 
@@ -252,14 +845,363 @@ eof
     case $enum2 in
 
     1)
-        update
+        Synology_manage_fastrabbit_menu
         ;;
 
     2)
-        uninstall
+        Synology_manage_madrabbit_menu
         ;;
 
     3)
+        Synology_manage_rabbit_menu
+        ;;
+    4)
+        exit 0
+        ;;
+
+    esac
+
+}
+function Synology_manage_main12_menu() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择管理版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【3】安装Rabbit\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num241
+
+    case $num241 in
+
+    1)
+        Synology_manage_fastrabbit_menu
+        ;;
+
+    2)
+        Synology_manage_madrabbit_menu
+        ;;
+
+    3)
+        RabbitImageName=rabbit
+        Synology_install_menu
+        ;;
+    4)
+        exit 0
+        ;;
+
+    esac
+
+}
+function Synology_manage_main13_menu() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择管理版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】安装MadRabbit（临时）\033[0m")
+
+$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num2
+
+    case $num2 in
+
+    1)
+        Synology_manage_fastrabbit_menu
+        ;;
+
+    2)
+        RabbitImageName=madrabbit
+        Synology_install_menu
+        ;;
+
+    3)
+        Synology_manage_rabbit_menu
+        ;;
+    4)
+        exit 0
+        ;;
+
+    esac
+
+}
+function Synology_manage_main23_menu() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m 请选择管理版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】安装FastRabbit（未实装）\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
+
+$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" num2
+
+    case $num2 in
+
+    1)
+        RabbitImageName=fastrabbit
+        Synology_install_menu
+        ;;
+
+    2)
+        Synology_manage_madrabbit_menu
+        ;;
+
+    3)
+        Synology_manage_rabbit_menu
+        ;;
+    4)
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Synology_manage_fastrabbit_menu() {
+
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|   \033[1m欢迎使用【FastRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|        \033[1m\033[32m当前FastRabbit版本 $fastRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
+$(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
+$(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择合适的选项\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】更新\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
+
+$(echo -e "\033[32m\033[1m 【3】安装MadRabbit（临时）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
+
+$(echo -e "\033[31m 【5】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" enum21
+
+    case $enum21 in
+
+    1)
+        update_fastRabbit
+        ;;
+
+    2)
+        uninstall_sy_fastRabbit
+        ;;
+
+    3)
+        RabbitImageName=madrabbit
+        Synology_install_menu
+        ;;
+
+    4)
+        RabbitImageName=rabbit
+        Synology_install_menu
+        ;;
+
+    5)
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Synology_manage_madrabbit_menu() {
+
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|    \033[1m欢迎使用【MadRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|         \033[1m\033[32m当前MadRabbit版本 $madRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
+$(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
+$(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择合适的选项\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】更新\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
+
+$(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
+
+$(echo -e "\033[31m 【5】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" enum22
+
+    case $enum22 in
+
+    1)
+        update_madRabbit
+        ;;
+
+    2)
+        uninstall_sy_madRabbit
+        ;;
+    3)
+        RabbitImageName=fastrabbit
+        Synology_install_menu
+        ;;
+
+    4)
+        RabbitImageName=rabbit
+        Synology_install_menu
+        ;;
+
+    5)
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Synology_manage_rabbit_menu() {
+
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|          \033[1m\033[32m当前Rabbit版本 $rabbitLocalversion\033[0m\033[0m         \033[36m|\033[0m")
+$(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
+$(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择合适的选项\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】更新\033[0m")
+
+$(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
+
+$(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【4】安装MadRabbit（临时）\033[0m")
+
+$(echo -e "\033[31m 【5】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" enum23
+
+    case $enum23 in
+
+    1)
+        update_rabbit
+        ;;
+
+    2)
+        uninstall_sy_rabbit
+        ;;
+    3)
+        RabbitImageName=fastrabbit
+        Synology_install_menu
+        ;;
+
+    4)
+        RabbitImageName=madrabbit
+        Synology_install_menu
+        ;;
+
+    5)
+        exit 0
+        ;;
+
+    esac
+
+}
+
+function Synology_install_main_menu() {
+    cat <<eof
+
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
+$(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m-----------------------------------------\033[0m")
+$(echo -e "\033[33m\033[1m 请选择您要安装的Rabbit版本\033[0m")
+
+$(echo -e "\033[32m\033[1m 【1】FastRabbit（新版,暂未实装）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【2】MadRabbit（新版）\033[0m")
+
+$(echo -e "\033[32m\033[1m 【3】Rabbit（旧版）\033[0m")
+
+$(echo -e "\033[31m 【4】退出\033[0m")
+
+eof
+
+    read -p "请输入对应选项的数字：" enum1
+
+    case $enum1 in
+
+    1)
+        RabbitImageName=fastrabbit
+        Synology_install_menu
+
+        ;;
+
+    2)
+        RabbitImageName=madrabbit
+        Synology_install_menu
+
+        ;;
+
+    3)
+        RabbitImageName=rabbit
+        Synology_install_menu
+
+        ;;
+
+    4)
+
         exit 0
         ;;
 
@@ -283,9 +1225,9 @@ $(echo -e "\033[31m 【2】退出\033[0m")
 
 eof
 
-    read -p "请输入对应选项的数字：" num2
+    read -p "请输入对应选项的数字：" enum11
 
-    case $num2 in
+    case $enum11 in
 
     1)
         inChina=Yes
@@ -315,9 +1257,9 @@ $(echo -e "\033[32m\033[1m 【3】不配置青龙\033[0m")
 
 eof
 
-    read -p "请输入对应选项的数字：" num21
+    read -p "请输入对应选项的数字：" enum111
 
-    case $num21 in
+    case $enum111 in
 
     1)
 
@@ -538,6 +1480,8 @@ function configquick() {
         #修改配置文件强制使用特殊验证码
 
         echo -e "\033[33m 如使用打码平台，请改成false \033[0m"
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录 \033[0m"
+
         echo -e "\033[33m 是否强制使用特殊验证码(true/false)【默认false】 \033[0m" && read rabbitForcecaptcha
         if test -z "$rabbitForcecaptcha"; then
             rabbitForcecaptcha='false'
@@ -899,28 +1843,123 @@ function configquick() {
     esac
 }
 
+function fastRabbitLocalversion() {
+    #Management_Countdown10
+    checkRabbitport=$(docker port fastrabbit)
+    rRabbitPort=${checkRabbitport##*:}
+    checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
+    #echo "$checkVersion"
+    fastRabbitLocalversion=${checkVersion:0-7:5}
+}
+function madRabbitLocalversion() {
+    #Management_Countdown10
+    checkRabbitport=$(docker port madrabbit)
+    rRabbitPort=${checkRabbitport##*:}
+    checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
+    #echo "$checkVersion"
+    madRabbitLocalversion=${checkVersion:0-7:5}
+}
 function rabbitLocalversion() {
     #Management_Countdown10
     checkRabbitport=$(docker port rabbit)
     rRabbitPort=${checkRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
     #echo "$checkVersion"
-    localVersion=${checkVersion:0-7:5}
+    rabbitLocalversion=${checkVersion:0-7:5}
 }
 
-function update() {
+function update_fastRabbit() {
+    fastRabbitLocalversion
+    echo -e "\033[1m 检查更新...\033[0m"
+    #判断服务器所在地
+    ipChina
+    inChinaNo='No'
+    if [ "$inChina_judge" = $inChinaNo ]; then
+        latestVersion=$(curl -s -d fastrabbit http://api.madrabbit.cf/api/version)
+        if [ $? -ne 0 ]; then
+            latestVersion='未获取到最新版本版本号'
+        fi
+        echo -e "\033[1m 最新版本 $latestVersion \033[0m"
+        if [[ $latestVersion =~ $fastRabbitLocalversion ]]; then
+            echo -e "\033[1m 当前已为最新版本 \033[0m"
+        else
+            echo -e "\033[42;37m 开始更新 \033[0m"
+            docker exec -it fastrabbit git pull
+            docker restart fastrabbit
+            echo -e "\033[42;37m 更新成功，自动重启容器fastrabbit \033[0m可稍后重新运行脚本察看版本号"
+
+            #curl -s http://127.0.0.1:$rRabbitPort/api/update
+        fi
+    else
+        latestVersion=$(curl -s "$inChina_proxy"/https://raw.githubusercontent.com/HT944/MadRabbit/main/version)
+        if [ $? -ne 0 ]; then
+            latestVersion='未获取到最新版本版本号'
+        fi
+        echo -e "最新版本 $latestVersion"
+        if [[ $latestVersion =~ $fastRabbitLocalversion ]]; then
+            echo -e "当前已为最新版本"
+        else
+            echo -e "\033[42;37m 开始更新 \033[0m"
+            docker exec -it fastrabbit git pull
+            docker restart fastrabbit
+            echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m可稍后重新运行脚本察看版本号"
+        fi
+    fi
+
+}
+function update_madRabbit() {
+    madRabbitLocalversion
+    echo -e "\033[1m 检查更新...\033[0m"
+    #判断服务器所在地
+    ipChina
+    inChinaNo='No'
+    if [ "$inChina_judge" = $inChinaNo ]; then
+        latestVersion=$(curl -s -d madrabbit http://api.madrabbit.cf/api/version)
+        if [ $? -ne 0 ]; then
+            latestVersion='未获取到最新版本版本号'
+        fi
+        echo -e "\033[1m 最新版本 $latestVersion \033[0m"
+        if [[ $latestVersion =~ $madRabbitLocalversion ]]; then
+            echo -e "\033[1m 当前已为最新版本 \033[0m"
+        else
+            echo -e "\033[42;37m 开始更新 \033[0m"
+            docker exec -it madrabbit git pull
+            docker restart madrabbit
+            echo -e "\033[42;37m 更新成功，自动重启容器madrabbit \033[0m可稍后重新运行脚本察看版本号"
+
+            #curl -s http://127.0.0.1:$rRabbitPort/api/update
+        fi
+    else
+        latestVersion=$(curl -s "$inChina_proxy"/https://raw.githubusercontent.com/HT944/MadRabbit/main/version)
+        if [ $? -ne 0 ]; then
+            latestVersion='未获取到最新版本版本号'
+        fi
+        echo -e "最新版本 $latestVersion"
+        if [[ $latestVersion =~ $madRabbitLocalversion ]]; then
+            echo -e "当前已为最新版本"
+        else
+            echo -e "\033[42;37m 开始更新 \033[0m"
+            docker exec -it rabbit git pull
+            docker restart rabbit
+            echo -e "\033[42;37m 更新成功，自动重启容器rabbit \033[0m可稍后重新运行脚本察看版本号"
+        fi
+    fi
+
+}
+
+function update_rabbit() {
     rabbitLocalversion
     echo -e "\033[1m 检查更新...\033[0m"
     #判断服务器所在地
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersion=$(curl -s https://raw.githubusercontent.com/HT944/MadRabbit/main/version)
+        latestVersion=$(curl -s -d rabbit http://api.madrabbit.cf/api/version)
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
-        if [[ $latestVersion =~ $localVersion ]]; then
+        if [[ $latestVersion =~ $rabbitLocalversion ]]; then
             echo -e "\033[1m 当前已为最新版本 \033[0m"
         else
             echo -e "\033[42;37m 开始更新 \033[0m"
@@ -936,7 +1975,7 @@ function update() {
             latestVersion='未获取到最新版本版本号'
         fi
         echo -e "最新版本 $latestVersion"
-        if [[ $latestVersion =~ $localVersion ]]; then
+        if [[ $latestVersion =~ $rabbitLocalversion ]]; then
             echo -e "当前已为最新版本"
         else
             echo -e "\033[42;37m 开始更新 \033[0m"
@@ -1040,7 +2079,7 @@ function conf_Dockermirror() {
 #安装路径
 #云服务器安装路径
 function clpath_choise() {
-    echo -e "\033[33m 请选择Rabbit安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
+    echo -e "\033[33m 请选择Rabbit配置文件安装路径【默认/root】\033[0m" && read rabbitAbsolutepath
     if [ -z "${rabbitAbsolutepath}" ]; then
         rabbitAbsolutepath='/root'
     fi
@@ -1057,7 +2096,7 @@ function clpath_choise() {
 }
 #群晖安装路径
 function sypath_choise() {
-    echo -e "\033[33m 请选择Rabbit安装路径【默认/volume1/docker】\033[0m" && read rabbitAbsolutepath
+    echo -e "\033[33m 请选择Rabbit配置文件安装路径【默认/volume1/docker】\033[0m" && read rabbitAbsolutepath
     if [ -z "${rabbitAbsolutepath}" ]; then
         rabbitAbsolutepath='/volume1/docker'
     fi
@@ -1118,12 +2157,50 @@ function confDownload_proxy() {
     fi
 }
 #容器端口设置
-function container_port_settings() {
-    echo -e "\033[33m 容器端口【默认5701】\033[0m" && read rabbitPort
+function container_port_settings_fastrabbit() {
+    echo -e "\033[33m FastRabbit容器端口【默认5703】\033[0m" && read fastRabbitPort
+    if [ -z "${fastRabbitPort}" ]; then
+        fastRabbitPort='5703'
+    fi
+    echo -e "\033[31m 确认FastRabbit端口设为$fastRabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
+    if [ -z "${rabbitPortjudge}" ]; then
+        rabbitPortjudge='n'
+    fi
+    case $rabbitPortjudge in
+    [yY])
+        echo -e "\033[42;37m 端口已设为$fastRabbitPort\033[0m"
+        ;;
+    *)
+        echo -e "\033[41;37m 返回重设端口 \033[0m"
+        container_port_settings_fastrabbit
+        ;;
+    esac
+}
+function container_port_settings_madrabbit() {
+    echo -e "\033[33m MadRabbit容器端口【默认5702】\033[0m" && read madRabbitPort
+    if [ -z "${madRabbitPort}" ]; then
+        madRabbitPort='5702'
+    fi
+    echo -e "\033[31m 确认MadRabbit端口设为$madRabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
+    if [ -z "${rabbitPortjudge}" ]; then
+        rabbitPortjudge='n'
+    fi
+    case $rabbitPortjudge in
+    [yY])
+        echo -e "\033[42;37m 端口已设为$madRabbitPort\033[0m"
+        ;;
+    *)
+        echo -e "\033[41;37m 返回重设端口 \033[0m"
+        container_port_settings_madrabbit
+        ;;
+    esac
+}
+function container_port_settings_rabbit() {
+    echo -e "\033[33m Rabbit容器端口【默认5701】\033[0m" && read rabbitPort
     if [ -z "${rabbitPort}" ]; then
         rabbitPort='5701'
     fi
-    echo -e "\033[31m 确认端口设为$rabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
+    echo -e "\033[31m 确认Rabbit端口设为$rabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
     if [ -z "${rabbitPortjudge}" ]; then
         rabbitPortjudge='n'
     fi
@@ -1133,14 +2210,14 @@ function container_port_settings() {
         ;;
     *)
         echo -e "\033[41;37m 返回重设端口 \033[0m"
-        container_port_settings
+        container_port_settings_rabbit
         ;;
     esac
 }
-
 function container_install_gn() {
+
     #容器端口设置
-    container_port_settings
+    container_port_settings_$RabbitImageName
 
     osCore=$(uname -m)
     osArm1='arm'
@@ -1186,7 +2263,7 @@ function container_install_gn() {
     check_Dockermirror
 
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
+    sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -1195,6 +2272,7 @@ function container_install_gn() {
         echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请在原对接地址后加/rabbit \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
@@ -1204,7 +2282,7 @@ function container_install_gn() {
 
 function container_install_gw() {
     #容器端口设置
-    container_port_settings
+    container_port_settings_$RabbitImageName
 
     osCore=$(uname -m)
     osArm1='arm'
@@ -1249,7 +2327,11 @@ function container_install_gw() {
     echo "docker 已安装！"
 
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
+    if [ RabbitImageName = "madrabbit"]; then
+        sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/FastRabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    else
+        sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    fi
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -1261,12 +2343,12 @@ function container_install_gw() {
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
-        update
+        update_$RabbitImageName
     fi
 }
 function container_install_sy() {
     #容器端口设置
-    container_port_settings
+    container_port_settings_$RabbitImageName
 
     osCore=$(uname -m)
     osArm1='arm'
@@ -1291,7 +2373,7 @@ function container_install_sy() {
     echo "docker 已安装！"
 
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name rabbit -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/rabbit:$rabbitVersion
+    sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -1300,6 +2382,7 @@ function container_install_sy() {
         echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart rabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的rabbit地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
+        echo -e "\033[33m rabbit4.2.0版本已恢复快捷登录，如需使用快捷登录，请在原对接地址后加/rabbit \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
@@ -1373,7 +2456,383 @@ function ipChina_touch() {
         echo "$rabbitProxyurl" >>"$rabbitAbsolutepath/Rabbit/Config/ipChina.conf"
     fi
 }
-function uninstall() {
+function uninstall_cl_fastRabbit() {
+    echo -e "\033[41;33m 是否确认卸载FastRabbit(y/n)【默认n】\033[0m" && read rabbitDelete
+    if [ -z "${rabbitDelete}" ]; then
+        rabbitDelete='n'
+        echo "n"
+    fi
+    case $rabbitDelete in
+    [yY])
+        echo -e "\033[41;33m 是否同时清除配置路径文件(y/n)【默认n】\033[0m" && read rabbitDeletefile
+        if [ -z "${rabbitDeletefile}" ]; then
+            rabbitDeletefile='n'
+            echo "n"
+        fi
+        case $rabbitDeletefile in
+        [yY])
+            echo -e "\033[41;33m 是否同时卸载FastRabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，清除配置路径文件\033[0m"
+                container_info=$(docker inspect fastrabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop fastrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f fastrabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_fastRabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
+                container_info=$(docker inspect fastrabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop fastrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f fastrabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        *)
+            echo -e "\033[41;33m 是否同时卸载rabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，保留配置路径文件\033[0m"
+
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop fastrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f fastrabbit
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_fastRabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop fastrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f fastrabbit
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        esac
+        ;;
+    *)
+        echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+        Cloud_manage_fastrabbit_menu
+        ;;
+    esac
+
+}
+function uninstall_sy_fastRabbit() {
+    echo -e "\033[41;33m 是否确认卸载FastRabbit(y/n)【默认n】\033[0m" && read rabbitDelete
+    if [ -z "${rabbitDelete}" ]; then
+        rabbitDelete='n'
+        echo "n"
+    fi
+    case $rabbitDelete in
+    [yY])
+        echo -e "\033[41;33m 是否同时清除配置路径文件(y/n)【默认n】\033[0m" && read rabbitDeletefile
+        if [ -z "${rabbitDeletefile}" ]; then
+            rabbitDeletefile='n'
+            echo "n"
+        fi
+        case $rabbitDeletefile in
+        [yY])
+            echo -e "\033[41;33m 是否同时卸载FastRabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，清除配置路径文件\033[0m"
+                container_info=$(docker inspect fastrabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop fastrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f fastrabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_fastRabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
+                container_info=$(docker inspect fastrabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop fastrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f fastrabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        *)
+            echo -e "\033[41;33m 是否同时卸载rabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，保留配置路径文件\033[0m"
+
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop fastrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f fastrabbit
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_fastRabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop fastrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f fastrabbit
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        esac
+        ;;
+    *)
+        echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+        Synology_manage_fastrabbit_menu
+        ;;
+    esac
+
+}
+function uninstall_cl_madRabbit() {
+    echo -e "\033[41;33m 是否确认卸载madrabbit(y/n)【默认n】\033[0m" && read rabbitDelete
+    if [ -z "${rabbitDelete}" ]; then
+        rabbitDelete='n'
+        echo "n"
+    fi
+    case $rabbitDelete in
+    [yY])
+        echo -e "\033[41;33m 是否同时清除配置路径文件(y/n)【默认n】\033[0m" && read rabbitDeletefile
+        if [ -z "${rabbitDeletefile}" ]; then
+            rabbitDeletefile='n'
+            echo "n"
+        fi
+        case $rabbitDeletefile in
+        [yY])
+            echo -e "\033[41;33m 是否同时卸载madrabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，清除配置路径文件\033[0m"
+                container_info=$(docker inspect madrabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop madrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f madrabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_madRabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
+                container_info=$(docker inspect madrabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop madrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f madrabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        *)
+            echo -e "\033[41;33m 是否同时卸载madrabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，保留配置路径文件\033[0m"
+
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop madrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f madrabbit
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_madRabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop madrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f madrabbit
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        esac
+        ;;
+    *)
+        echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+        Cloud_manage_madrabbit_menu
+        ;;
+    esac
+
+}
+function uninstall_sy_madRabbit() {
+    echo -e "\033[41;33m 是否确认卸载madrabbit(y/n)【默认n】\033[0m" && read rabbitDelete
+    if [ -z "${rabbitDelete}" ]; then
+        rabbitDelete='n'
+        echo "n"
+    fi
+    case $rabbitDelete in
+    [yY])
+        echo -e "\033[41;33m 是否同时清除配置路径文件(y/n)【默认n】\033[0m" && read rabbitDeletefile
+        if [ -z "${rabbitDeletefile}" ]; then
+            rabbitDeletefile='n'
+            echo "n"
+        fi
+        case $rabbitDeletefile in
+        [yY])
+            echo -e "\033[41;33m 是否同时卸载madrabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，清除配置路径文件\033[0m"
+                container_info=$(docker inspect madrabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop madrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f madrabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_madRabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
+                container_info=$(docker inspect madrabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop madrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f madrabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        *)
+            echo -e "\033[41;33m 是否同时卸载madrabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，保留配置路径文件\033[0m"
+
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop madrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f madrabbit
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_madRabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop madrabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f madrabbit
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        esac
+        ;;
+    *)
+        echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+        Synology_manage_madrabbit_menu
+        ;;
+    esac
+
+}
+function uninstall_cl_rabbit() {
     echo -e "\033[41;33m 是否确认卸载rabbit(y/n)【默认n】\033[0m" && read rabbitDelete
     if [ -z "${rabbitDelete}" ]; then
         rabbitDelete='n'
@@ -1388,21 +2847,73 @@ function uninstall() {
         fi
         case $rabbitDeletefile in
         [yY])
-            echo -e "\033[33m 开始卸载\033[0m"
-            container_info=$(docker inspect rabbit | grep Mounts -A 20)
-            container_info_cut=${container_info#*\"Source\": \"}
-            container_path=${container_info_cut%%\"*}
-            cd $container_path || exit
-            cd ..
-            cd ..
-            docker rm -f rabbit
-            rm -rf Rabbit/
+            echo -e "\033[41;33m 是否同时卸载rabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，清除配置路径文件\033[0m"
+                container_info=$(docker inspect rabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_rabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
+                container_info=$(docker inspect rabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                ;;
+            esac
             echo -e "\033[33m 卸载完成\033[0m"
             exit 0
             ;;
         *)
-            echo -e "\033[33m 仅卸载容器，保留配置路径\033[0m"
-            docker rm -f rabbit
+            echo -e "\033[41;33m 是否同时卸载rabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，保留配置路径文件\033[0m"
+
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_rabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                ;;
+            esac
             echo -e "\033[33m 卸载完成\033[0m"
             exit 0
             ;;
@@ -1410,10 +2921,136 @@ function uninstall() {
         ;;
     *)
         echo -e "\033[33m 取消卸载，返回菜单\033[0m"
-        Cloud_utils_menu
+        Cloud_manage_rabbit_menu
         ;;
     esac
 
 }
+function uninstall_sy_rabbit() {
+    echo -e "\033[41;33m 是否确认卸载rabbit(y/n)【默认n】\033[0m" && read rabbitDelete
+    if [ -z "${rabbitDelete}" ]; then
+        rabbitDelete='n'
+        echo "n"
+    fi
+    case $rabbitDelete in
+    [yY])
+        echo -e "\033[41;33m 是否同时清除配置路径文件(y/n)【默认n】\033[0m" && read rabbitDeletefile
+        if [ -z "${rabbitDeletefile}" ]; then
+            rabbitDeletefile='n'
+            echo "n"
+        fi
+        case $rabbitDeletefile in
+        [yY])
+            echo -e "\033[41;33m 是否同时卸载rabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，清除配置路径文件\033[0m"
+                container_info=$(docker inspect rabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_rabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
+                container_info=$(docker inspect rabbit | grep Mounts -A 20)
+                container_info_cut=${container_info#*\"Source\": \"}
+                container_path=${container_info_cut%%\"*}
+                cd $container_path || exit
+                cd ..
+                cd ..
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 清除配置路径文件\033[0m"
+                rm -rf Rabbit/
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        *)
+            echo -e "\033[41;33m 是否同时卸载rabbit镜像(y/n)【默认n】\033[0m" && read rabbitimageDelete
+            if [ -z "${rabbitimageDelete}" ]; then
+                rabbitimageDelete='n'
+                echo "n"
+            fi
+            case $rabbitimageDelete in
+            [yY])
+                echo -e "\033[33m 卸载容器及镜像，保留配置路径文件\033[0m"
 
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                echo -e "\033[33m 卸载镜像\033[0m"
+                uninstall_imageJudge_rabbit
+                ;;
+            *)
+                echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
+                echo -e "\033[33m 停止容器\033[0m"
+                docker stop rabbit
+                echo -e "\033[33m 卸载容器\033[0m"
+                docker rm -f rabbit
+                ;;
+            esac
+            echo -e "\033[33m 卸载完成\033[0m"
+            exit 0
+            ;;
+        esac
+        ;;
+    *)
+        echo -e "\033[33m 取消卸载，返回菜单\033[0m"
+        Synology_manage_rabbit_menu
+        ;;
+    esac
+
+}
+function uninstall_imageJudge_fastRabbit() {
+    osCore=$(uname -m)
+    osArm1='arm'
+    osArm2='aarch'
+    echo -e "检测内核为 \033[34m $osCore \033[0m "
+    if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
+        docker rmi ht944/fastrabbit:arm
+    else
+        docker rmi ht944/fastrabbit:latest
+    fi
+}
+function uninstall_imageJudge_madRabbit() {
+    osCore=$(uname -m)
+    osArm1='arm'
+    osArm2='aarch'
+    echo -e "检测内核为 \033[34m $osCore \033[0m "
+    if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
+        docker rmi ht944/madrabbit:arm
+    else
+        docker rmi ht944/madrabbit:latest
+    fi
+}
+function uninstall_imageJudge_rabbit() {
+    osCore=$(uname -m)
+    osArm1='arm'
+    osArm2='aarch'
+    echo -e "检测内核为 \033[34m $osCore \033[0m "
+    if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
+        docker rmi ht944/rabbit:arm
+    else
+        docker rmi ht944/rabbit:latest
+    fi
+}
 system_Judgment
