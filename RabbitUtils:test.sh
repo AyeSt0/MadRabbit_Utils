@@ -7,12 +7,12 @@ DATE:2022-11-30
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.1.6
+VERSION:1.2.0T
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.1.6'
+vVersion='1.2.0T'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
