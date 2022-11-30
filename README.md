@@ -20,14 +20,23 @@ bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/M
 ```
 >**如果无法下载，请自行更换加速站前缀，亦或者自建加速站  
 教程[指路](https://www.kejiwanjia.com/jiaocheng/105320.html)**
+
 ### 国外鸡
 ```bash
 bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitUtils.sh)
+```
+#### 测试版(更新最前沿，BUG先锋)
+```bash
+bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitUtils:test.sh)
+```
+```bash
+bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitUtils:test.sh)
 ```
 ## 不切实际的未来计划
 * *完善脚本，让脚本能循环利用😀*  
 
 ## 不靠谱的更新日志
+* *20221130 T1.2.0 预更新，增加Rabbit的多版本支持
 * *20221017 v1.1.5 修复卸载镜像功能，增加对系统内核判断，理论上适配了ARM*
 * *20221017 v1.1.4 修复短信登录配置问题，恢复强制打码默认项为true。如需对接快捷登录请在原对接地址后加/rabbit*
 * *20221017 v1.1.3 一键管理脚本新增卸载镜像功能；由于Rabbit4.2.0恢复快捷登录，修改配置配置文件打码默认设置为true，并增加部分提示*
