@@ -7,12 +7,12 @@ DATE:2022-11-30
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.2.0
+VERSION:1.2.1
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='T1.2.0'
+vVersion='T1.2.1'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -1857,7 +1857,7 @@ function madRabbitLocalversion() {
     rRabbitPort=${checkRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
     #echo "$checkVersion"
-    madRabbitLocalversion=${checkVersion:0-7:5}
+    madRabbitLocalversion=${checkVersion:12:5}
 }
 function rabbitLocalversion() {
     #Management_Countdown10
@@ -1865,7 +1865,7 @@ function rabbitLocalversion() {
     rRabbitPort=${checkRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
     #echo "$checkVersion"
-    rabbitLocalversion=${checkVersion:0-7:5}
+    rabbitLocalversion=${checkVersion:12:5}
 }
 
 function update_fastrabbit() {
