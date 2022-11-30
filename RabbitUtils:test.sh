@@ -7,12 +7,12 @@ DATE:2022-11-30
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.2.0T
+VERSION:1.2.0
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='1.2.0T'
+vVersion='T1.2.0'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -229,7 +229,7 @@ function Cloud_manage_main_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
@@ -272,7 +272,7 @@ function Cloud_manage_main12_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
@@ -315,7 +315,7 @@ function Cloud_manage_main13_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
@@ -358,7 +358,7 @@ function Cloud_manage_main23_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
@@ -403,7 +403,7 @@ function Cloud_manage_fastrabbit_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|   \033[1m欢迎使用【FastRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m|        \033[1m\033[32m当前FastRabbit版本 $fastRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
@@ -427,7 +427,7 @@ eof
     case $num21 in
 
     1)
-        update_fastRabbit
+        update_fastrabbit
         ;;
 
     2)
@@ -459,7 +459,7 @@ function Cloud_manage_madrabbit_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|    \033[1m欢迎使用【MadRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m|         \033[1m\033[32m当前MadRabbit版本 $madRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
@@ -483,7 +483,7 @@ eof
     case $num22 in
 
     1)
-        update_madRabbit
+        update_madrabbit
         ;;
 
     2)
@@ -514,7 +514,7 @@ function Cloud_manage_rabbit_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m|          \033[1m\033[32m当前Rabbit版本 $rabbitLocalversion\033[0m\033[0m         \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
@@ -568,7 +568,7 @@ function Cloud_install_main_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m\033[1m 请选择您要安装的Rabbit版本\033[0m")
 
@@ -619,7 +619,7 @@ function Cloud_install_menu_fr() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|   \033[1m欢迎使用【FastRabbit一键安装脚本】\033[0m  \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m\033[1m 请选择您的Rabbit运行环境\033[0m")
 
@@ -662,7 +662,7 @@ function Cloud_install_menu_mr() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|   \033[1m欢迎使用【MadRabbit一键安装脚本】\033[0m   \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m\033[1m 请选择您的Rabbit运行环境\033[0m")
 
@@ -705,7 +705,7 @@ function Cloud_install_menu_r() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m\033[1m 请选择您的Rabbit运行环境\033[0m")
 
@@ -826,7 +826,7 @@ function Synology_manage_main_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
@@ -868,7 +868,7 @@ function Synology_manage_main12_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
@@ -911,7 +911,7 @@ function Synology_manage_main13_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
@@ -954,7 +954,7 @@ function Synology_manage_main23_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
@@ -999,7 +999,7 @@ function Synology_manage_fastrabbit_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|   \033[1m欢迎使用【FastRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m|        \033[1m\033[32m当前FastRabbit版本 $fastRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
@@ -1023,7 +1023,7 @@ eof
     case $enum21 in
 
     1)
-        update_fastRabbit
+        update_fastrabbit
         ;;
 
     2)
@@ -1055,7 +1055,7 @@ function Synology_manage_madrabbit_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|    \033[1m欢迎使用【MadRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m|         \033[1m\033[32m当前MadRabbit版本 $madRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
@@ -1079,7 +1079,7 @@ eof
     case $enum22 in
 
     1)
-        update_madRabbit
+        update_madrabbit
         ;;
 
     2)
@@ -1110,7 +1110,7 @@ function Synology_manage_rabbit_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m|          \033[1m\033[32m当前Rabbit版本 $rabbitLocalversion\033[0m\033[0m         \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
@@ -1164,7 +1164,7 @@ function Synology_install_main_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m\033[1m 请选择您要安装的Rabbit版本\033[0m")
 
@@ -1215,7 +1215,7 @@ function Synology_install_menu() {
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|     \033[1m欢迎使用【Rabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
-$(echo -e "\033[36m|    v$vVersion                by AyeSt0    |\033[0m")
+$(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择合适的选项\033[0m")
 
@@ -1868,14 +1868,14 @@ function rabbitLocalversion() {
     rabbitLocalversion=${checkVersion:0-7:5}
 }
 
-function update_fastRabbit() {
+function update_fastrabbit() {
     fastRabbitLocalversion
     echo -e "\033[1m 检查更新...\033[0m"
     #判断服务器所在地
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersion=$(curl -s -d fastrabbit http://api.madrabbit.cf/api/version)
+        latestVersion=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
@@ -1907,14 +1907,14 @@ function update_fastRabbit() {
     fi
 
 }
-function update_madRabbit() {
+function update_madrabbit() {
     madRabbitLocalversion
     echo -e "\033[1m 检查更新...\033[0m"
     #判断服务器所在地
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersion=$(curl -s -d madrabbit http://api.madrabbit.cf/api/version)
+        latestVersion=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
@@ -1954,7 +1954,7 @@ function update_rabbit() {
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersion=$(curl -s -d rabbit http://api.madrabbit.cf/api/version)
+        latestVersion=$(curl -s -d "type=rabbit" http://api.madrabbit.cf/license/version)
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
