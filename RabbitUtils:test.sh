@@ -7,12 +7,12 @@ DATE:2022-11-30
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.2.0
+VERSION:T1.2.1
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='T1.2.0'
+vVersion='T1.2.1'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -1975,7 +1975,7 @@ function update_rabbit() {
             #curl -s http://127.0.0.1:$rRabbitPort/api/update
         fi
     else
-        latestVersionString=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
+        latestVersionString=$(curl -s -d "type=rabbit" http://api.madrabbit.cf/license/version)
         latestVersion=${latestVersionString:41:5}
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
