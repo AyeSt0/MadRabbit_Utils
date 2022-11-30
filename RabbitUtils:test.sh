@@ -7,12 +7,12 @@ DATE:2022-11-30
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:1.2.1
+VERSION:1.2.0
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='T1.2.1'
+vVersion='T1.2.0'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -1875,7 +1875,8 @@ function update_fastrabbit() {
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersion=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
+        latestVersionString=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
+        latestVersion=${latestVersionString:41:5}
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
@@ -1891,7 +1892,8 @@ function update_fastrabbit() {
             #curl -s http://127.0.0.1:$rRabbitPort/api/update
         fi
     else
-        latestVersion=$(curl -s "$inChina_proxy"/https://raw.githubusercontent.com/HT944/MadRabbit/main/version)
+        latestVersionString=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
+        latestVersion=${latestVersionString:41:5}
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
@@ -1914,7 +1916,8 @@ function update_madrabbit() {
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersion=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
+        latestVersionString=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
+        latestVersion=${latestVersionString:41:5}
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
@@ -1930,7 +1933,8 @@ function update_madrabbit() {
             #curl -s http://127.0.0.1:$rRabbitPort/api/update
         fi
     else
-        latestVersion=$(curl -s "$inChina_proxy"/https://raw.githubusercontent.com/HT944/MadRabbit/main/version)
+        latestVersionString=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
+        latestVersion=${latestVersionString:41:5}
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
@@ -1954,7 +1958,8 @@ function update_rabbit() {
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersion=$(curl -s -d "type=rabbit" http://api.madrabbit.cf/license/version)
+        latestVersionString=$(curl -s -d "type=rabbit" http://api.madrabbit.cf/license/version)
+        latestVersion=${latestVersionString:41:5}
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
@@ -1970,7 +1975,8 @@ function update_rabbit() {
             #curl -s http://127.0.0.1:$rRabbitPort/api/update
         fi
     else
-        latestVersion=$(curl -s "$inChina_proxy"/https://raw.githubusercontent.com/HT944/MadRabbit/main/version)
+        latestVersionString=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
+        latestVersion=${latestVersionString:41:5}
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
         fi
