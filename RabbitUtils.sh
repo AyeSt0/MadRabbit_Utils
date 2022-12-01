@@ -7,12 +7,12 @@ DATE:2022-11-30
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.2.0
+VERSION:V1.2.1
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.2.0'
+vVersion='V1.2.1'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -2267,14 +2267,9 @@ function container_install_gn() {
     fi
     echo "docker 已安装！"
     check_Dockermirror
-    rabbitName='rabbit'
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    if [[ $RabbitImageName =~ $rabbitName ]]; then
-        sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
-    else
-        sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
-    fi
+    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -2335,15 +2330,9 @@ function container_install_gw() {
         fi
     fi
     echo "docker 已安装！"
-
-    rabbitName='rabbit'
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    if [[ $RabbitImageName =~ $rabbitName ]]; then
-        sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
-    else
-        sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
-    fi
+    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
