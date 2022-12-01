@@ -2270,7 +2270,7 @@ function container_install_gn() {
     rabbitName='rabbit'
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    if [[ n$RabbitImageName =~ $rabbitName ]]; then
+    if [[ $RabbitImageName =~ $rabbitName ]]; then
         sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     else
         sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
@@ -2339,7 +2339,7 @@ function container_install_gw() {
     rabbitName='rabbit'
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    if [[ n$RabbitImageName =~ $rabbitName ]]; then
+    if [[ $RabbitImageName =~ $rabbitName ]]; then
         sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     else
         sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
