@@ -7,30 +7,30 @@ DATE:2022-11-30
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:T1.2.1
+VERSION:V1.2.0
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='T1.2.1'
+vVersion='V1.2.0'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
     uNames=$(sudo uname -a)
     syosNames='synology'
-    fastRabbitContainerName="fastrabbit"
-    madRabbitContainerName="madrabbit"
+    fastrabbitContainerName="fastrabbit"
+    madrabbitContainerName="madrabbit"
     rabbitcontainerName="rabbit"
     if [[ $uNames =~ $syosNames ]]; then
         echo -e "\033[32m 忙猜你是群晖\033[0m"
-        if [[ -n $(docker ps -q -f "name=^${fastRabbitContainerName}$") ]]; then
+        if [[ -n $(docker ps -q -f "name=^${fastrabbitContainerName}$") ]]; then
             echo -e "\033[42;37m 检测到fastrabbit容器\033[0m"
             #当前版本
-            fastRabbitLocalversion
-            if [[ -n $(docker ps -q -f "name=^${madRabbitContainerName}$") ]]; then
+            fastrabbitLocalversion
+            if [[ -n $(docker ps -q -f "name=^${madrabbitContainerName}$") ]]; then
                 echo -e "\033[42;37m 检测到madrabbit容器\033[0m"
                 #当前版本
-                madRabbitLocalversion
+                madrabbitLocalversion
                 if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
                     echo -e "\033[42;37m 检测到rabbit容器\033[0m"
                     #当前版本
@@ -74,10 +74,10 @@ function system_Judgment() {
             fi
         else
             #echo -e "\033[42;37m 未检测到fastrabbit容器\033[0m"
-            if [[ -n $(docker ps -q -f "name=^${madRabbitContainerName}$") ]]; then
+            if [[ -n $(docker ps -q -f "name=^${madrabbitContainerName}$") ]]; then
                 echo -e "\033[42;37m 检测到madrabbit容器\033[0m"
                 #当前版本
-                madRabbitLocalversion
+                madrabbitLocalversion
                 if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
                     echo -e "\033[42;37m 检测到rabbit容器\033[0m"
                     #当前版本
@@ -123,14 +123,14 @@ function system_Judgment() {
 
     else
         echo -e "\033[32m 忙猜你是云服务器\033[0m"
-        if [[ -n $(docker ps -q -f "name=^${fastRabbitContainerName}$") ]]; then
+        if [[ -n $(docker ps -q -f "name=^${fastrabbitContainerName}$") ]]; then
             echo -e "\033[42;37m 检测到fastrabbit容器\033[0m"
             #当前版本
-            fastRabbitLocalversion
-            if [[ -n $(docker ps -q -f "name=^${madRabbitContainerName}$") ]]; then
+            fastrabbitLocalversion
+            if [[ -n $(docker ps -q -f "name=^${madrabbitContainerName}$") ]]; then
                 echo -e "\033[42;37m 检测到madrabbit容器\033[0m"
                 #当前版本
-                madRabbitLocalversion
+                madrabbitLocalversion
                 if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
                     echo -e "\033[42;37m 检测到rabbit容器\033[0m"
                     #当前版本
@@ -174,10 +174,10 @@ function system_Judgment() {
             fi
         else
             #echo -e "\033[42;37m 未检测到fastrabbit容器\033[0m"
-            if [[ -n $(docker ps -q -f "name=^${madRabbitContainerName}$") ]]; then
+            if [[ -n $(docker ps -q -f "name=^${madrabbitContainerName}$") ]]; then
                 echo -e "\033[42;37m 检测到madrabbit容器\033[0m"
                 #当前版本
-                madRabbitLocalversion
+                madrabbitLocalversion
                 if [[ -n $(docker ps -q -f "name=^${rabbitcontainerName}$") ]]; then
                     echo -e "\033[42;37m 检测到rabbit容器\033[0m"
                     #当前版本
@@ -321,7 +321,7 @@ $(echo -e "\033[33m 请选择管理版本\033[0m")
 
 $(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【2】安装MadRabbit（临时）\033[0m")
+$(echo -e "\033[31m\033[1m 【2】安装MadRabbit\033[0m")
 
 $(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
 
@@ -404,7 +404,7 @@ $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|   \033[1m欢迎使用【FastRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
 $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
-$(echo -e "\033[36m|        \033[1m\033[32m当前FastRabbit版本 $fastRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
+$(echo -e "\033[36m|        \033[1m\033[32m当前FastRabbit版本 $fastrabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
@@ -414,7 +414,7 @@ $(echo -e "\033[32m\033[1m 【1】更新\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】安装MadRabbit（临时）\033[0m")
+$(echo -e "\033[32m\033[1m 【3】安装MadRabbit\033[0m")
 
 $(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
 
@@ -431,7 +431,7 @@ eof
         ;;
 
     2)
-        uninstall_cl_fastRabbit
+        uninstall_cl_fastrabbit
         ;;
 
     3)
@@ -460,7 +460,7 @@ $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|    \033[1m欢迎使用【MadRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
 $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
-$(echo -e "\033[36m|         \033[1m\033[32m当前MadRabbit版本 $madRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
+$(echo -e "\033[36m|         \033[1m\033[32m当前MadRabbit版本 $madrabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
@@ -487,7 +487,7 @@ eof
         ;;
 
     2)
-        uninstall_cl_madRabbit
+        uninstall_cl_madrabbit
         ;;
     3)
         RabbitImageName=fastrabbit
@@ -527,7 +527,7 @@ $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
 $(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
 
-$(echo -e "\033[32m\033[1m 【4】安装MadRabbit（临时）\033[0m")
+$(echo -e "\033[32m\033[1m 【4】安装MadRabbit\033[0m")
 
 $(echo -e "\033[31m 【5】退出\033[0m")
 
@@ -917,7 +917,7 @@ $(echo -e "\033[33m 请选择管理版本\033[0m")
 
 $(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【2】安装MadRabbit（临时）\033[0m")
+$(echo -e "\033[31m\033[1m 【2】安装MadRabbit\033[0m")
 
 $(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
 
@@ -1000,7 +1000,7 @@ $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|   \033[1m欢迎使用【FastRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
 $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
-$(echo -e "\033[36m|        \033[1m\033[32m当前FastRabbit版本 $fastRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
+$(echo -e "\033[36m|        \033[1m\033[32m当前FastRabbit版本 $fastrabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
@@ -1010,7 +1010,7 @@ $(echo -e "\033[32m\033[1m 【1】更新\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】安装MadRabbit（临时）\033[0m")
+$(echo -e "\033[32m\033[1m 【3】安装MadRabbit\033[0m")
 
 $(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
 
@@ -1027,7 +1027,7 @@ eof
         ;;
 
     2)
-        uninstall_sy_fastRabbit
+        uninstall_sy_fastrabbit
         ;;
 
     3)
@@ -1056,7 +1056,7 @@ $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
 $(echo -e "\033[36m|    \033[1m欢迎使用【MadRabbit一键管理脚本】\033[0m  \033[36m|\033[0m")
 $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
-$(echo -e "\033[36m|         \033[1m\033[32m当前MadRabbit版本 $madRabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
+$(echo -e "\033[36m|         \033[1m\033[32m当前MadRabbit版本 $madrabbitLocalversion\033[0m\033[0m       \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
@@ -1083,7 +1083,7 @@ eof
         ;;
 
     2)
-        uninstall_sy_madRabbit
+        uninstall_sy_madrabbit
         ;;
     3)
         RabbitImageName=fastrabbit
@@ -1123,7 +1123,7 @@ $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
 $(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
 
-$(echo -e "\033[32m\033[1m 【4】安装MadRabbit（临时）\033[0m")
+$(echo -e "\033[32m\033[1m 【4】安装MadRabbit\033[0m")
 
 $(echo -e "\033[31m 【5】退出\033[0m")
 
@@ -1843,21 +1843,21 @@ function configquick() {
     esac
 }
 
-function fastRabbitLocalversion() {
+function fastrabbitLocalversion() {
     #Management_Countdown10
     checkRabbitport=$(docker port fastrabbit)
     rRabbitPort=${checkRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
     #echo "$checkVersion"
-    fastRabbitLocalversion=${checkVersion:0-7:5}
+    fastrabbitLocalversion=${checkVersion:0-7:5}
 }
-function madRabbitLocalversion() {
+function madrabbitLocalversion() {
     #Management_Countdown10
     checkRabbitport=$(docker port madrabbit)
     rRabbitPort=${checkRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
     #echo "$checkVersion"
-    madRabbitLocalversion=${checkVersion:12:5}
+    madrabbitLocalversion=${checkVersion:12:5}
 }
 function rabbitLocalversion() {
     #Management_Countdown10
@@ -1869,7 +1869,7 @@ function rabbitLocalversion() {
 }
 
 function update_fastrabbit() {
-    fastRabbitLocalversion
+    fastrabbitLocalversion
     echo -e "\033[1m 检查更新...\033[0m"
     #判断服务器所在地
     ipChina
@@ -1881,7 +1881,7 @@ function update_fastrabbit() {
             latestVersion='未获取到最新版本版本号'
         fi
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
-        if [[ $latestVersion =~ $fastRabbitLocalversion ]]; then
+        if [[ $latestVersion =~ $fastrabbitLocalversion ]]; then
             echo -e "\033[1m 当前已为最新版本 \033[0m"
         else
             echo -e "\033[42;37m 开始更新 \033[0m"
@@ -1898,7 +1898,7 @@ function update_fastrabbit() {
             latestVersion='未获取到最新版本版本号'
         fi
         echo -e "最新版本 $latestVersion"
-        if [[ $latestVersion =~ $fastRabbitLocalversion ]]; then
+        if [[ $latestVersion =~ $fastrabbitLocalversion ]]; then
             echo -e "当前已为最新版本"
         else
             echo -e "\033[42;37m 开始更新 \033[0m"
@@ -1910,7 +1910,7 @@ function update_fastrabbit() {
 
 }
 function update_madrabbit() {
-    madRabbitLocalversion
+    madrabbitLocalversion
     echo -e "\033[1m 检查更新...\033[0m"
     #判断服务器所在地
     ipChina
@@ -1922,7 +1922,7 @@ function update_madrabbit() {
             latestVersion='未获取到最新版本版本号'
         fi
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
-        if [[ $latestVersion =~ $madRabbitLocalversion ]]; then
+        if [[ $latestVersion =~ $madrabbitLocalversion ]]; then
             echo -e "\033[1m 当前已为最新版本 \033[0m"
         else
             echo -e "\033[42;37m 开始更新 \033[0m"
@@ -1939,7 +1939,7 @@ function update_madrabbit() {
             latestVersion='未获取到最新版本版本号'
         fi
         echo -e "最新版本 $latestVersion"
-        if [[ $latestVersion =~ $madRabbitLocalversion ]]; then
+        if [[ $latestVersion =~ $madrabbitLocalversion ]]; then
             echo -e "当前已为最新版本"
         else
             echo -e "\033[42;37m 开始更新 \033[0m"
@@ -2164,17 +2164,17 @@ function confDownload_proxy() {
 }
 #容器端口设置
 function container_port_settings_fastrabbit() {
-    echo -e "\033[33m FastRabbit容器端口【默认5703】\033[0m" && read fastRabbitPort
-    if [ -z "${fastRabbitPort}" ]; then
-        fastRabbitPort='5703'
+    echo -e "\033[33m FastRabbit容器端口【默认5703】\033[0m" && read fastrabbitPort
+    if [ -z "${fastrabbitPort}" ]; then
+        fastrabbitPort='5703'
     fi
-    echo -e "\033[31m 确认FastRabbit端口设为$fastRabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
+    echo -e "\033[31m 确认FastRabbit端口设为$fastrabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
     if [ -z "${rabbitPortjudge}" ]; then
         rabbitPortjudge='n'
     fi
     case $rabbitPortjudge in
     [yY])
-        echo -e "\033[42;37m 端口已设为$fastRabbitPort\033[0m"
+        echo -e "\033[42;37m 端口已设为$fastrabbitPort\033[0m"
         ;;
     *)
         echo -e "\033[41;37m 返回重设端口 \033[0m"
@@ -2183,17 +2183,17 @@ function container_port_settings_fastrabbit() {
     esac
 }
 function container_port_settings_madrabbit() {
-    echo -e "\033[33m MadRabbit容器端口【默认5702】\033[0m" && read madRabbitPort
-    if [ -z "${madRabbitPort}" ]; then
-        madRabbitPort='5702'
+    echo -e "\033[33m MadRabbit容器端口【默认5702】\033[0m" && read madrabbitPort
+    if [ -z "${madrabbitPort}" ]; then
+        madrabbitPort='5702'
     fi
-    echo -e "\033[31m 确认MadRabbit端口设为$madRabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
+    echo -e "\033[31m 确认MadRabbit端口设为$madrabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
     if [ -z "${rabbitPortjudge}" ]; then
         rabbitPortjudge='n'
     fi
     case $rabbitPortjudge in
     [yY])
-        echo -e "\033[42;37m 端口已设为$madRabbitPort\033[0m"
+        echo -e "\033[42;37m 端口已设为$madrabbitPort\033[0m"
         ;;
     *)
         echo -e "\033[41;37m 返回重设端口 \033[0m"
@@ -2267,12 +2267,13 @@ function container_install_gn() {
     fi
     echo "docker 已安装！"
     check_Dockermirror
-    madRabbitName='madrabbit'
+    rabbitName='rabbit'
+    RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    if [[ n$RabbitImageName =~ $madRabbitName ]]; then
-        sudo docker run --name $RabbitImageName -p $madRabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/FastRabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
-    else
+    if [[ $RabbitImageName =~ $rabbitName ]]; then
         sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    else
+        sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     fi
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
@@ -2335,12 +2336,13 @@ function container_install_gw() {
     fi
     echo "docker 已安装！"
 
+    rabbitName='rabbit'
+    RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    madRabbitName='madrabbit'
-    if [[ $RabbitImageName =~ $madRabbitName ]]; then
-        sudo docker run --name $RabbitImageName -p $madRabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/FastRabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
-    else
+    if [[ $RabbitImageName =~ $rabbitName ]]; then
         sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    else
+        sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     fi
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
@@ -2466,7 +2468,7 @@ function ipChina_touch() {
         echo "$rabbitProxyurl" >>"$rabbitAbsolutepath/Rabbit/Config/ipChina.conf"
     fi
 }
-function uninstall_cl_fastRabbit() {
+function uninstall_cl_fastrabbit() {
     echo -e "\033[41;33m 是否确认卸载FastRabbit(y/n)【默认n】\033[0m" && read rabbitDelete
     if [ -z "${rabbitDelete}" ]; then
         rabbitDelete='n'
@@ -2502,7 +2504,7 @@ function uninstall_cl_fastRabbit() {
                 echo -e "\033[33m 清除配置路径文件\033[0m"
                 rm -rf Rabbit/
                 echo -e "\033[33m 卸载镜像\033[0m"
-                uninstall_imageJudge_fastRabbit
+                uninstall_imageJudge_fastrabbit
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
@@ -2538,7 +2540,7 @@ function uninstall_cl_fastRabbit() {
                 echo -e "\033[33m 卸载容器\033[0m"
                 docker rm -f fastrabbit
                 echo -e "\033[33m 卸载镜像\033[0m"
-                uninstall_imageJudge_fastRabbit
+                uninstall_imageJudge_fastrabbit
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
@@ -2560,7 +2562,7 @@ function uninstall_cl_fastRabbit() {
     esac
 
 }
-function uninstall_sy_fastRabbit() {
+function uninstall_sy_fastrabbit() {
     echo -e "\033[41;33m 是否确认卸载FastRabbit(y/n)【默认n】\033[0m" && read rabbitDelete
     if [ -z "${rabbitDelete}" ]; then
         rabbitDelete='n'
@@ -2596,7 +2598,7 @@ function uninstall_sy_fastRabbit() {
                 echo -e "\033[33m 清除配置路径文件\033[0m"
                 rm -rf Rabbit/
                 echo -e "\033[33m 卸载镜像\033[0m"
-                uninstall_imageJudge_fastRabbit
+                uninstall_imageJudge_fastrabbit
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
@@ -2632,7 +2634,7 @@ function uninstall_sy_fastRabbit() {
                 echo -e "\033[33m 卸载容器\033[0m"
                 docker rm -f fastrabbit
                 echo -e "\033[33m 卸载镜像\033[0m"
-                uninstall_imageJudge_fastRabbit
+                uninstall_imageJudge_fastrabbit
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
@@ -2654,7 +2656,7 @@ function uninstall_sy_fastRabbit() {
     esac
 
 }
-function uninstall_cl_madRabbit() {
+function uninstall_cl_madrabbit() {
     echo -e "\033[41;33m 是否确认卸载madrabbit(y/n)【默认n】\033[0m" && read rabbitDelete
     if [ -z "${rabbitDelete}" ]; then
         rabbitDelete='n'
@@ -2690,7 +2692,7 @@ function uninstall_cl_madRabbit() {
                 echo -e "\033[33m 清除配置路径文件\033[0m"
                 rm -rf Rabbit/
                 echo -e "\033[33m 卸载镜像\033[0m"
-                uninstall_imageJudge_madRabbit
+                uninstall_imageJudge_madrabbit
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
@@ -2726,7 +2728,7 @@ function uninstall_cl_madRabbit() {
                 echo -e "\033[33m 卸载容器\033[0m"
                 docker rm -f madrabbit
                 echo -e "\033[33m 卸载镜像\033[0m"
-                uninstall_imageJudge_madRabbit
+                uninstall_imageJudge_madrabbit
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
@@ -2748,7 +2750,7 @@ function uninstall_cl_madRabbit() {
     esac
 
 }
-function uninstall_sy_madRabbit() {
+function uninstall_sy_madrabbit() {
     echo -e "\033[41;33m 是否确认卸载madrabbit(y/n)【默认n】\033[0m" && read rabbitDelete
     if [ -z "${rabbitDelete}" ]; then
         rabbitDelete='n'
@@ -2784,7 +2786,7 @@ function uninstall_sy_madRabbit() {
                 echo -e "\033[33m 清除配置路径文件\033[0m"
                 rm -rf Rabbit/
                 echo -e "\033[33m 卸载镜像\033[0m"
-                uninstall_imageJudge_madRabbit
+                uninstall_imageJudge_madrabbit
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，清除配置路径文件，保留镜像\033[0m"
@@ -2820,7 +2822,7 @@ function uninstall_sy_madRabbit() {
                 echo -e "\033[33m 卸载容器\033[0m"
                 docker rm -f madrabbit
                 echo -e "\033[33m 卸载镜像\033[0m"
-                uninstall_imageJudge_madRabbit
+                uninstall_imageJudge_madrabbit
                 ;;
             *)
                 echo -e "\033[33m 卸载容器，保留配置路径文件及镜像\033[0m"
@@ -3030,7 +3032,7 @@ function uninstall_sy_rabbit() {
     esac
 
 }
-function uninstall_imageJudge_fastRabbit() {
+function uninstall_imageJudge_fastrabbit() {
     osCore=$(uname -m)
     osArm1='arm'
     osArm2='aarch'
@@ -3041,7 +3043,7 @@ function uninstall_imageJudge_fastRabbit() {
         docker rmi ht944/fastrabbit:latest
     fi
 }
-function uninstall_imageJudge_madRabbit() {
+function uninstall_imageJudge_madrabbit() {
     osCore=$(uname -m)
     osArm1='arm'
     osArm2='aarch'
