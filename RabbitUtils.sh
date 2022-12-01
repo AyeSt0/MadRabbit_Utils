@@ -3,16 +3,16 @@
 <<INFO
 SCRIPYT:RabbitUtils.sh
 AUTHOR:AyeSt0
-DATE:2022-11-30
+DATE:2022-12-01
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.2.1
+VERSION:V1.2.2
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.2.1'
+vVersion='V1.2.2'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -362,7 +362,7 @@ $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
-$(echo -e "\033[32m\033[1m 【1】安装FastRabbit（未实装）\033[0m")
+$(echo -e "\033[32m\033[1m 【1】安装FastRabbit\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
 
@@ -470,7 +470,7 @@ $(echo -e "\033[32m\033[1m 【1】更新\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
+$(echo -e "\033[32m\033[1m 【3】安装FastRabbit\033[0m")
 
 $(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
 
@@ -525,7 +525,7 @@ $(echo -e "\033[32m\033[1m 【1】更新\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
+$(echo -e "\033[32m\033[1m 【3】安装FastRabbit\033[0m")
 
 $(echo -e "\033[32m\033[1m 【4】安装MadRabbit\033[0m")
 
@@ -958,7 +958,7 @@ $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
-$(echo -e "\033[32m\033[1m 【1】安装FastRabbit（未实装）\033[0m")
+$(echo -e "\033[32m\033[1m 【1】安装FastRabbit\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
 
@@ -1066,7 +1066,7 @@ $(echo -e "\033[32m\033[1m 【1】更新\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
+$(echo -e "\033[32m\033[1m 【3】安装FastRabbit\033[0m")
 
 $(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
 
@@ -1121,7 +1121,7 @@ $(echo -e "\033[32m\033[1m 【1】更新\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】安装FastRabbit（未实装）\033[0m")
+$(echo -e "\033[32m\033[1m 【3】安装FastRabbit\033[0m")
 
 $(echo -e "\033[32m\033[1m 【4】安装MadRabbit\033[0m")
 
@@ -1168,7 +1168,7 @@ $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m\033[1m 请选择您要安装的Rabbit版本\033[0m")
 
-$(echo -e "\033[32m\033[1m 【1】FastRabbit（新版,暂未实装）\033[0m")
+$(echo -e "\033[32m\033[1m 【1】FastRabbit（新版）\033[0m")
 
 $(echo -e "\033[32m\033[1m 【2】MadRabbit（新版）\033[0m")
 
