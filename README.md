@@ -25,12 +25,12 @@ bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/M
 ```bash
 bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitUtils.sh)
 ```
-#### 测试版(更新最前沿，BUG先锋)
+#### 旧版Rabbit一键（稳定版）
 ```bash
-bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitUtils:test.sh)
+bash <(curl -s -L https://ghproxy.com/https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitManage.sh)
 ```
 ```bash
-bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitUtils:test.sh)
+bash <(curl -s -L https://raw.githubusercontent.com/AyeSt0/MadRabbit_Utils/master/RabbitManage.sh)
 ```
 ## 不切实际的未来计划
 * *完善脚本，让脚本能循环利用😀*  
