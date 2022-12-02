@@ -2429,7 +2429,7 @@ function whereAreyou() {
 }
 #判断是否国内鸡
 function ipChina() {
-    container_info=$(docker inspect rabbit | grep Mounts -A 20)
+    container_info=$(docker inspect $RabbitImageName | grep Mounts -A 20)
     container_info_cut=${container_info#*\"Source\": \"}
     container_path=${container_info_cut%%\"*}
     if [ -f "$container_path"/ipChina.conf ]; then
