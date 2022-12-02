@@ -7,12 +7,12 @@ DATE:2022-12-01
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.2.2
+VERSION:V1.2.3
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.2.2'
+vVersion='V1.2.3'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -2373,8 +2373,9 @@ function container_install_sy() {
     fi
     echo "docker 已安装！"
 
-    echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name $RabbitImageName -p $rabbitPort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/$osCoreurl/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
+echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
+    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/Rabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
