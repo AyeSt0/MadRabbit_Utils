@@ -3,16 +3,16 @@
 <<INFO
 SCRIPYT:RabbitUtils.sh
 AUTHOR:AyeSt0
-DATE:2022-12-01
+DATE:2023-01-04
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.2.4
+VERSION:V1.2.5
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.2.4'
+vVersion='V1.2.5'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -235,9 +235,9 @@ $(echo -e "\033[33m 请选择管理版本\033[0m")
 
 $(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【2】MadRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【3】Rabbit\033[0m")
 
 $(echo -e "\033[31m 【4】退出\033[0m")
 
@@ -278,7 +278,7 @@ $(echo -e "\033[33m 请选择管理版本\033[0m")
 
 $(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【2】MadRabbit\033[0m")
 
 $(echo -e "\033[31m\033[1m 【3】安装Rabbit\033[0m")
 
@@ -323,7 +323,7 @@ $(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】安装MadRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【3】Rabbit\033[0m")
 
 $(echo -e "\033[31m 【4】退出\033[0m")
 
@@ -362,11 +362,11 @@ $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择管理版本\033[0m")
 
-$(echo -e "\033[32m\033[1m 【1】安装FastRabbit\033[0m")
+$(echo -e "\033[31m\033[1m 【1】安装FastRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【2】MadRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【3】Rabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【3】Rabbit\033[0m")
 
 $(echo -e "\033[31m 【4】退出\033[0m")
 
@@ -1845,19 +1845,23 @@ function configquick() {
 
 function fastrabbitLocalversion() {
     #Management_Countdown10
-    checkRabbitport=$(docker port fastrabbit)
-    rRabbitPort=${checkRabbitport##*:}
-    checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
-    #echo "$checkVersion"
-    fastrabbitLocalversion=${checkVersion:0-7:5}
+    checkfastRabbitport=$(docker port fastrabbit)
+    rfastRabbitPort=${checkfastRabbitport##*:}
+    checkfastVersion=$(curl -s http://127.0.0.1:"$rfastRabbitPort"/api/version)
+    #echo "$checkfastVersion"
+    [[ $checkfastVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\"\,\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
+    fastrabbitLocalversion=${BASH_REMATCH[2]}
+    #echo "$fastrabbitLocalversion"
+    
 }
 function madrabbitLocalversion() {
     #Management_Countdown10
-    checkRabbitport=$(docker port madrabbit)
-    rRabbitPort=${checkRabbitport##*:}
-    checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
-    #echo "$checkVersion"
-    madrabbitLocalversion=${checkVersion:12:5}
+    checkmadRabbitport=$(docker port madrabbit)
+    rmadRabbitPort=${checkmadRabbitport##*:}
+    checkmadVersion=$(curl -s http://127.0.0.1:"$rmadRabbitPort"/api/version)
+    #echo "$checkmadVersion"
+    [[ $checkmadVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\"\,\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
+    madrabbitLocalversion=${BASH_REMATCH[2]}
 }
 function rabbitLocalversion() {
     #Management_Countdown10
@@ -1865,7 +1869,8 @@ function rabbitLocalversion() {
     rRabbitPort=${checkRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
     #echo "$checkVersion"
-    rabbitLocalversion=${checkVersion:12:5}
+    [[ $checkVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\"\,\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
+    rabbitLocalversion=${BASH_REMATCH[2]}
 }
 
 function update_fastrabbit() {
@@ -1876,6 +1881,7 @@ function update_fastrabbit() {
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
         latestVersionString=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
+        #echo "$latestVersionString"
         latestVersion=${latestVersionString:41:5}
         if [ $? -ne 0 ]; then
             latestVersion='未获取到最新版本版本号'
