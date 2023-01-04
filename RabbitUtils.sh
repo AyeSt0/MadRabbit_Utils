@@ -1886,8 +1886,8 @@ function update_fastrabbit() {
         latestVersionString=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
         #echo "$latestVersionString"
         latestVersion=${latestVersionString:41:5}
-        if [ $? -ne 0 ]; then
-            latestVersion='未获取到最新版本版本号'
+        if [[ -z "$latestVersion" ]]; then
+            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
         if [[ $latestVersion =~ $fastrabbitLocalversion ]]; then
@@ -1903,8 +1903,8 @@ function update_fastrabbit() {
     else
         latestVersionString=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
         latestVersion=${latestVersionString:41:5}
-        if [ $? -ne 0 ]; then
-            latestVersion='未获取到最新版本版本号'
+        if [[ -z "$latestVersion" ]]; then
+            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
         echo -e "最新版本 $latestVersion"
         if [[ $latestVersion =~ $fastrabbitLocalversion ]]; then
@@ -1927,8 +1927,8 @@ function update_madrabbit() {
     if [ "$inChina_judge" = $inChinaNo ]; then
         latestVersionString=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
         latestVersion=${latestVersionString:41:5}
-        if [ $? -ne 0 ]; then
-            latestVersion='未获取到最新版本版本号'
+        if [[ -z "$latestVersion" ]]; then
+            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
         if [[ $latestVersion =~ $madrabbitLocalversion ]]; then
@@ -1944,8 +1944,8 @@ function update_madrabbit() {
     else
         latestVersionString=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
         latestVersion=${latestVersionString:41:5}
-        if [ $? -ne 0 ]; then
-            latestVersion='未获取到最新版本版本号'
+        if [[ -z "$latestVersion" ]]; then
+            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
         echo -e "最新版本 $latestVersion"
         if [[ $latestVersion =~ $madrabbitLocalversion ]]; then
@@ -1969,8 +1969,8 @@ function update_rabbit() {
     if [ "$inChina_judge" = $inChinaNo ]; then
         latestVersionString=$(curl -s -d "type=rabbit" http://api.madrabbit.cf/license/version)
         latestVersion=${latestVersionString:41:5}
-        if [ $? -ne 0 ]; then
-            latestVersion='未获取到最新版本版本号'
+        if [[ -z "$latestVersion" ]]; then
+            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
         if [[ $latestVersion =~ $rabbitLocalversion ]]; then
@@ -1986,8 +1986,8 @@ function update_rabbit() {
     else
         latestVersionString=$(curl -s -d "type=rabbit" http://api.madrabbit.cf/license/version)
         latestVersion=${latestVersionString:41:5}
-        if [ $? -ne 0 ]; then
-            latestVersion='未获取到最新版本版本号'
+        if [[ -z "$latestVersion" ]]; then
+            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
         echo -e "最新版本 $latestVersion"
         if [[ $latestVersion =~ $rabbitLocalversion ]]; then
