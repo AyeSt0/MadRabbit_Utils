@@ -427,6 +427,7 @@ eof
     case $num21 in
 
     1)
+        RabbitImageName="fastrabbit"
         update_fastrabbit
         ;;
 
@@ -483,6 +484,7 @@ eof
     case $num22 in
 
     1)
+        RabbitImageName="madrabbit"
         update_madrabbit
         ;;
 
@@ -538,6 +540,7 @@ eof
     case $num23 in
 
     1)
+        RabbitImageName="rabbit"
         update_rabbit
         ;;
 
