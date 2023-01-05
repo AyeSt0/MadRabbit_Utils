@@ -7,12 +7,12 @@ DATE:2023-01-04
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.2.5
+VERSION:V1.2.6
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.2.5'
+vVersion='V1.2.6'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -1883,9 +1883,9 @@ function update_fastrabbit() {
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersionString=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
-        #echo "$latestVersionString"
-        latestVersion=${latestVersionString:41:5}
+        latestfastVersionString=$(curl -s -d "type=fastrabbit" http://62.204.54.137:1804/license/version)
+        [[ $latestfastVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
+        latestVersion= ${BASH_REMATCH[5]}
         if [[ -z "$latestVersion" ]]; then
             latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
@@ -1901,8 +1901,9 @@ function update_fastrabbit() {
             #curl -s http://127.0.0.1:$rRabbitPort/api/update
         fi
     else
-        latestVersionString=$(curl -s -d "type=fastrabbit" http://api.madrabbit.cf/license/version)
-        latestVersion=${latestVersionString:41:5}
+        latestfastVersionString=$(curl -s -d "type=fastrabbit" http://62.204.54.137:1804/license/version)
+        [[ $latestfastVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
+        latestVersion= ${BASH_REMATCH[5]}
         if [[ -z "$latestVersion" ]]; then
             latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
@@ -1925,8 +1926,9 @@ function update_madrabbit() {
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersionString=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
-        latestVersion=${latestVersionString:41:5}
+        latestmadVersionString=$(curl -s -d "type=madrabbit" http://62.204.54.137:1804/license/version)
+        [[ $latestmadVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
+        latestVersion= ${BASH_REMATCH[5]}
         if [[ -z "$latestVersion" ]]; then
             latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
@@ -1942,8 +1944,9 @@ function update_madrabbit() {
             #curl -s http://127.0.0.1:$rRabbitPort/api/update
         fi
     else
-        latestVersionString=$(curl -s -d "type=madrabbit" http://api.madrabbit.cf/license/version)
-        latestVersion=${latestVersionString:41:5}
+        latestmadVersionString=$(curl -s -d "type=madrabbit" http://62.204.54.137:1804/license/version)
+        [[ $latestmadVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
+        latestVersion= ${BASH_REMATCH[5]}
         if [[ -z "$latestVersion" ]]; then
             latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
@@ -1967,8 +1970,9 @@ function update_rabbit() {
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersionString=$(curl -s -d "type=rabbit" http://api.madrabbit.cf/license/version)
-        latestVersion=${latestVersionString:41:5}
+        latestVersionString=$(curl -s -d "type=rabbit" http://62.204.54.137:1804/license/version)
+        [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
+        latestVersion= ${BASH_REMATCH[5]}
         if [[ -z "$latestVersion" ]]; then
             latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
@@ -1984,8 +1988,9 @@ function update_rabbit() {
             #curl -s http://127.0.0.1:$rRabbitPort/api/update
         fi
     else
-        latestVersionString=$(curl -s -d "type=rabbit" http://api.madrabbit.cf/license/version)
-        latestVersion=${latestVersionString:41:5}
+        latestVersionString=$(curl -s -d "type=rabbit" http://62.204.54.137:1804/license/version)
+        [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
+        latestVersion= ${BASH_REMATCH[5]}
         if [[ -z "$latestVersion" ]]; then
             latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
         fi
