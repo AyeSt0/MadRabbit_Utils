@@ -1886,9 +1886,7 @@ function update_fastrabbit() {
         latestfastVersionString=$(curl -s -d "type=fastrabbit" http://62.204.54.137:1804/license/version)
         [[ $latestfastVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
         latestVersion=${BASH_REMATCH[5]}
-        if [[ -z "$latestVersion" ]]; then
-            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
-        fi
+        
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
         if [[ $latestVersion =~ $fastrabbitLocalversion ]]; then
             echo -e "\033[1m 当前已为最新版本 \033[0m"
@@ -1904,9 +1902,7 @@ function update_fastrabbit() {
         latestfastVersionString=$(curl -s -d "type=fastrabbit" http://62.204.54.137:1804/license/version)
         [[ $latestfastVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
         latestVersion=${BASH_REMATCH[5]}
-        if [[ -z "$latestVersion" ]]; then
-            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
-        fi
+        
         echo -e "最新版本 $latestVersion"
         if [[ $latestVersion =~ $fastrabbitLocalversion ]]; then
             echo -e "当前已为最新版本"
@@ -1929,9 +1925,7 @@ function update_madrabbit() {
         latestmadVersionString=$(curl -s -d "type=madrabbit" http://62.204.54.137:1804/license/version)
         [[ $latestmadVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
         latestVersion=${BASH_REMATCH[5]}
-        if [[ -z "$latestVersion" ]]; then
-            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
-        fi
+        
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
         if [[ $latestVersion =~ $madrabbitLocalversion ]]; then
             echo -e "\033[1m 当前已为最新版本 \033[0m"
@@ -1947,9 +1941,7 @@ function update_madrabbit() {
         latestmadVersionString=$(curl -s -d "type=madrabbit" http://62.204.54.137:1804/license/version)
         [[ $latestmadVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
         latestVersion=${BASH_REMATCH[5]}
-        if [[ -z "$latestVersion" ]]; then
-            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
-        fi
+        
         echo -e "最新版本 $latestVersion"
         if [[ $latestVersion =~ $madrabbitLocalversion ]]; then
             echo -e "当前已为最新版本"
@@ -1973,9 +1965,7 @@ function update_rabbit() {
         latestVersionString=$(curl -s -d "type=rabbit" http://62.204.54.137:1804/license/version)
         [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
         latestVersion=${BASH_REMATCH[5]}
-        if [[ -z "$latestVersion" ]]; then
-            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
-        fi
+        
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
         if [[ $latestVersion =~ $rabbitLocalversion ]]; then
             echo -e "\033[1m 当前已为最新版本 \033[0m"
@@ -1991,9 +1981,7 @@ function update_rabbit() {
         latestVersionString=$(curl -s -d "type=rabbit" http://62.204.54.137:1804/license/version)
         [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
         latestVersion=${BASH_REMATCH[5]}
-        if [[ -z "$latestVersion" ]]; then
-            latestVersion='未获取到云端最新版本版本号，即将尝试强制更新'
-        fi
+        
         echo -e "最新版本 $latestVersion"
         if [[ $latestVersion =~ $rabbitLocalversion ]]; then
             echo -e "当前已为最新版本"
