@@ -1872,7 +1872,7 @@ function rabbitLocalversion() {
     rRabbitPort=${checkRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:"$rRabbitPort"/api/version)
     #echo "$checkVersion"
-    [[ $checkVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\"\,\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
+    [[ $checkVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
     rabbitLocalversion=${BASH_REMATCH[2]}
 }
 
