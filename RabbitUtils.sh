@@ -7,12 +7,12 @@ DATE:2023-01-06
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.2.6
+VERSION:V1.2.7
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.2.6'
+vVersion='V1.2.7'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -237,7 +237,7 @@ $(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
 $(echo -e "\033[32m\033[1m 【2】MadRabbit\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】Rabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【3】Rabbit（暂时移除）\033[0m")
 
 $(echo -e "\033[31m 【4】退出\033[0m")
 
@@ -256,7 +256,7 @@ eof
         ;;
 
     3)
-        Cloud_manage_rabbit_menu
+        #Cloud_manage_rabbit_menu
         ;;
     4)
         exit 0
@@ -280,7 +280,7 @@ $(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
 $(echo -e "\033[32m\033[1m 【2】MadRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【3】安装Rabbit\033[0m")
+$(echo -e "\033[31m\033[1m 【3】安装Rabbit（暂时移除）\033[0m")
 
 $(echo -e "\033[31m 【4】退出\033[0m")
 
@@ -300,7 +300,7 @@ eof
 
     3)
         RabbitImageName=rabbit
-        Cloud_install_menu_r
+        #Cloud_install_menu_r
         ;;
     4)
         exit 0
@@ -416,7 +416,7 @@ $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
 $(echo -e "\033[32m\033[1m 【3】安装MadRabbit\033[0m")
 
-$(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【4】安装Rabbit（暂时移除）\033[0m")
 
 $(echo -e "\033[31m 【5】退出\033[0m")
 
@@ -442,7 +442,7 @@ eof
 
     4)
         RabbitImageName=rabbit
-        Cloud_install_menu_r
+        #Cloud_install_menu_r
         ;;
 
     5)
@@ -473,7 +473,7 @@ $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
 $(echo -e "\033[32m\033[1m 【3】安装FastRabbit\033[0m")
 
-$(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【4】安装Rabbit（暂时移除）\033[0m")
 
 $(echo -e "\033[31m 【5】退出\033[0m")
 
@@ -498,7 +498,7 @@ eof
 
     4)
         RabbitImageName=rabbit
-        Cloud_install_menu_r
+        #Cloud_install_menu_r
         ;;
 
     5)
@@ -579,7 +579,7 @@ $(echo -e "\033[32m\033[1m 【1】FastRabbit（新版）\033[0m")
 
 $(echo -e "\033[32m\033[1m 【2】MadRabbit（新版）\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】Rabbit（旧版）\033[0m")
+$(echo -e "\033[32m\033[1m 【3】Rabbit（旧版）（暂时移除）\033[0m")
 
 $(echo -e "\033[31m 【4】退出\033[0m")
 
@@ -603,7 +603,7 @@ eof
 
     3)
         RabbitImageName=rabbit
-        Cloud_install_menu_r
+        #Cloud_install_menu_r
 
         ;;
 
@@ -879,7 +879,7 @@ $(echo -e "\033[32m\033[1m 【1】FastRabbit\033[0m")
 
 $(echo -e "\033[31m\033[1m 【2】MadRabbit\033[0m")
 
-$(echo -e "\033[31m\033[1m 【3】安装Rabbit\033[0m")
+$(echo -e "\033[31m\033[1m 【3】安装Rabbit\（暂时移除）033[0m")
 
 $(echo -e "\033[31m 【4】退出\033[0m")
 
@@ -899,7 +899,7 @@ eof
 
     3)
         RabbitImageName=rabbit
-        Synology_install_menu
+        #Synology_install_menu
         ;;
     4)
         exit 0
@@ -1015,7 +1015,7 @@ $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
 $(echo -e "\033[32m\033[1m 【3】安装MadRabbit\033[0m")
 
-$(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【4】安装Rabbit（暂时移除）\033[0m")
 
 $(echo -e "\033[31m 【5】退出\033[0m")
 
@@ -1040,7 +1040,7 @@ eof
 
     4)
         RabbitImageName=rabbit
-        Synology_install_menu
+        #Synology_install_menu
         ;;
 
     5)
@@ -1071,7 +1071,7 @@ $(echo -e "\033[31m\033[1m 【2】卸载\033[0m")
 
 $(echo -e "\033[32m\033[1m 【3】安装FastRabbit\033[0m")
 
-$(echo -e "\033[32m\033[1m 【4】安装Rabbit\033[0m")
+$(echo -e "\033[32m\033[1m 【4】安装Rabbit（暂时移除）\033[0m")
 
 $(echo -e "\033[31m 【5】退出\033[0m")
 
@@ -1095,7 +1095,7 @@ eof
 
     4)
         RabbitImageName=rabbit
-        Synology_install_menu
+        #Synology_install_menu
         ;;
 
     5)
@@ -1175,7 +1175,7 @@ $(echo -e "\033[32m\033[1m 【1】FastRabbit（新版）\033[0m")
 
 $(echo -e "\033[32m\033[1m 【2】MadRabbit（新版）\033[0m")
 
-$(echo -e "\033[32m\033[1m 【3】Rabbit（旧版）\033[0m")
+$(echo -e "\033[32m\033[1m 【3】Rabbit（旧版）（暂时移除）\033[0m")
 
 $(echo -e "\033[31m 【4】退出\033[0m")
 
@@ -1199,7 +1199,7 @@ eof
 
     3)
         RabbitImageName=rabbit
-        Synology_install_menu
+        #Synology_install_menu
 
         ;;
 
