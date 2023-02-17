@@ -7,7 +7,7 @@ DATE:2023-02-17
 DESCRIBE:One click installation of qrabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:T1.0.0
+VERSION:V1.0.0
 MODIFY:debug
 INFO
 clear
@@ -28,7 +28,7 @@ function system_Judgment() {
                     qrabbitLocalversion
                     echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
                     echo ""
-                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
                     echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
                     echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
                     Synology_manage_main_menu
@@ -36,7 +36,7 @@ function system_Judgment() {
                     #echo -e "\033[42;37m 未检测到qrabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
                     echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
                     echo ""
-                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
                     echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
                     echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
                     Synology_manage_main12_menu
@@ -49,7 +49,7 @@ function system_Judgment() {
                     qrabbitLocalversion
                     echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
                     echo ""
-                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
                     echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
                     echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
                     Cloud_manage_menu_qrabbit
@@ -57,7 +57,7 @@ function system_Judgment() {
                     #echo -e "\033[42;37m 未检测到qrabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
                     echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
                     echo ""
-                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用Rabbit的\033[0m"
+                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
                     echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
                     echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
                     Cloud_install_menu_qrabbit
@@ -534,7 +534,7 @@ function qrabbitLocalversion() {
     checkqRabbitport=$(docker port qrabbit)
     rqRabbitPort=${checkqRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:$rqRabbitPort/api/version)
-    echo "获取版本$checkVersion"
+    #echo "获取版本$checkVersion"
     [[ $checkVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\",\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
     qrabbitLocalversion=${BASH_REMATCH[2]}
 }
@@ -588,7 +588,7 @@ function Management_Countdown5() {
 }
 
 function Upgrade_Countdown() {
-    for i in {15..1}; do
+    for i in {10..1}; do
 
         echo -n 等待qrabbit启动..."$i" 秒后检测更新!!
         echo -ne "\r\r" ####echo -e 处理特殊字符  \r 光标移至行首，但不换行
@@ -832,7 +832,8 @@ function container_install_gn() {
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
-        update_qrabbit
+        docker exec -it qrabbit git pull
+        docker restart qrabbit
     fi
 }
 
@@ -896,7 +897,8 @@ function container_install_gw() {
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
-        update_qrabbit
+        docker exec -it qrabbit git pull
+        docker restart qrabbit
     fi
 }
 function container_install_sy() {
@@ -940,7 +942,8 @@ function container_install_sy() {
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
-        update_qrabbit
+        docker exec -it qrabbit git pull
+        docker restart qrabbit
     fi
 }
 #是否国内
