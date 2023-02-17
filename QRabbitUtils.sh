@@ -535,7 +535,7 @@ function qrabbitLocalversion() {
     rqRabbitPort=${checkqRabbitport##*:}
     checkVersion=$(curl -s http://127.0.0.1:$rqRabbitPort/api/version)
     echo "获取版本$checkVersion"
-    [[ $checkVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
+    [[ $checkVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\",\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
     qrabbitLocalversion=${BASH_REMATCH[2]}
 }
 
