@@ -525,6 +525,7 @@ function configquick() {
             echo -e "\033[42;37m 跳过配置\033[0m"
             ;;
         esac
+    esac
 }
 
 function qrabbitLocalversion() {
