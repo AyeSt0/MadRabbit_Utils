@@ -22,46 +22,46 @@ function system_Judgment() {
     qrabbitcontainerName="qrabbit"
     if [[ $uNames =~ $syosNames ]]; then
         echo -e "\033[32m 忙猜你是群晖\033[0m"
-                if [[ -n $(docker ps -q -f "name=^${qrabbitcontainerName}$") ]]; then
-                    echo -e "\033[42;37m 检测到qrabbit容器\033[0m"
-                    #当前版本
-                    qrabbitLocalversion
-                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
-                    echo ""
-                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
-                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
-                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
-                    Synology_manage_main_menu
-                else
-                    #echo -e "\033[42;37m 未检测到qrabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
-                    echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
-                    echo ""
-                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
-                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
-                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
-                    Synology_manage_main12_menu
-                fi       
+        if [[ -n $(docker ps -q -f "name=^${qrabbitcontainerName}$") ]]; then
+            echo -e "\033[42;37m 检测到qrabbit容器\033[0m"
+            #当前版本
+            qrabbitLocalversion
+            echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+            echo ""
+            echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
+            echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+            echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+            Synology_manage_main_menu
+        else
+            #echo -e "\033[42;37m 未检测到qrabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
+            echo -e "\033[42;37m 群晖一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+            echo ""
+            echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
+            echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+            echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+            Synology_manage_main12_menu
+        fi
     else
         echo -e "\033[32m 忙猜你是云服务器\033[0m"
-                if [[ -n $(docker ps -q -f "name=^${qrabbitcontainerName}$") ]]; then
-                    echo -e "\033[42;37m 检测到qrabbit容器\033[0m"
-                    #当前版本
-                    qrabbitLocalversion
-                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
-                    echo ""
-                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
-                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
-                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
-                    Cloud_manage_menu_qrabbit
-                else
-                    #echo -e "\033[42;37m 未检测到qrabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
-                    echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
-                    echo ""
-                    echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
-                    echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
-                    echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
-                    Cloud_install_menu_qrabbit
-                fi
+        if [[ -n $(docker ps -q -f "name=^${qrabbitcontainerName}$") ]]; then
+            echo -e "\033[42;37m 检测到qrabbit容器\033[0m"
+            #当前版本
+            qrabbitLocalversion
+            echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+            echo ""
+            echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
+            echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+            echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+            Cloud_manage_menu_qrabbit
+        else
+            #echo -e "\033[42;37m 未检测到qrabbit容器\033[0m   \033[1m启动一键管理脚本>>>>\033[0m"
+            echo -e "\033[42;37m 云服务器一键管理脚本\033[0m   \033[1m启动>>>>>>>>>>>>\033[0m"
+            echo ""
+            echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
+            echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
+            echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
+            Cloud_install_menu_qrabbit
+        fi
     fi
 }
 
@@ -243,7 +243,6 @@ function gn_run_qr() {
     container_install_gn
 }
 
-
 function gw_run_qr() {
     #青龙配置类型
     confVersion='QRabbit'
@@ -273,7 +272,6 @@ function sy_run_qr() {
     #容器安装
     container_install_sy
 }
-
 
 #配置 配置文件
 function configquick() {
@@ -526,6 +524,7 @@ function configquick() {
             echo -e "\033[42;37m 跳过配置\033[0m"
             ;;
         esac
+        ;;
     esac
 }
 
@@ -549,7 +548,7 @@ function update_qrabbit() {
         latestVersionString=$(curl -s -d "type=qrabbit" http://62.204.54.137:1804/license/version)
         [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
         latestVersion=${BASH_REMATCH[5]}
-        
+
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
         if [[ $latestVersion =~ $qrabbitLocalversion ]]; then
             echo -e "\033[1m 当前已为最新版本 \033[0m"
@@ -565,7 +564,7 @@ function update_qrabbit() {
         latestVersionString=$(curl -s -d "type=qrabbit" http://62.204.54.137:1804/license/version)
         [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
         latestVersion=${BASH_REMATCH[5]}
-        
+
         echo -e "最新版本 $latestVersion"
         if [[ $latestVersion =~ $qrabbitLocalversion ]]; then
             echo -e "当前已为最新版本"
@@ -819,8 +818,8 @@ function container_install_gn() {
     check_Dockermirror
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name qrabbit -p $RabbitImageNamePort:1234  -d  -v  "$(pwd)"/Config:/Rabbit/Config \
--it --privileged=true  ht944/qrabbit:$rabbitVersion
+    sudo docker run --name qrabbit -p $RabbitImageNamePort:1234 -d -v "$(pwd)"/Config:/Rabbit/Config \
+        -it --privileged=true ht944/qrabbit:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -884,8 +883,8 @@ function container_install_gw() {
     echo "docker 已安装！"
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run   --name qrabbit -p $RabbitImageNamePort:1234  -d  -v  "$(pwd)"/Config:/Rabbit/Config \
--it --privileged=true  ht944/qrabbit:latest
+    sudo docker run --name qrabbit -p $RabbitImageNamePort:1234 -d -v "$(pwd)"/Config:/Rabbit/Config \
+        -it --privileged=true ht944/qrabbit:latest
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -930,7 +929,7 @@ function container_install_sy() {
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
     sudo docker run --name qrabbit -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config \
--it --privileged=true ht944/qrabbit:$rabbitVersion
+        -it --privileged=true ht944/qrabbit:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
