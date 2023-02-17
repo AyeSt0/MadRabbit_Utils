@@ -7,12 +7,12 @@ DATE:2023-02-17
 DESCRIBE:One click installation of qrabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:T1.0.0
+VERSION:T1.0.1
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.0.0'
+vVersion='V1.0.1'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -881,7 +881,8 @@ function container_install_gw() {
     echo "docker 已安装！"
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    sudo docker run   --name qrabbit -p $RabbitImageNamePort:1234  -d  -v  "$(pwd)"/Config:/Rabbit/Config \
+-it --privileged=true  ht944/qrabbit:latest
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -924,7 +925,8 @@ function container_install_sy() {
 
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config \
+-it --privileged=true ht944/$RabbitImageName:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
