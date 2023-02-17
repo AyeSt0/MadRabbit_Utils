@@ -1,0 +1,52 @@
+{
+  // 注释行必须为"// "，空格必须有，否则解析失败，同理，非注释行不要有"// "否则会被注释掉
+  // 最多同时登陆人数，默认4，最大20
+  "MaxTab": "4",
+  // 标题 
+  "Title": "Rabbit",
+  // 扫码超时时间，以秒为单位
+  "Closetime": "180",
+  // 中心服务器HOST,默认62.204.54.137:4566（一般不用动）
+  "ServerHost": "62.204.54.137:4566",
+  // RabbitToken，机器人给的log的token（@RabbitMarkit_Bot）
+  "RabbitToken": "",
+  // ApiToken，机器人对接需要得token，长度32位以上
+  "ApiToken": "",
+  // 更新密码，更新时需要确认密码
+  "UpdatePwd": "",
+  // 公告
+  "Announcement": "为提高账户的安全性，请关闭免密支付。",
+  // 开启DEBUG模式
+  "debug": true,
+  // 是否可复制ck，默认不可复制
+  "REAL_CK": false,
+  // wskey转换定时,必填，（有效期24小时所以每天至少转两次）不会写的去https://www.iamwawa.cn/crontab.html
+  "WskeyCron": "",
+  // WXPUSHER的APP_TOKEN，去 https://wxpusher.zjiecode.com/admin/main/app/appToken 获取
+  "APP_TOKEN": "",
+  // WXPUSHER你自己的UID，去 https://wxpusher.zjiecode.com/admin/main/app/appFollow 微信扫码 然后在微信找
+  "MY_WP_UID": "",
+  // 对接机器人则全部删除，"Config": []
+  "Config": [
+    {
+      // 别动
+      "ServerType": "ql",
+      // 序号只能填1、2、3。。。。
+      "QLkey": 1,
+      // 服务器名字，可以DIY,只有一个可以不动
+      "QLName": "京东车1",
+      // 你青龙的地址
+      "QLurl": "",
+      // 青龙-系统设置-应用设置-Client ID
+      "QL_CLIENTID": "",
+      // 青龙-系统设置-应用设置-Client Secret  
+      "QL_SECRET": "",
+      // 服务器容量上限
+      "QL_CAPACITY": 200,
+      // wskey上限
+      "QL_WSCK":200 ,
+      // 填25行的内容
+      "APP_TOKEN": ""
+    }
+]
+}
