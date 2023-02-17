@@ -71,9 +71,9 @@ function Cloud_manage_menu_qrabbit() {
 
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
-$(echo -e "\033[36m|     \033[1m欢迎使用【QRabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    \033[1m欢迎使用【QRabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
 $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
-$(echo -e "\033[36m|          \033[1m\033[32m当前QRabbit版本 $qrabbitLocalversion\033[0m\033[0m         \033[36m|\033[0m")
+$(echo -e "\033[36m|         \033[1m\033[32m当前QRabbit版本 $qrabbitLocalversion\033[0m\033[0m         \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
@@ -113,7 +113,7 @@ function Cloud_install_menu_qrabbit() {
 
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
-$(echo -e "\033[36m|     \033[1m欢迎使用【QRabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    \033[1m欢迎使用【QRabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
 $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m\033[1m 请选择您的QRabbit运行环境\033[0m")
@@ -155,9 +155,9 @@ function Synology_manage_menu_qrabbit() {
 
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
-$(echo -e "\033[36m|     \033[1m欢迎使用【QRabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    \033[1m欢迎使用【QRabbit一键管理脚本】\033[0m    \033[36m|\033[0m")
 $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
-$(echo -e "\033[36m|          \033[1m\033[32m当前QRabbit版本 $qrabbitLocalversion\033[0m\033[0m         \033[36m|\033[0m")
+$(echo -e "\033[36m|         \033[1m\033[32m当前QRabbit版本 $qrabbitLocalversion\033[0m\033[0m         \033[36m|\033[0m")
 $(echo -e "\033[36m|     容器刚启动可能不会显示版本号      |\033[0m")
 $(echo -e "\033[36m|         可以重新运行脚本重试          |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
@@ -197,7 +197,7 @@ function Synology_install_menu_qrabbit() {
 
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[36m|    User:$uUser        Date:$dDate   |\033[0m")
-$(echo -e "\033[36m|     \033[1m欢迎使用【QRabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
+$(echo -e "\033[36m|    \033[1m欢迎使用【QRabbit一键安装脚本】\033[0m    \033[36m|\033[0m")
 $(echo -e "\033[36m|    $vVersion                by AyeSt0    |\033[0m")
 $(echo -e "\033[36m-----------------------------------------\033[0m")
 $(echo -e "\033[33m 请选择合适的选项\033[0m")
