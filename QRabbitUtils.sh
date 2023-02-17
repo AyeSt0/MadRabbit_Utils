@@ -818,7 +818,8 @@ function container_install_gn() {
     check_Dockermirror
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
+    sudo docker run --name $RabbitImageName -p $1:1234  -d  -v  "$(pwd)"/Config:/Rabbit/Config \
+-it --privileged=true  ht944/qrabbit:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -1212,4 +1213,3 @@ function uninstall_imageJudge_qrabbit() {
 }
 
 system_Judgment
-
