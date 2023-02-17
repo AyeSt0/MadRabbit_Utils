@@ -1,19 +1,18 @@
 #!/bin/bash
 #!/bin/sh
-
 <<INFO
-    AUTHOR:AyeSt0
-    DATE:2023-02-17
-    DESCRIBE:One click installation of qrabbit
-    SYSTEM:linux
-    WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-    VERSION:T1.0.0
-    MODIFY:debug
+SCRIPYT:QRabbitUtils.sh
+AUTHOR:AyeSt0
+DATE:2023-02-17
+DESCRIBE:One click installation of qrabbit
+SYSTEM:linux
+WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
+VERSION:T1.0.0
+MODIFY:debug
 INFO
-
 clear
 trap "" 2 3 15
-vVersion='T1.0.0'
+vVersion='V1.0.0'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -213,7 +212,7 @@ eof
     case $enum11 in
 
     1)
-        RabbitImageName=qrabbit
+        RabbitImageName="qrabbit"
         inChina=Yes
         sy_run_qr
 
@@ -632,8 +631,8 @@ function conf_Dockermirror() {
     case $rabbitDockerconfnum in
     1)
         echo '{
-"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
-}' >dockerConfigpath
+    "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+    }' >dockerConfigpath
         if [ $? -ne 0 ]; then
             echo -e "\033[41;37m 配置失败 \033[0m"
         else
@@ -642,8 +641,8 @@ function conf_Dockermirror() {
         ;;
     2)
         echo '{
-"registry-mirrors": ["http://hub-mirror.c.163.com"]
-}' >dockerConfigpath
+    "registry-mirrors": ["http://hub-mirror.c.163.com"]
+    }' >dockerConfigpath
         if [ $? -ne 0 ]; then
             echo -e "\033[41;37m 配置失败 \033[0m"
         else
@@ -652,8 +651,8 @@ function conf_Dockermirror() {
         ;;
     3)
         echo '{
-"registry-mirrors": ["https://registry.docker-cn.com"]
-}' >dockerConfigpath
+    "registry-mirrors": ["https://registry.docker-cn.com"]
+    }' >dockerConfigpath
         if [ $? -ne 0 ]; then
             echo -e "\033[41;37m 配置失败 \033[0m"
         else
@@ -750,60 +749,22 @@ function confDownload_proxy() {
     fi
 }
 #容器端口设置
-function container_port_settings_fastrabbit() {
-    echo -e "\033[33m Fastqrabbit容器端口【默认5703】\033[0m" && read fastrabbitPort
-    if [ -z "${fastrabbitPort}" ]; then
-        fastrabbitPort='5703'
+function container_port_settings_qrabbit() {
+    echo -e "\033[33m qrabbit容器端口【默认5704】\033[0m" && read qrabbitPort
+    if [ -z "${qrabbitPort}" ]; then
+        qrabbitPort='5704'
     fi
-    echo -e "\033[31m 确认FastRabbit端口设为$fastrabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
+    echo -e "\033[31m 确认Rabbit端口设为$qrabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
     if [ -z "${rabbitPortjudge}" ]; then
         rabbitPortjudge='n'
     fi
     case $rabbitPortjudge in
     [yY])
-        echo -e "\033[42;37m 端口已设为$fastrabbitPort\033[0m"
+        echo -e "\033[42;37m 端口已设为$qrabbitPort\033[0m"
         ;;
     *)
         echo -e "\033[41;37m 返回重设端口 \033[0m"
-        container_port_settings_fastrabbit
-        ;;
-    esac
-}
-function container_port_settings_madrabbit() {
-    echo -e "\033[33m Madqrabbit容器端口【默认5702】\033[0m" && read madrabbitPort
-    if [ -z "${madrabbitPort}" ]; then
-        madrabbitPort='5702'
-    fi
-    echo -e "\033[31m 确认MadRabbit端口设为$madrabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
-    if [ -z "${rabbitPortjudge}" ]; then
-        rabbitPortjudge='n'
-    fi
-    case $rabbitPortjudge in
-    [yY])
-        echo -e "\033[42;37m 端口已设为$madrabbitPort\033[0m"
-        ;;
-    *)
-        echo -e "\033[41;37m 返回重设端口 \033[0m"
-        container_port_settings_madrabbit
-        ;;
-    esac
-}
-function container_port_settings_rabbit() {
-    echo -e "\033[33m qrabbit容器端口【默认5701】\033[0m" && read rabbitPort
-    if [ -z "${rabbitPort}" ]; then
-        rabbitPort='5701'
-    fi
-    echo -e "\033[31m 确认Rabbit端口设为$rabbitPort?(y/n)【默认n】\033[0m" && read rabbitPortjudge
-    if [ -z "${rabbitPortjudge}" ]; then
-        rabbitPortjudge='n'
-    fi
-    case $rabbitPortjudge in
-    [yY])
-        echo -e "\033[42;37m 端口已设为$rabbitPort\033[0m"
-        ;;
-    *)
-        echo -e "\033[41;37m 返回重设端口 \033[0m"
-        container_port_settings_rabbit
+        container_port_settings_qrabbit
         ;;
     esac
 }
@@ -961,7 +922,7 @@ function container_install_sy() {
     echo "docker 已安装！"
 
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
-echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
+    echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
     sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config -it --privileged=true --restart=always ht944/$RabbitImageName:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
