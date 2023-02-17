@@ -13,6 +13,7 @@ INFO
 clear
 trap "" 2 3 15
 vVersion='V1.0.0'
+RabbitImageName="qrabbit"
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
