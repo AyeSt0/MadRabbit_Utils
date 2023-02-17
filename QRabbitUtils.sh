@@ -7,12 +7,12 @@ DATE:2023-02-17
 DESCRIBE:One click installation of qrabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:T1.0.1
+VERSION:T1.0.0
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.0.1'
+vVersion='V1.0.0'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -772,7 +772,7 @@ function container_port_settings_qrabbit() {
 function container_install_gn() {
 
     #容器端口设置
-    container_port_settings_$RabbitImageName
+    container_port_settings_qrabbit
 
     osCore=$(uname -m)
     osArm1='arm'
@@ -836,7 +836,7 @@ function container_install_gn() {
 
 function container_install_gw() {
     #容器端口设置
-    container_port_settings_$RabbitImageName
+    container_port_settings_qrabbit
 
     osCore=$(uname -m)
     osArm1='arm'
@@ -899,7 +899,7 @@ function container_install_gw() {
 }
 function container_install_sy() {
     #容器端口设置
-    container_port_settings_$RabbitImageName
+    container_port_settings_qrabbit
 
     osCore=$(uname -m)
     osArm1='arm'
