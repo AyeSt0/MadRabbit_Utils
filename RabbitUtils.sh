@@ -7,12 +7,12 @@ DATE:2023-01-06
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.2.7
+VERSION:V1.2.8
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.2.7'
+vVersion='V1.2.8'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -1473,7 +1473,7 @@ function configquick() {
         if test -z "$rabbitAutocaptchacount"; then
             rabbitAutocaptchacount='5'
         fi
-        sed -i "/AutoCaptchaCount/s/5/$rabbitClosetime/g" "$rabbitAbsolutepath"/Rabbit/Config/Config.json
+        sed -i "/AutoCaptchaCount/s/5/$rabbitAutocaptchacount/g" "$rabbitAbsolutepath"/Rabbit/Config/Config.json
         if test $? -ne 0; then
             echo -e "\033[41;37m 修改失败...请安装后自行检查配置文件\033[0m"
         else
