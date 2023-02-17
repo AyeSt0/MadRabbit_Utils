@@ -533,7 +533,7 @@ function qrabbitLocalversion() {
     #Management_Countdown10
     checkqRabbitport=$(docker port qrabbit)
     rqRabbitPort=${checkqRabbitport##*:}
-    checkVersion=$(curl -s http://127.0.0.1:"$rqRabbitPort"/api/version)
+    checkVersion=$(curl -s http://127.0.0.1:$rqRabbitPort/api/version)
     #echo "$checkVersion"
     [[ $checkVersion =~ ^\{\"([^\"]+)\":\"([^\"]+)\"\}$ ]]
     qrabbitLocalversion=${BASH_REMATCH[2]}
@@ -819,20 +819,20 @@ function container_install_gn() {
     check_Dockermirror
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234  -d  -v  "$(pwd)"/Config:/Rabbit/Config \
+    sudo docker run --name qrabbit -p $RabbitImageNamePort:1234  -d  -v  "$(pwd)"/Config:/Rabbit/Config \
 -it --privileged=true  ht944/qrabbit:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
         echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
         echo -e "\033[33m 请到$rabbitAbsolutepath/QRabbit/Config目录下修改配置文件 \033[0m"
-        echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart $RabbitImageName\033[0m \033[33m重启更新配置\033[0m"
+        echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart qrabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的$RabbitImageName地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
-        update_$RabbitImageName
+        update_qrabbit
     fi
 }
 
@@ -890,13 +890,13 @@ function container_install_gw() {
     else
         echo -e "\033[42;37m 恭喜你安装成功！！！！！！\033[0m"
         echo -e "\033[33m 请到$rabbitAbsolutepath/QRabbit/Config目录下修改配置文件 \033[0m"
-        echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart $RabbitImageName\033[0m \033[33m重启更新配置\033[0m"
+        echo -e "\033[33m 然后使用命令\033[0m \033[32m docker restart qrabbit\033[0m \033[33m重启更新配置\033[0m"
         echo -e "\033[43;37m 开始检测更新... \033[0m"
         echo -e "\033[43;31m 注意！如无法进行更新，请自行访问\033[0m\033[43;32m https://你的$RabbitImageName地址/api/update\033[0m\033[43;31m检查更新！ \033[0m"
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
-        update_$RabbitImageName
+        update_qrabbit
     fi
 }
 function container_install_sy() {
@@ -927,8 +927,8 @@ function container_install_sy() {
 
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name $RabbitImageName -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config \
--it --privileged=true ht944/$RabbitImageName:$rabbitVersion
+    sudo docker run --name qrabbit -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config \
+-it --privileged=true ht944/qrabbit:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
     else
@@ -940,7 +940,7 @@ function container_install_sy() {
         #检测更新倒计时
         Upgrade_Countdown
         #更新检测
-        update_$RabbitImageName
+        update_qrabbit
     fi
 }
 #是否国内
@@ -981,7 +981,7 @@ function whereAreyou() {
 }
 #判断是否国内鸡
 function ipChina() {
-    container_info=$(docker inspect $RabbitImageName | grep Mounts -A 20)
+    container_info=$(docker inspect qrabbit | grep Mounts -A 20)
     container_info_cut=${container_info#*\"Source\": \"}
     container_path=${container_info_cut%%\"*}
     if [ -f "$container_path"/ipChina.conf ]; then
