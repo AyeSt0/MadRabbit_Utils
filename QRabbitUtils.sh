@@ -7,12 +7,12 @@ DATE:2023-02-17
 DESCRIBE:One click installation of qrabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.0.1
+VERSION:V1.0.2
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.0.1'
+vVersion='V1.0.2'
 RabbitImageName="qrabbit"
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
@@ -39,7 +39,7 @@ function system_Judgment() {
             echo -e "\033[43;31m 未购买Rabbit授权是无法使用QRabbit的\033[0m"
             echo -e "\033[43;31m 具体购买请关注电报@Rabbit_one\033[0m"
             echo -e "\033[43;37m\033[1m 再次强调本人AyeSt0仅为一键脚本作者，Rabbit相关请找Mad\033[0m\033[0m"
-            Synology_manage_main12_menu
+            Synology_install_menu_qrabbit
         fi
     else
         echo -e "\033[32m 忙猜你是云服务器\033[0m"
@@ -928,7 +928,7 @@ function container_install_sy() {
 
     RabbitImageNamePort=$(eval echo \$${RabbitImageName}Port)
     echo -e "\033[43;37m 正在安装容器到docker... \033[0m"
-    sudo docker run --name qrabbit -p $RabbitImageNamePort:1234 -d -v $rabbitAbsolutepath/QRabbit/Config:/Rabbit/Config \
+    sudo docker run --name qrabbit -p $RabbitImageNamePort:1234 -d -v "$(pwd)"/Config:/Rabbit/Config \
         -it --privileged=true ht944/qrabbit:$rabbitVersion
     if [ $? -ne 0 ]; then
         echo -e "\033[41;37m 安装失败...退出脚本 \033[0m"
