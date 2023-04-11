@@ -3,16 +3,16 @@
 <<INFO
 SCRIPYT:QRabbitUtils.sh
 AUTHOR:AyeSt0
-DATE:2023-02-17
+DATE:2023-04-11
 DESCRIBE:One click installation of qrabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.0.2
+VERSION:V1.0.3
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.0.2'
+vVersion='V1.0.3'
 RabbitImageName="qrabbit"
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
@@ -545,9 +545,9 @@ function update_qrabbit() {
     ipChina
     inChinaNo='No'
     if [ "$inChina_judge" = $inChinaNo ]; then
-        latestVersionString=$(curl -s -d "type=qrabbit" http://62.204.54.137:1804/license/version)
-        [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
-        latestVersion=${BASH_REMATCH[5]}
+        latestVersionString=$(curl -s -d "type=qrabbit" http://62.204.54.137:4566/api/QVer)
+        [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ \"([^\"]+)\"\,\ \"([^\"]+)\":\ \"([^\"]+)\"\,\ \"([^\"]+)\":\ \"\"\}$ ]]
+        latestVersion=${BASH_REMATCH[2]}
 
         echo -e "\033[1m 最新版本 $latestVersion \033[0m"
         if [[ $latestVersion =~ $qrabbitLocalversion ]]; then
@@ -561,9 +561,9 @@ function update_qrabbit() {
             #curl -s http://127.0.0.1:$rRabbitPort/api/update
         fi
     else
-        latestVersionString=$(curl -s -d "type=qrabbit" http://62.204.54.137:1804/license/version)
-        [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ ([^\"]+)\,\ \"([^\"]+)\":\ \"\"\,\ \"([^\"]+)\":\ \"([^\"]+)\",\ \"([^\"]+)\":\ \"([^\"]+)\"\}$ ]]
-        latestVersion=${BASH_REMATCH[5]}
+        latestVersionString=$(curl -s -d "type=qrabbit" http://62.204.54.137:4566/api/QVer)
+        [[ $latestVersionString =~ ^\{\"([^\"]+)\":\ \"([^\"]+)\"\,\ \"([^\"]+)\":\ \"([^\"]+)\"\,\ \"([^\"]+)\":\ \"\"\}$ ]]
+        latestVersion=${BASH_REMATCH[2]}
 
         echo -e "最新版本 $latestVersion"
         if [[ $latestVersion =~ $qrabbitLocalversion ]]; then
