@@ -12,6 +12,8 @@
   "RabbitToken": "",
   // ApiToken，机器人对接需要得token，长度32位以上
   "ApiToken": "",
+  // EncryptKey，加密wskey的key，长度为16的倍数，不符合条件的key默认不开启加密，开启加密后保存好key，更换key需要自己写脚本去修改旧的已加密ck
+  "EncryptKey": "",
   // 更新密码，更新时需要确认密码
   "UpdatePwd": "",
   // 公告
