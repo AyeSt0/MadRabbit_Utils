@@ -3,16 +3,16 @@
 <<INFO
 SCRIPYT:RabbitUtils.sh
 AUTHOR:AyeSt0
-DATE:2023-01-06
+DATE:2023-05-16
 DESCRIBE:One click installation of rabbit
 SYSTEM:linux
 WARNING:This script is only used for testing, learning and research. It is not allowed to be used for commercial purposes. Its legitimacy, accuracy, integrity and effectiveness cannot be guaranteed. Please make your own judgment according to the situation. The original author's warehouse address is https://github.com/HT944/MadRabbit
-VERSION:V1.2.8
+VERSION:V1.2.9
 MODIFY:debug
 INFO
 clear
 trap "" 2 3 15
-vVersion='V1.2.8'
+vVersion='V1.2.9'
 uUser=$(whoami)
 dDate=$(date +%d/%m/%Y)
 function system_Judgment() {
@@ -2227,19 +2227,7 @@ function container_install_gn() {
     #容器端口设置
     container_port_settings_$RabbitImageName
 
-    osCore=$(uname -m)
-    osArm1='arm'
-    osArm2='aarch'
-    echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-    if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-        osCoreurl='MadRabbit_arm'
-        rabbitVersion='arm'
-        echo -e "准备安装 \033[37m arm版本... \033[0m"
-    else
-        osCoreurl='MadRabbit_amd'
-        rabbitVersion='latest'
-        echo -e "准备安装 \033[37m amd版本... \033[0m"
-    fi
+    rabbitVersion='latest'
 
     echo "检查Docker是否已安装……"
     docker -v
@@ -2291,19 +2279,7 @@ function container_install_gw() {
     #容器端口设置
     container_port_settings_$RabbitImageName
 
-    osCore=$(uname -m)
-    osArm1='arm'
-    osArm2='aarch'
-    echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-    if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-        osCoreurl='MadRabbit_arm'
-        rabbitVersion='arm'
-        echo -e "准备安装 \033[37m arm版本... \033[0m"
-    else
-        osCoreurl='MadRabbit_amd'
-        rabbitVersion='latest'
-        echo -e "准备安装 \033[37m amd版本... \033[0m"
-    fi
+    rabbitVersion='latest'
 
     echo "检查Docker是否已安装……"
     docker -v
@@ -2353,19 +2329,7 @@ function container_install_sy() {
     #容器端口设置
     container_port_settings_$RabbitImageName
 
-    osCore=$(uname -m)
-    osArm1='arm'
-    osArm2='aarch'
-    echo -e "检测内核为 \033[34m $osCore \033[0m ,准备安装..."
-    if [[ $osCore =~ $osArm1 ]] || [[ $osCore =~ $osArm2 ]]; then
-        osCoreurl='MadRabbit_arm'
-        rabbitVersion='arm'
-        echo -e "准备安装 \033[37m arm版本... \033[0m"
-    else
-        osCoreurl='MadRabbit_amd'
-        rabbitVersion='latest'
-        echo -e "准备安装 \033[37m amd版本... \033[0m"
-    fi
+    rabbitVersion='latest'
 
     echo "检查Docker是否已安装……"
     docker -v
